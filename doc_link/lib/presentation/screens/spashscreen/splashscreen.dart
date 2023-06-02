@@ -1,4 +1,4 @@
-import 'package:doc_link/screens/homescreen.dart/homescreen.dart';
+import 'package:doc_link/presentation/screens/loginscreen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,12 +15,13 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+//Navigating Function
   navigateToHomescreen() async {
     await Future.delayed(const Duration(seconds: 3));
 
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return const HomeScreen();
+      return const LoginScreen();
     }));
   }
 
