@@ -2,13 +2,13 @@ import 'package:doc_link/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../otpscreen.dart';
-
 class ElevatedButtons extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed;
   const ElevatedButtons({
     super.key,
     required this.text,
+    required this.onPressed,
   });
 
   @override
@@ -20,12 +20,7 @@ class ElevatedButtons extends StatelessWidget {
           style: ButtonStyle(
               backgroundColor:
                   MaterialStateProperty.all(kDarkBlueButtonsColor)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const OtpScreen()),
-            );
-          },
+          onPressed: onPressed,
           child: Text(
             text,
             style: GoogleFonts.lato(),

@@ -1,4 +1,5 @@
 import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/loginscreen/otpscreen.dart';
 import 'package:doc_link/presentation/screens/loginscreen/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,8 +59,13 @@ class LoginScreen extends StatelessWidget {
                 height: 7,
               ),
               //Button widget---------------------------------------------------
-              const ElevatedButtons(
+              ElevatedButtons(
                 text: 'Send OTP',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const OtpScreen();
+                  }));
+                },
               ),
             ],
           ),

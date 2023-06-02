@@ -31,7 +31,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  google_fonts: ^5.0.0
+  google_fonts: ^4.0.4
+  image_picker: ^0.8.7+5
+  intl: ^0.18.1
   otp_pin_field: ^1.2.0+2
 
 dev_dependencies:
@@ -53,7 +55,6 @@ flutter:
   assets:
     - asset_images/online-doctor-consultation-flat-design-logo-aplication-doctor-cartoon-for-mobile-app-free-vector-removebg-preview.png
     - asset_images/a-patient-consults-a-doctor-and-nurse-free-vector.jpg
-    - asset_images/c74c15ac91ce4eb1631bfce895e79c1e.jpg
     - asset_images/e9b33ec8595630e5a2cfaa14eb6784b6.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
