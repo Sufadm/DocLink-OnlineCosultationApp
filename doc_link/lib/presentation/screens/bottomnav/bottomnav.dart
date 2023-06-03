@@ -1,4 +1,4 @@
-import 'package:doc_link/presentation/mainscreen/widget/bottomnav_widget.dart';
+import 'package:doc_link/presentation/screens/bottomnav/bottomnav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

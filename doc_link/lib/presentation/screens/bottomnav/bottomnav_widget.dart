@@ -1,10 +1,10 @@
 //provider class----------------------------------------------------------------
 import 'package:flutter/material.dart';
 
-import '../../screens/healthtipscreen/health_tip.dart';
-import '../../screens/homescreen.dart/homescreen.dart';
-import '../../screens/messagescreen.dart/messagescreen.dart';
-import '../../screens/morescreen/more_screen.dart';
+import '../healthtipscreen/health_tip.dart';
+import '../homescreen.dart/homescreen.dart';
+import '../messagescreen.dart/messagescreen.dart';
+import '../morescreen/more_screen.dart';
 
 class BottomNavState extends ChangeNotifier {
   int _selectedIndex = 0;

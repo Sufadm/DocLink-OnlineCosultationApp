@@ -5,7 +5,7 @@ import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../mainscreen/bottomnav.dart';
+import '../bottomnav/bottomnav.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
