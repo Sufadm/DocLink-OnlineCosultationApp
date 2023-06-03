@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:doc_link/const/const.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/homescreen.dart';
 import 'package:doc_link/presentation/screens/loginscreen/widgets/button_widget.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../mainscreen/bottomnav.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -107,15 +106,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ElevatedButtons(
                     text: 'Submit',
                     onPressed: () {
-                      if (_formKey.currentState!.validate() && _photo != null) {
-                        onStudentAddButtonClick();
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const HomeScreen();
-                        }));
-                      } else {
-                        imageAlert = true;
-                      }
+                      // if (_formKey.currentState!.validate() && _photo != null) {
+                      onStudentAddButtonClick();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const BottomNav();
+                      })); // }
+                      //     else {
+                      //     imageAlert = true;
+                      // }
                     })
               ],
             ),
