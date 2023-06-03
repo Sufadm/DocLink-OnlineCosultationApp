@@ -1,4 +1,5 @@
 import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:flutter/material.dart';
 
 class DoctorsWidget extends StatelessWidget {
@@ -57,7 +58,12 @@ class DoctorsWidget extends StatelessWidget {
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all(kLightBlueColor)),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const DoctorsDetails();
+                              }));
+                            },
                             child: const Text('Book')))
                   ],
                 ),

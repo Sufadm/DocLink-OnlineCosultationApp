@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 kHeight20,
                 SearchBar(
+                  hintText: 'Search a doctor',
                   leading: Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: const Icon(Icons.search)),
