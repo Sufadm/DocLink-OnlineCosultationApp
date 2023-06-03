@@ -1,6 +1,5 @@
 //provider class----------------------------------------------------------------
 import 'package:flutter/material.dart';
-
 import '../healthtipscreen/health_tip.dart';
 import '../homescreen.dart/homescreen.dart';
 import '../messagescreen.dart/messagescreen.dart';

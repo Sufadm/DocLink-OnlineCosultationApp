@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/view_all_Doctors_page/view_all_doc.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/viewall_categories_page/view_all_catgires.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/carousal_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/categories_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/doctors_list_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/title_widget.dart';
-import 'package:doc_link/viewallpages/viewall_categories_page/view_all_catgires.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -87,7 +88,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 kHeight10,
                 //Title Widget
-                const TitleWidget(titleName: 'All Doctors'),
+                TitleWidget(
+                  titleName: 'All Doctors',
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ViewAllDoctorsPage(),
+                      )),
+                ),
                 kHeight15,
                 //Doctors Widget
                 const DoctorsWidget(

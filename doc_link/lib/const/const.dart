@@ -39,3 +39,6 @@ final kTextStyleMediumBlack =
     kTextStyle.copyWith(fontSize: 15.0, color: Colors.black);
 final kTextStyleMediumWhite =
     kTextStyle.copyWith(fontSize: 15.0, color: Colors.white);
+//appbar
+
+
