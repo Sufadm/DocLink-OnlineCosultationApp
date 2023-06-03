@@ -1,9 +1,10 @@
 import 'package:doc_link/const/const.dart';
-import 'package:doc_link/presentation/screens/loginscreen/widgets/button_widget.dart';
 import 'package:doc_link/presentation/screens/profilescreen/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
+
+import '../../../widgets/elevated_button_widgets.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});

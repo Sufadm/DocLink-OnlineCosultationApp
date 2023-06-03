@@ -15,7 +15,7 @@ class PrescriptionListWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color.fromARGB(255, 184, 184, 184),
+          color: greylight1,
         ),
         height: 70,
         width: double.infinity,

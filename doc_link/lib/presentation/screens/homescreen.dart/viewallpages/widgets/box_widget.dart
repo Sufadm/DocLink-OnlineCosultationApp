@@ -13,8 +13,7 @@ class ViewAllCategorieWidget extends StatelessWidget {
     return GestureDetector(
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: const Color.fromARGB(255, 220, 220, 220)),
+            borderRadius: BorderRadius.circular(10), color: greylight1),
         height: 60,
         width: double.infinity,
         child: Container(

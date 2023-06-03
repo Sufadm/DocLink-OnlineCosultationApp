@@ -25,6 +25,8 @@ const kDarkBlueButtonsColor = Color.fromARGB(255, 1, 43, 114);
 const kLightBlueColor = Color(0xFF198eb6);
 const kWhiteColor = Color.fromARGB(255, 255, 255, 255);
 const kBlackColor = Color.fromARGB(255, 0, 0, 0);
+const greylight = Color(0xFFF4F4F4);
+const greylight1 = Color.fromARGB(255, 236, 234, 234);
 
 //!style googlefonts-------------------------
 

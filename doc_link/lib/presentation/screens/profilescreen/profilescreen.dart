@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:doc_link/const/const.dart';
-import 'package:doc_link/presentation/screens/loginscreen/widgets/button_widget.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../widgets/elevated_button_widgets.dart';
 import '../bottomnav/bottomnav.dart';
 
 class ProfileScreen extends StatefulWidget {
