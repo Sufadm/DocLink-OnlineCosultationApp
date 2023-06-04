@@ -1,3 +1,4 @@
+import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/bottomnav/bottomnav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class BottomNav extends StatelessWidget {
                   .elementAt(bottomNavState.selectedIndex),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: const Color.fromARGB(255, 0, 124, 64),
+              selectedItemColor: kLightBlueColor,
               type: BottomNavigationBarType.fixed,
               items: const [
                 BottomNavigationBarItem(

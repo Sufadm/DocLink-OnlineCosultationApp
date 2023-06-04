@@ -6,6 +6,7 @@ import '../const/const.dart';
 class ElevatedButtons extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+
   const ElevatedButtons({
     super.key,
     required this.text,

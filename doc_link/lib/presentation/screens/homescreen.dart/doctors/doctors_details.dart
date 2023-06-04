@@ -89,6 +89,20 @@ class DoctorsDetails extends StatelessWidget {
               ),
             ),
             //prescription List---END----------------------------------------
+            //Submit Button--------------------------------------------------
+            SizedBox(
+              width: 420,
+              height: 45,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(kDarkBlueButtonsColor)),
+                  onPressed: () {},
+                  child: Text(
+                    'Submit',
+                    style: GoogleFonts.lato(),
+                  )),
+            ),
           ],
         ),
       ),
