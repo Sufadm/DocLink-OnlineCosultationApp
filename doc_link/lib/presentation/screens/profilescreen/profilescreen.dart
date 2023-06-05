@@ -15,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String selectedGender = "Male";
   final nameofPatient = TextEditingController();
   final ageofPatient = TextEditingController();
   bool imageAlert = false;
@@ -86,12 +87,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Row(
                   children: [
-                    radio(),
+                    createRadio("Male", selectedGender, (String? value) {
+                      setState(() {
+                        selectedGender = value!;
+                      });
+                    }),
                     const Text('Male'),
-                    radio(),
+                    createRadio("Female", selectedGender, (String? value) {
+                      setState(() {
+                        selectedGender = value!;
+                      });
+                    }),
                     const Text('Female'),
-                    radio(),
-                    const Text('Other')
+                    createRadio("Other", selectedGender, (String? value) {
+                      setState(() {
+                        selectedGender = value!;
+                      });
+                    }),
+                    const Text('Other'),
                   ],
                 ),
                 kHeight20,
@@ -124,13 +137,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ));
   }
 
-  Radio<String> radio() {
-    return Radio(
-        value: "Male",
-        groupValue: "Gender",
-        onChanged: (value) {
-          setState(() {}); //selected value
-        });
+  Radio<String> createRadio(
+    String value,
+    String? groupValue,
+    void Function(String?) onChanged,
+  ) {
+    return Radio<String>(
+      value: value,
+      groupValue: groupValue,
+      onChanged: onChanged,
+      activeColor: kDarkBlueButtonsColor,
+    );
   }
 
   File? _photo;
