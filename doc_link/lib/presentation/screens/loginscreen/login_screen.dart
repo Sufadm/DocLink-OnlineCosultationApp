@@ -49,8 +49,10 @@ class LoginScreen extends StatelessWidget {
               TextFormField(
                   maxLength: 10,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixText: '+91 ',
+                    prefixStyle: GoogleFonts.lato(fontSize: 16),
+                    border: const OutlineInputBorder(),
                   )),
               Text(
                 'We will send you a one time password to this mobile number',
