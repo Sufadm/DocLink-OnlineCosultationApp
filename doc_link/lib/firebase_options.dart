@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCgz_brhziRdkxtbcMvtbAepLAk5rdgvFI',
-    appId: '1:151261216391:web:62921d1b8cb506cf364222',
-    messagingSenderId: '151261216391',
-    projectId: 'doclink-5b041',
-    authDomain: 'doclink-5b041.firebaseapp.com',
-    storageBucket: 'doclink-5b041.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDCQYkeUtWv_2jo-B16_3PnhAJZ5lschzA',
     appId: '1:151261216391:android:da634583fd4eb7a5364222',
     messagingSenderId: '151261216391',
     projectId: 'doclink-5b041',
     storageBucket: 'doclink-5b041.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAy7Ysa7mXwJntoB702JUc5VjcHvlr6gjk',
-    appId: '1:151261216391:ios:38909b4257b942e0364222',
-    messagingSenderId: '151261216391',
-    projectId: 'doclink-5b041',
-    storageBucket: 'doclink-5b041.appspot.com',
-    iosClientId: '151261216391-7odaupo2chh5ustmh6fh3a8dlqf0jae0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.docLink',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAy7Ysa7mXwJntoB702JUc5VjcHvlr6gjk',
-    appId: '1:151261216391:ios:38909b4257b942e0364222',
-    messagingSenderId: '151261216391',
-    projectId: 'doclink-5b041',
-    storageBucket: 'doclink-5b041.appspot.com',
-    iosClientId: '151261216391-7odaupo2chh5ustmh6fh3a8dlqf0jae0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.docLink',
   );
 }

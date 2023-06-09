@@ -23,6 +23,7 @@ class ViewAllCategoriesPage extends StatelessWidget {
           ),
         ),
       ),
+      //?all categeries here--------------
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.count(

@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                       child: const Icon(Icons.search)),
                 ),
                 kHeight15,
-                //Carousal Slider Widget Static
+                //?Carousal Slider Widget Static
                 CarouselSlider(
                   items: const [
                     CarousalWidget(
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                       animateToClosest: true),
                 ),
                 kHeight10,
-                //Title Widget
+                //?Title Widget-
                 TitleWidget(
                     titleName: 'Categories',
                     onTap: () => Navigator.push(
@@ -67,6 +67,7 @@ class HomeScreen extends StatelessWidget {
                 kHeight10,
                 const SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  //?categories widget--
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 kHeight10,
-                //Title Widget
+                //?Title Widget
                 TitleWidget(
                   titleName: 'All Doctors',
                   onTap: () => Navigator.push(
@@ -98,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                       )),
                 ),
                 kHeight15,
-                //Doctors Widget
+                //?Doctors Widget
                 const DoctorsWidget(
                   networkImage:
                       'https://res.cloudinary.com/ekincare/image/upload/v1583490813/gfznfh2yzbm6hruqjftx.jpg',

@@ -1,4 +1,5 @@
 import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/doctors_profile_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptionlist.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +16,15 @@ class DoctorsDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             kHeight10,
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back)),
-              ],
-            ),
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
             const SizedBox(
               height: 50,
             ),
-            //Doctors profile---------------------------------------------------
+            //?Doctors profile--
             const DoctorsProfileWidget(),
             kHeight25,
             Container(
@@ -60,7 +57,7 @@ class DoctorsDetails extends StatelessWidget {
               color: Colors.black,
               height: 1,
             ),
-            //prescription List-------------------------------------------------
+            //?prescription List--
             Padding(
               padding: const EdgeInsets.all(14.0),
               child: Text(
@@ -88,18 +85,22 @@ class DoctorsDetails extends StatelessWidget {
                 ),
               ),
             ),
-            //prescription List---END----------------------------------------
-            //Submit Button--------------------------------------------------
+            //?Submit Button-
             SizedBox(
               width: 420,
-              height: 45,
+              height: 50,
               child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(kDarkBlueButtonsColor)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const AppointmantPage();
+                    }));
+                  },
                   child: Text(
-                    'Submit',
+                    'Book an Appointmnet',
                     style: GoogleFonts.lato(),
                   )),
             ),

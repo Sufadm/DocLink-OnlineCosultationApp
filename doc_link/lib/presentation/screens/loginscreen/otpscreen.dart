@@ -3,7 +3,6 @@ import 'package:doc_link/presentation/screens/profilescreen/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
-
 import '../../../widgets/elevated_button_widgets.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -54,6 +53,7 @@ class OtpScreen extends StatelessWidget {
               )),
               kHeight15,
               SingleChildScrollView(
+                //? type OTP-
                 child: OtpPinField(
                   onSubmit: (text) {
                     // print('Entered pin is $text');

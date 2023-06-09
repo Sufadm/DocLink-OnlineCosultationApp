@@ -39,6 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 kHeight15,
+
+                //?profile pic
                 _photo?.path == null
                     ? const Center(
                         child: CircleAvatar(
@@ -85,6 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   'Gender',
                   style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                 ),
+                //?radio button-
                 Row(
                   children: [
                     createRadio("Male", selectedGender, (String? value) {
@@ -114,6 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 kHeight10,
+                //?type age-
                 const TextFormFieldAge(),
                 kHeight15,
                 ElevatedButtons(
@@ -137,6 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ));
   }
 
+//?radio button widget-
   Radio<String> createRadio(
     String value,
     String? groupValue,
@@ -150,6 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+//?image picker method
   File? _photo;
   Future<void> getPhoto() async {
     final photo = await ImagePicker().pickImage(source: ImageSource.gallery);

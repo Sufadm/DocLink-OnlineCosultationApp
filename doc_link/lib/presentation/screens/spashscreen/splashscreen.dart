@@ -15,7 +15,7 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-//Navigating Function
+//?Navigating Function
   navigateToHomescreen() async {
     await Future.delayed(const Duration(seconds: 3));
 

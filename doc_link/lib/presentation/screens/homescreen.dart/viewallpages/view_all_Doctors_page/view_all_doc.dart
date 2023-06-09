@@ -24,6 +24,7 @@ class ViewAllDoctorsPage extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10),
                   child: const Icon(Icons.search)),
             ),
+            //?all doctors list here-----
             kHeight15,
             const DoctorsListWidget(
               doctorname: 'Doctor name 1',

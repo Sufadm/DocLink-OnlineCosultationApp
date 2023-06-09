@@ -13,10 +13,9 @@ class DoctorsProfileWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 130,
           width: 130,
-          color: Colors.amberAccent,
           child: Image.network(
             'https://media.istockphoto.com/id/1189304032/photo/doctor-holding-digital-tablet-at-meeting-room.jpg?s=612x612&w=0&k=20&c=RtQn8w_vhzGYbflSa1B5ea9Ji70O8wHpSgGBSh0anUg=',
             fit: BoxFit.cover,
