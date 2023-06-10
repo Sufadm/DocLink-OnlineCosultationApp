@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/morescreen/more_screen.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../widgets/elevated_button_widgets.dart';
-import '../bottomnav/bottomnav.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -33,13 +33,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Hi',
-                  style: GoogleFonts.lato(
-                      fontSize: 25, fontWeight: FontWeight.bold),
-                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back)),
                 kHeight15,
-
                 //?profile pic
                 _photo?.path == null
                     ? const Center(
@@ -127,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onStudentAddButtonClick();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const BottomNav();
+                        return const MoreScreen();
                       })); // }
                       //     else {
                       //     imageAlert = true;

@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDCQYkeUtWv_2jo-B16_3PnhAJZ5lschzA',
-    appId: '1:151261216391:android:da634583fd4eb7a5364222',
-    messagingSenderId: '151261216391',
-    projectId: 'doclink-5b041',
-    storageBucket: 'doclink-5b041.appspot.com',
+    apiKey: 'AIzaSyDmt_xu8OVWeiUcCmRfR15roWxvkHwNxUw',
+    appId: '1:803291339961:android:8e79bc8aaefd9b1c860f68',
+    messagingSenderId: '803291339961',
+    projectId: 'doclink-control',
+    storageBucket: 'doclink-control.appspot.com',
   );
 }

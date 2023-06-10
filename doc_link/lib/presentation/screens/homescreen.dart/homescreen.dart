@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 kHeight10,
-                //?Title Widget
+                //?Title Widget-
                 TitleWidget(
                   titleName: 'All Doctors',
                   onTap: () => Navigator.push(
@@ -99,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                       )),
                 ),
                 kHeight15,
-                //?Doctors Widget
+                //?Doctors Widget-
                 const DoctorsWidget(
                   networkImage:
                       'https://res.cloudinary.com/ekincare/image/upload/v1583490813/gfznfh2yzbm6hruqjftx.jpg',

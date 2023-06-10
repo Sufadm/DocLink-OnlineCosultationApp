@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 import '../../../widgets/elevated_button_widgets.dart';
+import '../bottomnav/bottomnav.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});
@@ -89,7 +90,7 @@ class OtpScreen extends StatelessWidget {
                 text: 'SUBMIT',
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const ProfileScreen();
+                    return const BottomNav();
                   }));
                 },
               )

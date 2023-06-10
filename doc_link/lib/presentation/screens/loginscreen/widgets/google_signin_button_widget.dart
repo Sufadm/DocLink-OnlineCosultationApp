@@ -12,7 +12,7 @@ class GoogleSignInButtonWidget extends StatelessWidget {
     return Center(
       child: GestureDetector(
         child: Container(
-          width: 220.0,
+          width: 185.0,
           height: 50.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
