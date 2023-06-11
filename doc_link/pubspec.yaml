@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^4.0.4
+  google_sign_in: ^6.1.4
   image_picker: ^0.8.7+5
   intl: ^0.18.1
   otp_pin_field: ^1.2.0+2

@@ -57,7 +57,7 @@ class DoctorsDetails extends StatelessWidget {
               color: Colors.black,
               height: 1,
             ),
-            //?prescription List--
+            //?prescription List-----------------
             Padding(
               padding: const EdgeInsets.all(14.0),
               child: Text(
@@ -68,23 +68,19 @@ class DoctorsDetails extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView(
-                  children: const [
-                    PrescriptionListWidget(
-                      prescriptionName: 'Prescription 1',
-                    ),
-                    kHeight10,
-                    PrescriptionListWidget(
-                      prescriptionName: 'Prescription 2',
-                    ),
-                    kHeight10,
-                    PrescriptionListWidget(
-                      prescriptionName: 'Prescription 3',
-                    ),
-                  ],
+                child: ListView.separated(
+                  itemCount: 3, // Specify the number of items in the list
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(height: 10), // Add spacing between items
+                  itemBuilder: (BuildContext context, int index) {
+                    return PrescriptionListWidget(
+                      prescriptionName: 'Prescription ${index + 1}',
+                    );
+                  },
                 ),
               ),
             ),
+
             //?Submit Button-
             SizedBox(
               width: 420,

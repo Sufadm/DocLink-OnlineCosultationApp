@@ -27,28 +27,23 @@ class ViewAllDoctorsPage extends StatelessWidget {
             ),
             //?all doctors list here-----
             kHeight15,
-            DoctorsListWidget(
-              onTap: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const DoctorsDetails();
-              })),
-              doctorname: 'Doctor name 1',
-            ),
-            kHeight10,
-            const DoctorsListWidget(
-              doctorname: 'Doctor name 2',
-            ),
-            kHeight10,
-            const DoctorsListWidget(
-              doctorname: 'Doctor name 3',
-            ),
-            kHeight10,
-            const DoctorsListWidget(
-              doctorname: 'Doctor name 4',
-            ),
-            kHeight10,
-            const DoctorsListWidget(
-              doctorname: 'Doctor name 5',
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 7,
+              separatorBuilder: (BuildContext context, int index) => kHeight10,
+              itemBuilder: (BuildContext context, int index) {
+                return DoctorsListWidget(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DoctorsDetails()),
+                    );
+                  },
+                  doctorname: 'Doctor name ${index + 1}',
+                );
+              },
             ),
           ],
         ),

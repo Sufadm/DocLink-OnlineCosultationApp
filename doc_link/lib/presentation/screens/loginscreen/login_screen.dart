@@ -1,21 +1,34 @@
 import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/loginscreen/otpscreen.dart';
 import 'package:doc_link/presentation/screens/loginscreen/widgets/google_signin_button_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../widgets/elevated_button_widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({
+    super.key,
+  });
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final phoneController = TextEditingController();
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,7 +63,9 @@ class LoginScreen extends StatelessWidget {
                 kHeight10,
                 //?phone number form-
                 TextFormField(
-                    maxLength: 10,
+                    controller: phoneController,
+                    //  onChanged: (value) => phonenumber = value,
+                    maxLength: 13,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       prefixText: '+91 ',
@@ -68,10 +83,7 @@ class LoginScreen extends StatelessWidget {
                 ElevatedButtons(
                   text: 'Send OTP',
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const OtpScreen();
-                    }));
+                    sendPhoneNumber();
                   },
                 ),
                 kHeight25,
@@ -92,5 +104,31 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void sendPhoneNumber() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      auth.verifyPhoneNumber(
+          phoneNumber: '+91${phoneController.text}',
+          verificationCompleted:
+              (PhoneAuthCredential phoneAuthCredential) async {
+            await auth.signInWithCredential(phoneAuthCredential);
+          },
+          verificationFailed: (error) {
+            throw Exception(error.message);
+          },
+          codeSent: (verificationId, forceResendingToken) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return OtpScreen(
+                verificationId: verificationId,
+              );
+            }));
+          },
+          codeAutoRetrievalTimeout: (verificationId) {},
+          timeout: const Duration(seconds: 60));
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+    }
   }
 }

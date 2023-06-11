@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDmt_xu8OVWeiUcCmRfR15roWxvkHwNxUw',
-    appId: '1:803291339961:android:8e79bc8aaefd9b1c860f68',
+    appId: '1:803291339961:android:4130625b01998c73860f68',
     messagingSenderId: '803291339961',
     projectId: 'doclink-control',
     storageBucket: 'doclink-control.appspot.com',

@@ -21,7 +21,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return const LoginScreen();
+      return LoginScreen();
     }));
   }
 

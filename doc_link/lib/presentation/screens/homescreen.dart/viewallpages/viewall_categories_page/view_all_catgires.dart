@@ -1,3 +1,4 @@
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/box_widget.dart';
@@ -23,32 +24,28 @@ class ViewAllCategoriesPage extends StatelessWidget {
           ),
         ),
       ),
-      //?all categeries here--------------
+      //?all categeries here----------------
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: GridView.count(
-          crossAxisCount: 3,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          children: const [
-            ViewAllCategorieWidget(
-              categoriename: 'Categorie 1',
+          padding: const EdgeInsets.all(10.0),
+          child: GestureDetector(
+            onTap: () =>
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const DoctorsDetails();
+            })),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              itemCount: 6,
+              itemBuilder: (BuildContext context, int index) {
+                return ViewAllCategorieWidget(
+                  categoriename: 'Categorie ${index + 1}',
+                );
+              },
             ),
-            ViewAllCategorieWidget(
-              categoriename: 'Categorie 2',
-            ),
-            ViewAllCategorieWidget(
-              categoriename: 'Categorie 3',
-            ),
-            ViewAllCategorieWidget(
-              categoriename: 'Categorie 4',
-            ),
-            ViewAllCategorieWidget(
-              categoriename: 'Categorie 5',
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

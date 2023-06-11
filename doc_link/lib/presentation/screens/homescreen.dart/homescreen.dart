@@ -64,31 +64,24 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const ViewAllCategoriesPage(),
                         ))),
-                kHeight10,
-                const SingleChildScrollView(
+
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  //?categories widget--
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CategoriesWidget(
-                        categories: 'categories 1',
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      children: List.generate(
+                        6,
+                        (index) => Padding(
+                          padding: const EdgeInsets.only(right: 7.0),
+                          child: CategoriesWidget(
+                              categories: 'categories ${index + 1}'),
+                        ),
                       ),
-                      kWidth10,
-                      CategoriesWidget(
-                        categories: 'categories 2',
-                      ),
-                      kWidth10,
-                      CategoriesWidget(categories: 'categories 3'),
-                      kWidth10,
-                      CategoriesWidget(categories: 'categories 4'),
-                      kWidth10,
-                      CategoriesWidget(categories: 'categories 5'),
-                      kWidth10,
-                    ],
+                    ),
                   ),
                 ),
-                kHeight10,
+
                 //?Title Widget-
                 TitleWidget(
                   titleName: 'All Doctors',
