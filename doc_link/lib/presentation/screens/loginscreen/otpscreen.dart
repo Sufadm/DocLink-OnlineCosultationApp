@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
-class OtpScreen extends StatelessWidget {
+class OtpScreen extends StatefulWidget {
   final String verificationId;
 
   const OtpScreen({Key? key, required this.verificationId}) : super(key: key);
 
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  String? _errormessage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +27,7 @@ class OtpScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 60,
+                  height: 90,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 10, top: 10),
@@ -43,6 +49,28 @@ class OtpScreen extends StatelessWidget {
                   ),
                 ),
                 kHeight10,
+                kHeight25,
+                SingleChildScrollView(
+                  //? type OTP------------------------------------
+                  child: OtpPinField(
+                    onSubmit: (String text) {
+                      verifyOtp(context: context, userotp: text);
+                    },
+                    onChange: (String text) {
+                      setState(() {
+                        _errormessage = null;
+                      });
+                    },
+                    textInputAction: TextInputAction.done,
+                    otpPinFieldStyle: const OtpPinFieldStyle(
+                      defaultFieldBorderColor: Color.fromARGB(255, 0, 27, 177),
+                    ),
+                    maxLength: 6,
+                    otpPinFieldDecoration:
+                        OtpPinFieldDecoration.defaultPinBoxDecoration,
+                  ),
+                ),
+                kHeight20,
                 Center(
                   child: Text(
                     'We have sent you a one-time password',
@@ -59,42 +87,19 @@ class OtpScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                kHeight25,
-                SingleChildScrollView(
-                  //? type OTP----------------------------------
-                  child: OtpPinField(
-                    onSubmit: (String text) {
-                      verifyOtp(context: context, userotp: text);
-                    },
-                    onChange: (String text) {},
-                    textInputAction: TextInputAction.done,
-                    otpPinFieldStyle: const OtpPinFieldStyle(
-                      defaultFieldBorderColor: Color.fromARGB(255, 0, 27, 177),
-                    ),
-                    maxLength: 6,
-                    otpPinFieldDecoration:
-                        OtpPinFieldDecoration.defaultPinBoxDecoration,
-                  ),
-                ),
                 kHeight10,
-                Container(
-                  margin: const EdgeInsets.only(left: 160),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(left: 160),
+                // ),
                 kHeight15,
-                Text(
-                  'Didnt Recieve code ?',
-                  style: kTextStyleMediumBlack,
-                ),
-                TextButton(
-                    onPressed: () {},
+                if (_errormessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12),
                     child: Text(
-                      'Resend',
-                      style: GoogleFonts.lato(
-                        fontSize: 15,
-                        color: Colors.deepPurple,
-                        decoration: TextDecoration.underline,
-                      ),
-                    )),
+                      _errormessage!,
+                      style: GoogleFonts.lato(color: Colors.red),
+                    ),
+                  )
               ],
             ),
           ),
@@ -109,7 +114,7 @@ class OtpScreen extends StatelessWidget {
 
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId,
+        verificationId: widget.verificationId,
         smsCode: userotp,
       );
       await auth.signInWithCredential(credential);
@@ -120,8 +125,10 @@ class OtpScreen extends StatelessWidget {
           return const BottomNav();
         }),
       );
-    } on FirebaseAuthException catch (e) {
-      print('Error verifying OTP: ${e.message}');
+    } on FirebaseAuthException {
+      setState(() {
+        _errormessage = 'Error verifying OTP Please Enter Correctly! ';
+      });
     }
   }
 }

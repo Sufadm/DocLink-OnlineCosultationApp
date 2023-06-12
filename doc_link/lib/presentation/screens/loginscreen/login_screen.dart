@@ -15,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   final phoneController = TextEditingController();
   @override
   void dispose() {
@@ -29,76 +31,93 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                kHeight10,
-                Row(
-                  children: [
-                    kWidth10,
-                    Text(
-                      'LOGIN',
-                      style: GoogleFonts.lato(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 1, 43, 114)),
-                    ),
-                  ],
-                ),
-                kHeight10,
-                //?Image section-
-                SizedBox(
-                  height: 320,
-                  width: double.infinity,
-                  child: Image.asset(
-                    'asset_images/a-patient-consults-a-doctor-and-nurse-free-vector.jpg',
-                    fit: BoxFit.cover,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  kHeight10,
+                  Row(
+                    children: [
+                      kWidth10,
+                      Text(
+                        'LOGIN',
+                        style: GoogleFonts.lato(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 1, 43, 114)),
+                      ),
+                    ],
                   ),
-                ),
-                //image section end
-                kHeight15,
-                Text('Enter The Mobile Number',
-                    style: GoogleFonts.lato(
-                        fontSize: 15, fontWeight: FontWeight.bold)),
-                kHeight10,
-                //?phone number form-
-                TextFormField(
+                  kHeight10,
+                  //?Image section-
+                  SizedBox(
+                    height: 320,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'asset_images/a-patient-consults-a-doctor-and-nurse-free-vector.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  //image section end
+                  kHeight15,
+                  Text('Enter The Mobile Number',
+                      style: GoogleFonts.lato(
+                          fontSize: 15, fontWeight: FontWeight.bold)),
+                  kHeight10,
+                  //?phone number form-
+                  TextFormField(
                     controller: phoneController,
-                    //  onChanged: (value) => phonenumber = value,
-                    maxLength: 13,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a phone number.';
+                      }
+                      if (value.length != 10) {
+                        return 'Phone number must be 10 digits.';
+                      }
+                      // You can add additional validation logic here if needed
+                      return null; // Return null if the input is valid
+                    },
+                    maxLength: 10,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       prefixText: '+91 ',
                       prefixStyle: GoogleFonts.lato(fontSize: 16),
                       border: const OutlineInputBorder(),
-                    )),
-                Text(
-                  'We will send you a one time password to this mobile number',
-                  style: GoogleFonts.lato(),
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                //? OTP Button widget-
-                ElevatedButtons(
-                  text: 'Send OTP',
-                  onPressed: () {
-                    sendPhoneNumber();
-                  },
-                ),
-                kHeight25,
-                Center(
-                  child: Text(
-                    'OR',
-                    style: kTextStyleLargeBlack,
+                    ),
                   ),
-                ),
-                //?SIGN IN BUTTON--------
-                const SizedBox(
-                  height: 27,
-                ),
-                const GoogleSignInButtonWidget(),
-              ],
+                  kHeight15,
+                  Text(
+                    '  We will send you a one time password to this mobile number',
+                    style: GoogleFonts.lato(),
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  //? OTP Button widget-
+                  ElevatedButtons(
+                    text: 'Send OTP',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Validation successful, proceed with sending OTP
+                        sendPhoneNumber();
+                      }
+                    },
+                  ),
+                  kHeight25,
+                  Center(
+                    child: Text(
+                      'OR',
+                      style: kTextStyleLargeBlack,
+                    ),
+                  ),
+                  //?SIGN IN BUTTON--------
+                  const SizedBox(
+                    height: 27,
+                  ),
+                  const GoogleSignInButtonWidget(),
+                ],
+              ),
             ),
           ),
         ),
@@ -131,4 +150,16 @@ class _LoginScreenState extends State<LoginScreen> {
       print(e.toString());
     }
   }
+
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // void checkUserLoggedIn() {
+  //   if (_auth.currentUser != null) {
+  //     // User is already signed in, navigate to the home screen
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => const BottomNav()),
+  //     );
+  //   }
+  // }
 }
