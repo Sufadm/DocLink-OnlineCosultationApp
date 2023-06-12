@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/bottomnav/bottomnav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
+
+import 'login_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -15,7 +19,40 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  LoginScreen log = const LoginScreen();
+  final phoneController = TextEditingController();
+
+  Timer? _timer;
+  final int _timerDuration = 60; // Total duration of the timer in seconds
+  int _currentSeconds = 0;
+  //bool _showResendButton = false;
+
   String? _errormessage;
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_currentSeconds < _timerDuration) {
+          _currentSeconds++;
+        } else {
+          _timer?.cancel();
+          // _showResendButton = true;
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,12 +131,23 @@ class _OtpScreenState extends State<OtpScreen> {
                 kHeight15,
                 if (_errormessage != null)
                   Padding(
-                    padding: const EdgeInsets.only(left: 12),
+                    padding: const EdgeInsets.only(left: 19),
                     child: Text(
                       _errormessage!,
                       style: GoogleFonts.lato(color: Colors.red),
                     ),
-                  )
+                  ),
+                if (_currentSeconds > 0)
+                  Text(
+                      'Please Enter OTP ${(_timerDuration - _currentSeconds).toString()} before Timeout',
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold, color: Colors.black)),
+                kHeight10,
+                // if (_showResendButton)
+                //   ElevatedButton(
+                //     onPressed: resendOtp,
+                //     child: const Text('Resend OTP'),
+                //   ),
               ],
             ),
           ),
@@ -127,8 +175,36 @@ class _OtpScreenState extends State<OtpScreen> {
       );
     } on FirebaseAuthException {
       setState(() {
-        _errormessage = 'Error verifying OTP Please Enter Correctly! ';
+        _errormessage = 'Error verifying OTP Please Enter Correctly ';
       });
     }
   }
+
+  // void resendOtp() async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   try {
+  //     String phoneNumber = '+91${phoneController.text}'; // Add the country code
+  //     await auth.verifyPhoneNumber(
+  //       phoneNumber: phoneNumber,
+  //       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+  //         await auth.signInWithCredential(phoneAuthCredential);
+  //       },
+  //       verificationFailed: (error) {
+  //         throw Exception(error.message);
+  //       },
+  //       codeSent: (verificationId, forceResendingToken) {
+  //         setState(() {
+  //           widget.verificationId = verificationId;
+  //           _currentSeconds = 0;
+  //           _showResendButton = false;
+  //           startTimer();
+  //         });
+  //       },
+  //       codeAutoRetrievalTimeout: (verificationId) {},
+  //       timeout: const Duration(seconds: 60),
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 }
