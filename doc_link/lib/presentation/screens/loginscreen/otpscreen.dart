@@ -25,7 +25,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Timer? _timer;
   final int _timerDuration = 60; // Total duration of the timer in seconds
   int _currentSeconds = 0;
-  //bool _showResendButton = false;
+  // bool _showResendButton = false;
 
   String? _errormessage;
   @override
@@ -88,7 +88,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 kHeight10,
                 kHeight25,
                 SingleChildScrollView(
-                  //? type OTP------------------------------------
+                  //? type OTP--------------------------------------------------
                   child: OtpPinField(
                     onSubmit: (String text) {
                       verifyOtp(context: context, userotp: text);
@@ -143,11 +143,15 @@ class _OtpScreenState extends State<OtpScreen> {
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.bold, color: Colors.black)),
                 kHeight10,
-                // if (_showResendButton)
-                //   ElevatedButton(
-                //     onPressed: resendOtp,
-                //     child: const Text('Resend OTP'),
+                //if (_showResendButton)
+                // TextButton(
+                //   onPressed: resendOtp,
+                //   child: Text(
+                //     'Resend OTP',
+                //     style: GoogleFonts.lato(
+                //         decoration: TextDecoration.underline),
                 //   ),
+                // ),
               ],
             ),
           ),
@@ -179,7 +183,7 @@ class _OtpScreenState extends State<OtpScreen> {
       });
     }
   }
-
+}
   // void resendOtp() async {
   //   FirebaseAuth auth = FirebaseAuth.instance;
   //   try {
@@ -207,4 +211,4 @@ class _OtpScreenState extends State<OtpScreen> {
   //     print(e.toString());
   //   }
   // }
-}
+

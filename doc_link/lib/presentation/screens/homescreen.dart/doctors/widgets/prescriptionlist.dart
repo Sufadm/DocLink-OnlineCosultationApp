@@ -4,14 +4,17 @@ import '../../../../../const/const.dart';
 
 class PrescriptionListWidget extends StatelessWidget {
   final String prescriptionName;
+  final VoidCallback? ontap;
   const PrescriptionListWidget({
     super.key,
     required this.prescriptionName,
+    this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

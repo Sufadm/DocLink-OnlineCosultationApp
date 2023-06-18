@@ -1,6 +1,7 @@
 import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/doctors_profile_widget.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptiondetails.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptionlist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,6 +75,10 @@ class DoctorsDetails extends StatelessWidget {
                       const SizedBox(height: 10), // Add spacing between items
                   itemBuilder: (BuildContext context, int index) {
                     return PrescriptionListWidget(
+                      ontap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const PrescriptionDetailsScreen();
+                      })),
                       prescriptionName: 'Prescription ${index + 1}',
                     );
                   },

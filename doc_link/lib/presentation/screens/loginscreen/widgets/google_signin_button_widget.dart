@@ -10,8 +10,8 @@ class GoogleSignInButtonWidget extends StatelessWidget {
     return Center(
       child: GestureDetector(
         child: Container(
-          width: 185.0,
-          height: 50.0,
+          width: 180.0,
+          height: 44.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color:
@@ -38,3 +38,42 @@ class GoogleSignInButtonWidget extends StatelessWidget {
     );
   }
 }
+
+
+// class GoogleSignInButtonWidget extends StatelessWidget {
+//   const GoogleSignInButtonWidget({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: GestureDetector(
+//         onTap: () => AuthService().signInWithGoogle(),
+//         child: Container(
+//           width: 180.0,
+//           height: 44.0,
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(5),
+//             color:
+//                 kDarkBlueButtonsColor, // Replace with your desired button color
+//           ),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 8.0),
+//                 child: Image.network(
+//                   'https://blog.hubspot.com/hubfs/image8-2.jpg',
+//                   fit: BoxFit.cover, // Replace with your logo asset path
+//                   height: 27.0,
+//                   width: 30.0,
+//                 ),
+//               ),
+//               Text('Sign in with Google',
+//                   style: GoogleFonts.lato(color: Colors.white)),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

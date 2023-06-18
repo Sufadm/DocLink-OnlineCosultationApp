@@ -1,11 +1,19 @@
 import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/morescreen/appointments_list/appointmentlist.dart';
 import 'package:doc_link/presentation/screens/profilescreen/profilescreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MoreScreen extends StatelessWidget {
+import '../loginscreen/login_screen.dart';
+
+class MoreScreen extends StatefulWidget {
   const MoreScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MoreScreen> createState() => _MoreScreenState();
+}
+
+class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +74,7 @@ class MoreScreen extends StatelessWidget {
                 trailing: const Icon(Icons.chevron_right),
               ),
               ListTile(
+                onTap: () => logout(),
                 leading: const Icon(Icons.logout),
                 title: Text(
                   'Logout',
@@ -77,5 +86,16 @@ class MoreScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void logout() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signOut();
+
+    // Navigate back to the login screen
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return const LoginScreen();
+    }));
   }
 }

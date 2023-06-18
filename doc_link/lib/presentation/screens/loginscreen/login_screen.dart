@@ -1,7 +1,5 @@
+import 'package:doc_link/Services/otp_auth.dart';
 import 'package:doc_link/const/const.dart';
-import 'package:doc_link/presentation/screens/loginscreen/otpscreen.dart';
-import 'package:doc_link/presentation/screens/loginscreen/widgets/google_signin_button_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../widgets/elevated_button_widgets.dart';
@@ -65,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: GoogleFonts.lato(
                           fontSize: 15, fontWeight: FontWeight.bold)),
                   kHeight10,
-                  //?phone number form-
+                  //?phone number form---------
                   TextFormField(
                     controller: phoneController,
                     validator: (value) {
@@ -100,22 +98,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Validation successful, proceed with sending OTP
-                        sendPhoneNumber();
+                        AuthenticationService.sendPhoneNumber(
+                            phoneController.text, context);
                       }
                     },
                   ),
                   kHeight25,
-                  Center(
-                    child: Text(
-                      'OR',
-                      style: kTextStyleLargeBlack,
-                    ),
-                  ),
+                  // Center(
+                  //   child: Text(
+                  //     'OR',
+                  //     style: kTextStyleLargeBlack,
+                  //   ),
+                  // ),
                   //?SIGN IN BUTTON--------
                   const SizedBox(
                     height: 27,
                   ),
-                  const GoogleSignInButtonWidget(),
+                  // const GoogleSignInButtonWidget(),
                 ],
               ),
             ),
@@ -125,31 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void sendPhoneNumber() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    try {
-      auth.verifyPhoneNumber(
-          phoneNumber: '+91${phoneController.text}',
-          verificationCompleted:
-              (PhoneAuthCredential phoneAuthCredential) async {
-            await auth.signInWithCredential(phoneAuthCredential);
-          },
-          verificationFailed: (error) {
-            throw Exception(error.message);
-          },
-          codeSent: (verificationId, forceResendingToken) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return OtpScreen(
-                verificationId: verificationId,
-              );
-            }));
-          },
-          codeAutoRetrievalTimeout: (verificationId) {},
-          timeout: const Duration(seconds: 60));
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
-    }
-  }
+//?google signin function-------------------------------------------
 
   // final FirebaseAuth _auth = FirebaseAuth.instance;
 

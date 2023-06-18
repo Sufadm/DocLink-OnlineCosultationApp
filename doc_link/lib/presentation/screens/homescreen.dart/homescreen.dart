@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Row(
                       children: List.generate(
-                        6,
+                        7,
                         (index) => Padding(
                           padding: const EdgeInsets.only(right: 7.0),
                           child: CategoriesWidget(

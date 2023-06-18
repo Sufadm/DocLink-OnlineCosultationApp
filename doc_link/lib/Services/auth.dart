@@ -1,18 +1,20 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 
+// import '../model/model.dart';
+
 // class AuthService {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-//   // UserModel? _userFromCredential(User? user) {
-//   //   return user != null ? UserModel(uid: user.uid) : null;
-//   // }
+//   UserModel? _userFromCredential(User? user) {
+//     return user != null ? UserModel(uid: user.uid) : null;
+//   }
 
-//   // Stream<UserModel?> get userlog {
-//   //   return _auth
-//   //       .authStateChanges()
-//   //       .map((User? user) => _userFromCredential(user));
-//   // }
+//   Stream<UserModel?> get userlog {
+//     return _auth
+//         .authStateChanges()
+//         .map((User? user) => _userFromCredential(user));
+//   }
 
 //   //Google Sign In
 //   signInWithGoogle() async {
