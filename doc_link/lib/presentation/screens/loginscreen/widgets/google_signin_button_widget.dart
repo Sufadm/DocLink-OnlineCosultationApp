@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GoogleSignInButtonWidget extends StatelessWidget {
-  const GoogleSignInButtonWidget({Key? key}) : super(key: key);
+  final VoidCallback? ontap;
+  const GoogleSignInButtonWidget({Key? key, this.ontap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
+        onTap: ontap,
         child: Container(
           width: 180.0,
           height: 44.0,
