@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/bottomnav/bottomnav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  LoginScreen log = const LoginScreen();
+  LoginScreen log = LoginScreen();
   final phoneController = TextEditingController();
 
   Timer? _timer;

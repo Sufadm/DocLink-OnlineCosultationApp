@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../const/const.dart';
+import '../../../../../shared/const/const.dart';
 import '../../../../../widgets/elevated_button_widgets.dart';
 
 class NotificationListDetailsWidget extends StatelessWidget {

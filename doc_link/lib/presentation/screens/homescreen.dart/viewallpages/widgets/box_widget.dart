@@ -1,4 +1,4 @@
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
 
 class ViewAllCategorieWidget extends StatelessWidget {

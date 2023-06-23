@@ -1,4 +1,4 @@
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/messagescreen.dart/widgets/messagelist_widget.dart';
 import 'package:flutter/material.dart';
 

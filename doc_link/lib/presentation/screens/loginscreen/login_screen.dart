@@ -1,22 +1,21 @@
 import 'package:doc_link/Services/otp_auth.dart';
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/bottomnav/bottomnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../../Services/googlesignin_service.dart';
 import '../../../provider/otp_prov.dart';
+import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({
+class LoginScreen extends StatelessWidget {
+  LoginScreen({
     super.key,
   });
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -112,16 +111,43 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
 
                     kHeight25,
-                    // Center(
-                    //   child: Text(
-                    //     'OR',
-                    //     style: kTextStyleLargeBlack,
-                    //   ),
-                    // ),
+                    Center(
+                      child: Text(
+                        'OR',
+                        style: kTextStyleLargeBlack,
+                      ),
+                    ),
                     //?SIGN IN BUTTON--------
                     const SizedBox(
                       height: 27,
                     ),
+
+                    Center(
+                      child: SizedBox(
+                        height: 47,
+                        width: 160,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black)),
+                            onPressed: () async {
+                              final userCredential = await signInWithGoogle();
+                              if (userCredential != null) {
+                                //? User signed in successfully
+                                // ignore: use_build_context_synchronously
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const BottomNav();
+                                }));
+                              } else {}
+                            },
+                            child: Image.network(
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/800px-Google_2015_logo.svg.png',
+                              height: 35,
+                              fit: BoxFit.cover,
+                            )),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -131,20 +157,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-//?google signin function-------------------------------------------
-  // signInWithGoogle() async {
-  //   //begin interactive sign in process
-  //   final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-
-  //   //obtain auth details from request
-  //   final GoogleSignInAuthentication gAuth = await gUser!.authentication;
-
-  //   //create a new credential for user
-  //   final credential = GoogleAuthProvider.credential(
-  //       accessToken: gAuth.accessToken, idToken: gAuth.idToken);
-
-  //   //finally, lets sign in
-  //   return await FirebaseAuth.instance.signInWithCredential(credential);
-  // }
 }

@@ -1,4 +1,4 @@
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/healthtipscreen/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

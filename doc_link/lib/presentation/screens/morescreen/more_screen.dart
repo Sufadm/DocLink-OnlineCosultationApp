@@ -1,19 +1,13 @@
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/presentation/screens/loginscreen/login_screen.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/morescreen/appointments_list/appointmentlist.dart';
 import 'package:doc_link/presentation/screens/profilescreen/profilescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../loginscreen/login_screen.dart';
-
-class MoreScreen extends StatefulWidget {
+class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
 
-  @override
-  State<MoreScreen> createState() => _MoreScreenState();
-}
-
-class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +68,7 @@ class _MoreScreenState extends State<MoreScreen> {
                 trailing: const Icon(Icons.chevron_right),
               ),
               ListTile(
-                onTap: () => logout(),
+                onTap: () => logout(context),
                 leading: const Icon(Icons.logout),
                 title: Text(
                   'Logout',
@@ -88,14 +82,11 @@ class _MoreScreenState extends State<MoreScreen> {
     );
   }
 
-  void logout() async {
+  void logout(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.signOut();
-
-    // Navigate back to the login screen
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return const LoginScreen();
+    auth.signOut();
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LoginScreen();
     }));
   }
 }

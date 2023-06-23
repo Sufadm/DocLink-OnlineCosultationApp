@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../../const/const.dart';
+import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
 class ProfileScreen extends StatelessWidget {

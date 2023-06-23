@@ -1,7 +1,7 @@
 import 'package:doc_link/widgets/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../const/const.dart';
+import '../../../../../shared/const/const.dart';
 
 class PrescriptionDetailsScreen extends StatelessWidget {
   const PrescriptionDetailsScreen({Key? key}) : super(key: key);

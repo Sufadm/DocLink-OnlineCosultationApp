@@ -1,4 +1,4 @@
-import 'package:doc_link/const/const.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/doctors_profile_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptiondetails.dart';
