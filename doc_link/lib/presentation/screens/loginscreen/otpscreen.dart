@@ -1,13 +1,12 @@
 import 'dart:async';
-
-import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/bottomnav/bottomnav.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
+import 'package:provider/provider.dart';
 
-import 'login_screen.dart';
+import '../../../provider/otp_screen_provider.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -19,14 +18,11 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  LoginScreen log = LoginScreen();
   final phoneController = TextEditingController();
 
   Timer? _timer;
-  final int _timerDuration = 60; // Total duration of the timer in seconds
-  int _currentSeconds = 0;
+  final int _timerDuration = 60;
 
-  String? _errormessage;
   @override
   void initState() {
     super.initState();
@@ -40,137 +36,132 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_currentSeconds < _timerDuration) {
-          _currentSeconds++;
-        } else {
-          _timer?.cancel();
-          // _showResendButton = true;
-        }
-      });
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      final provider = Provider.of<OtpScreenProvider>(context, listen: false);
+      if (provider.currentSeconds < _timerDuration) {
+        provider.incrementSeconds();
+      } else {
+        _timer?.cancel();
+        provider.setTimerFinished();
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 90,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, top: 10),
-                  child: Text(
-                    'OTP Verification',
-                    style: GoogleFonts.lato(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 1, 43, 114)),
+    return ChangeNotifierProvider(
+      create: (_) => OtpScreenProvider(widget.verificationId),
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 90,
                   ),
-                ),
-                kHeight20,
-                SizedBox(
-                  height: 270,
-                  width: double.infinity,
-                  child: Image.asset(
-                    'asset_images/e9b33ec8595630e5a2cfaa14eb6784b6.jpg',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                kHeight10,
-                kHeight25,
-                SingleChildScrollView(
-                  //? type OTP--------------------------------------------------
-                  child: OtpPinField(
-                    onSubmit: (String text) {
-                      verifyOtp(context: context, userotp: text);
-                    },
-                    onChange: (String text) {
-                      setState(() {
-                        _errormessage = null;
-                      });
-                    },
-                    textInputAction: TextInputAction.done,
-                    otpPinFieldStyle: const OtpPinFieldStyle(
-                      defaultFieldBorderColor: Color.fromARGB(255, 0, 27, 177),
-                    ),
-                    maxLength: 6,
-                    otpPinFieldDecoration:
-                        OtpPinFieldDecoration.defaultPinBoxDecoration,
-                  ),
-                ),
-                kHeight20,
-                Center(
-                  child: Text(
-                    'We have sent you a one-time password',
-                    style: GoogleFonts.lato(
-                        color: const Color.fromARGB(255, 124, 121, 121),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    'to your Number',
-                    style: GoogleFonts.lato(
-                        color: const Color.fromARGB(255, 124, 121, 121),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                kHeight10,
-                // Container(
-                //   margin: const EdgeInsets.only(left: 160),
-                // ),
-                kHeight15,
-                if (_errormessage != null)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 19),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10, top: 10),
                     child: Text(
-                      _errormessage!,
-                      style: GoogleFonts.lato(color: Colors.red),
+                      'OTP Verification',
+                      style: GoogleFonts.lato(
+                          fontSize: 27,
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 1, 43, 114)),
                     ),
                   ),
-                if (_currentSeconds > 0)
-                  Text(
-                      'Please Enter OTP ${(_timerDuration - _currentSeconds).toString()} before Timeout',
+                  kHeight20,
+                  SizedBox(
+                    height: 270,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'asset_images/e9b33ec8595630e5a2cfaa14eb6784b6.jpg',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  kHeight10,
+                  kHeight25,
+                  SingleChildScrollView(
+                      //? type OTP----------------
+
+                      child: Consumer<OtpScreenProvider>(
+                    builder: (context, provider, _) {
+                      return OtpPinField(
+                        onSubmit: (String text) async {
+                          bool verificationsuccess =
+                              await provider.verifyOtp(context, text);
+                          if (verificationsuccess) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const BottomNav();
+                            }));
+                          }
+                        },
+                        onChange: (String text) {
+                          provider.clearErrorMessage();
+                        },
+                        textInputAction: TextInputAction.done,
+                        otpPinFieldStyle: const OtpPinFieldStyle(
+                          defaultFieldBorderColor:
+                              Color.fromARGB(255, 0, 27, 177),
+                        ),
+                        maxLength: 6,
+                        otpPinFieldDecoration:
+                            OtpPinFieldDecoration.defaultPinBoxDecoration,
+                      );
+                    },
+                  )),
+                  kHeight20,
+                  Center(
+                    child: Text(
+                      'We have sent you a one-time password',
                       style: GoogleFonts.lato(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
-                kHeight10,
-              ],
+                          color: const Color.fromARGB(255, 124, 121, 121),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      'to your Number',
+                      style: GoogleFonts.lato(
+                          color: const Color.fromARGB(255, 124, 121, 121),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  kHeight10,
+                  kHeight15,
+                  Consumer<OtpScreenProvider>(
+                    builder: (context, provider, _) {
+                      if (provider.errorMessage != null) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 19),
+                          child: Text(
+                            provider.errorMessage!,
+                            style: GoogleFonts.lato(color: Colors.red),
+                          ),
+                        );
+                      }
+                      if (provider.currentSeconds > 0) {
+                        return Text(
+                            'Please Enter OTP ${(_timerDuration - provider.currentSeconds).toString()} before Timeout',
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black));
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                  kHeight10,
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  void verifyOtp(
-      {required BuildContext context, required String userotp}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    try {
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: widget.verificationId,
-        smsCode: userotp,
-      );
-      await auth.signInWithCredential(credential);
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) {
-          return const BottomNav();
-        }),
-      );
-    } on FirebaseAuthException {
-      setState(() {
-        _errormessage = 'Error verifying OTP Please Enter Correctly ';
-      });
-    }
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../Services/googlesignin_service.dart';
-import '../../../provider/otp_prov.dart';
+import '../../../provider/loginpage_prov.dart';
 import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
@@ -91,7 +91,6 @@ class LoginScreen extends StatelessWidget {
                       height: 7,
                     ),
                     //? OTP Button widget-
-                    //? OTP Button widget-
                     Consumer<AuthenticationProvider>(
                       builder: (context, value, child) {
                         return value.loading
@@ -125,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                     Center(
                       child: SizedBox(
                         height: 47,
-                        width: 160,
+                        width: 200,
                         child: ElevatedButton(
                             style: ButtonStyle(
                                 backgroundColor:
