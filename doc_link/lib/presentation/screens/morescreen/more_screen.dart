@@ -64,7 +64,7 @@ class _MoreScreenState extends State<MoreScreen> {
               ListTile(
                 onTap: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return const ProfileScreen();
+                  return ProfileScreen();
                 })),
                 leading: const Icon(Icons.account_circle),
                 title: Text(

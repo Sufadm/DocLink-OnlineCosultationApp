@@ -1,25 +1,23 @@
 import 'dart:io';
-import 'package:doc_link/const/const.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
+import 'package:doc_link/provider/profilescreenprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../../const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  String selectedGender = "Male";
   final nameofPatient = TextEditingController();
+
   final ageofPatient = TextEditingController();
-  bool imageAlert = false;
 
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,25 +37,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       icon: const Icon(Icons.arrow_back)),
                   kHeight15,
                   //?profile pic
-                  _photo?.path == null
-                      ? const Center(
-                          child: CircleAvatar(
-                            radius: 80,
-                            backgroundImage: NetworkImage(
-                                'https://img.freepik.com/premium-vector/avatar-portrait-kid-caucasian-boy-round-frame-vector-illustration-cartoon-flat-style_551425-43.jpg'),
-                            // backgroundColor: Color.fromARGB(255, 154, 137, 81),
-                          ),
-                        )
-                      : Center(
-                          child: CircleAvatar(
-                            backgroundImage: FileImage(
-                              File(
-                                _photo!.path,
+                  Consumer<ProfileScreenStateModel>(
+                    builder: (context, state, _) {
+                      return state.photo?.path == null
+                          ? const Center(
+                              child: CircleAvatar(
+                                radius: 80,
+                                backgroundImage: NetworkImage(
+                                    'https://img.freepik.com/premium-vector/avatar-portrait-kid-caucasian-boy-round-frame-vector-illustration-cartoon-flat-style_551425-43.jpg'),
+                                // backgroundColor: Color.fromARGB(255, 154, 137, 81),
                               ),
-                            ),
-                            radius: 60,
-                          ),
-                        ),
+                            )
+                          : Center(
+                              child: CircleAvatar(
+                                backgroundImage: FileImage(
+                                  File(
+                                    state.photo!.path,
+                                  ),
+                                ),
+                                radius: 60,
+                              ),
+                            );
+                    },
+                  ),
+
                   kHeight10,
                   Center(
                     child: ElevatedButton.icon(
@@ -65,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           shape: const StadiumBorder(),
                           backgroundColor: (Colors.black)),
                       onPressed: () {
-                        getPhoto();
+                        getPhoto(context);
                       },
                       icon: const Icon(
                         Icons.image_outlined,
@@ -88,22 +91,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //?radio button-
                   Row(
                     children: [
-                      createRadio("Male", selectedGender, (String? value) {
-                        setState(() {
-                          selectedGender = value!;
-                        });
+                      createRadio(
+                          "Male",
+                          Provider.of<ProfileScreenStateModel>(context)
+                              .selectedGender, (String? value) {
+                        Provider.of<ProfileScreenStateModel>(context,
+                                listen: false)
+                            .setSelectedGender(value!);
                       }),
                       const Text('Male'),
-                      createRadio("Female", selectedGender, (String? value) {
-                        setState(() {
-                          selectedGender = value!;
-                        });
+                      createRadio(
+                          "Female",
+                          Provider.of<ProfileScreenStateModel>(context)
+                              .selectedGender, (String? value) {
+                        Provider.of<ProfileScreenStateModel>(context,
+                                listen: false)
+                            .setSelectedGender(value!);
                       }),
                       const Text('Female'),
-                      createRadio("Other", selectedGender, (String? value) {
-                        setState(() {
-                          selectedGender = value!;
-                        });
+                      createRadio(
+                          "Other",
+                          Provider.of<ProfileScreenStateModel>(context)
+                              .selectedGender, (String? value) {
+                        Provider.of<ProfileScreenStateModel>(context,
+                                listen: false)
+                            .setSelectedGender(value!);
                       }),
                       const Text('Other'),
                     ],
@@ -154,18 +166,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
 //?image picker method
-  File? _photo;
-  Future<void> getPhoto() async {
+
+  Future<void> getPhoto(BuildContext context) async {
     final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (photo == null) {
       return;
     } else {
       final photoTemp = File(photo.path);
-      setState(
-        () {
-          _photo = photoTemp;
-        },
-      );
+      // ignore: use_build_context_synchronously
+      Provider.of<ProfileScreenStateModel>(context, listen: false)
+          .setPhoto(photoTemp);
     }
   }
 

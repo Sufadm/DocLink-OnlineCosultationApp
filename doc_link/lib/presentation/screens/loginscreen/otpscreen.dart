@@ -25,7 +25,6 @@ class _OtpScreenState extends State<OtpScreen> {
   Timer? _timer;
   final int _timerDuration = 60; // Total duration of the timer in seconds
   int _currentSeconds = 0;
-  // bool _showResendButton = false;
 
   String? _errormessage;
   @override
@@ -143,15 +142,6 @@ class _OtpScreenState extends State<OtpScreen> {
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.bold, color: Colors.black)),
                 kHeight10,
-                //if (_showResendButton)
-                // TextButton(
-                //   onPressed: resendOtp,
-                //   child: Text(
-                //     'Resend OTP',
-                //     style: GoogleFonts.lato(
-                //         decoration: TextDecoration.underline),
-                //   ),
-                // ),
               ],
             ),
           ),
