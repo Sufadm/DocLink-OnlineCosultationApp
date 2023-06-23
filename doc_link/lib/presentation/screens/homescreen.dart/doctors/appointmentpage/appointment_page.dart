@@ -1,36 +1,27 @@
 import 'package:doc_link/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-class AppointmantPage extends StatefulWidget {
+import '../../../../../provider/appointmentpage_provider.dart';
+
+class AppointmantPage extends StatelessWidget {
   const AppointmantPage({Key? key}) : super(key: key);
 
-  @override
-  State<AppointmantPage> createState() => _AppointmantPageState();
-}
+  void _onSelectionChanged(
+      BuildContext context, DateRangePickerSelectionChangedArgs args) {
+    final model =
+        Provider.of<AppointmentScreenStateModel>(context, listen: false);
 
-class _AppointmantPageState extends State<AppointmantPage> {
-  String? _dateCount;
-  String? _range;
-
-  @override
-  void initState() {
-    _dateCount = '';
-    _range = '';
-    super.initState();
-  }
-
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(() {
-      if (args.value is PickerDateRange) {
-        _range =
-            '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      } else if (args.value is DateTime) {
-      } else if (args.value is List<DateTime>) {
-        _dateCount = args.value.length.toString();
-      }
-    });
+    if (args.value is PickerDateRange) {
+      model.setSelectedDate(
+          '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}');
+    } else if (args.value is DateTime) {
+      // Handle DateTime case if needed
+    } else if (args.value is List<DateTime>) {
+      model.setSelectedDate(args.value.length.toString());
+    }
   }
 
   @override
@@ -42,13 +33,16 @@ class _AppointmantPageState extends State<AppointmantPage> {
           child: Column(
             children: [
               Row(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back)),
+                    onPressed: () {
+                      Provider.of<AppointmentScreenStateModel>(context,
+                              listen: false)
+                          .setSelectedDate(null);
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back),
+                  ),
                   const SizedBox(
                     width: 100,
                   ),
@@ -70,11 +64,13 @@ class _AppointmantPageState extends State<AppointmantPage> {
                         right: 0,
                         bottom: 300,
                         child: SfDateRangePicker(
-                          onSelectionChanged: _onSelectionChanged,
+                          onSelectionChanged: (args) =>
+                              _onSelectionChanged(context, args),
                           selectionMode: DateRangePickerSelectionMode.single,
                           initialSelectedRange: PickerDateRange(
-                              DateTime.now().subtract(const Duration(days: 4)),
-                              DateTime.now().add(const Duration(days: 3))),
+                            DateTime.now().subtract(const Duration(days: 4)),
+                            DateTime.now().add(const Duration(days: 3)),
+                          ),
                         ),
                       ),
                       Positioned(
@@ -85,7 +81,9 @@ class _AppointmantPageState extends State<AppointmantPage> {
                           alignment: Alignment.center,
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            'No Doctors Available/-',
+                            Provider.of<AppointmentScreenStateModel>(context)
+                                    .selectedDate ??
+                                'No Doctors Available',
                             style: kTextStyleMediumBlack,
                           ),
                         ),

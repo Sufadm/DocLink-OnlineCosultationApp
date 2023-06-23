@@ -1,4 +1,5 @@
 import 'package:doc_link/presentation/screens/spashscreen/splashscreen.dart';
+import 'package:doc_link/provider/appointmentpage_provider.dart';
 import 'package:doc_link/provider/profilescreenprovider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ProfileScreenStateModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AppointmentScreenStateModel(),
         )
       ],
       child: MaterialApp(

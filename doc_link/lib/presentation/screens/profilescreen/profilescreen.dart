@@ -81,6 +81,8 @@ class ProfileScreen extends StatelessWidget {
                   kHeight15,
                   const Text('Full name'),
                   kHeight10,
+                  //?textformfield name widget----------------------------------
+
                   const TextFormFieldName(),
                   kHeight20,
                   kHeight10,
@@ -127,7 +129,7 @@ class ProfileScreen extends StatelessWidget {
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   kHeight10,
-                  //?type age-
+                  //?textform age widget age------------------------------------
                   const TextFormFieldAge(),
                   kHeight15,
                   ElevatedButtons(
