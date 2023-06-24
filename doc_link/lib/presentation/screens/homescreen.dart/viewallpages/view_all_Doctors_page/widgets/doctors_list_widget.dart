@@ -5,10 +5,12 @@ import '../../../../../../shared/const/const.dart';
 class DoctorsListWidget extends StatelessWidget {
   final String doctorname;
   final VoidCallback? onTap;
+  final String avatarImageUrl;
   const DoctorsListWidget({
     super.key,
     required this.doctorname,
     this.onTap,
+    required this.avatarImageUrl,
   });
 
   @override
@@ -27,9 +29,10 @@ class DoctorsListWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 maxRadius: 30,
                 minRadius: 10,
+                backgroundImage: NetworkImage(avatarImageUrl),
               ),
               Text(
                 doctorname,

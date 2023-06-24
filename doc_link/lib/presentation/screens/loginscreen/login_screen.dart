@@ -1,9 +1,9 @@
-import 'package:doc_link/Services/otp_auth.dart';
+import 'package:doc_link/services/otp_auth.dart';
 import 'package:doc_link/presentation/screens/bottomnav/bottomnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../Services/googlesignin_service.dart';
+import '../../../services/googlesignin_service.dart';
 import '../../../provider/loginpage_prov.dart';
 import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';

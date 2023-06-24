@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/otp_screen_provider.dart';
 
 class OtpScreen extends StatefulWidget {
