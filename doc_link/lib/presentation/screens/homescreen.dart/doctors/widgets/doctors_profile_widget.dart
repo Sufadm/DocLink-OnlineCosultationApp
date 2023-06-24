@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../model/profile_model.dart';
 import '../../../../../shared/const/const.dart';
 
 class DoctorsProfileWidget extends StatelessWidget {
+  final ProfileModel profile;
+
   const DoctorsProfileWidget({
     super.key,
+    required this.profile,
   });
 
   @override
@@ -17,7 +21,7 @@ class DoctorsProfileWidget extends StatelessWidget {
           height: 130,
           width: 130,
           child: Image.network(
-            'https://media.istockphoto.com/id/1189304032/photo/doctor-holding-digital-tablet-at-meeting-room.jpg?s=612x612&w=0&k=20&c=RtQn8w_vhzGYbflSa1B5ea9Ji70O8wHpSgGBSh0anUg=',
+            profile.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
@@ -29,16 +33,16 @@ class DoctorsProfileWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'DR SUFAD',
+                  profile.name,
                   style: kTextStyleMediumBlack,
                 ),
                 Text(
-                  'DENTIST',
+                  profile.category,
                   style: GoogleFonts.lato(
                       color: const Color.fromARGB(255, 129, 129, 129)),
                 ),
                 Text(
-                  'MBBS',
+                  profile.qualification,
                   style: GoogleFonts.lato(
                       color: const Color.fromARGB(255, 129, 129, 129)),
                 ),

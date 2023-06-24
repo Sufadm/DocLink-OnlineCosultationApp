@@ -6,8 +6,12 @@ import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/pr
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../model/profile_model.dart';
+
 class DoctorsDetails extends StatelessWidget {
-  const DoctorsDetails({Key? key}) : super(key: key);
+  final ProfileModel profile;
+
+  const DoctorsDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,9 @@ class DoctorsDetails extends StatelessWidget {
               height: 50,
             ),
             //?Doctors profile--
-            const DoctorsProfileWidget(),
+            DoctorsProfileWidget(
+              profile: profile,
+            ),
             kHeight25,
             Container(
               margin: const EdgeInsets.only(

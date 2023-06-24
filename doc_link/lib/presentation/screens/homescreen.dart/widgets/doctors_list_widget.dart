@@ -1,7 +1,6 @@
 import 'package:doc_link/model/profile_model.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:flutter/material.dart';
 
 class DoctorsWidget extends StatelessWidget {
@@ -77,7 +76,7 @@ class DoctorsWidget extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
-                                        return const DoctorsDetails();
+                                        return Container();
                                       }));
                                     },
                                     child: const Text('Book')))

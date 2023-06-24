@@ -1,4 +1,3 @@
-import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/box_widget.dart';
@@ -30,7 +29,7 @@ class ViewAllCategoriesPage extends StatelessWidget {
           child: GestureDetector(
             onTap: () =>
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const DoctorsDetails();
+              return Container();
             })),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
