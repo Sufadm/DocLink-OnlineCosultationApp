@@ -18,8 +18,8 @@ class DoctorsProfileWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 130,
-          width: 130,
+          height: 140,
+          width: 140,
           child: Image.network(
             profile.imageUrl,
             fit: BoxFit.cover,

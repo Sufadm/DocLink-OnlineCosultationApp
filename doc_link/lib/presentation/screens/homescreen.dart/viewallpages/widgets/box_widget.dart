@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 
 class ViewAllCategorieWidget extends StatelessWidget {
   final String categoriename;
+  final VoidCallback ontap;
   const ViewAllCategorieWidget({
     super.key,
     required this.categoriename,
+    required this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: greylight1),

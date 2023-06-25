@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(left: 10, top: 10),
                         child: Text(
-                          'Hello',
+                          greeting(),
                           style: kTextStyleLarge,
                         ),
                       ),
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                             animateToClosest: true),
                       ),
                       kHeight10,
-                      //?Title Widget-----------------------------------------
+                      //?Title Widget-------------------------------------------
                       TitleWidget(
                           titleName: 'Categories',
                           onTap: () => Navigator.push(
@@ -84,11 +84,11 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(
                             children: List.generate(
-                              7,
+                              doctors.length,
                               (index) => Padding(
                                 padding: const EdgeInsets.only(right: 7.0),
                                 child: CategoriesWidget(
-                                    categories: 'categories ${index + 1}'),
+                                    categories: doctors[index].category),
                               ),
                             ),
                           ),
@@ -106,9 +106,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       kHeight15,
                       //?Doctors Widget---
-                      DoctorsWidget(
-                        networkImage: imageUrl,
-                      ),
+                      DoctorsWidget(networkImage: imageUrl),
                     ],
                   ),
                 ),
@@ -116,11 +114,22 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.hasError) {
-            const Text('Error');
+            const Text('Error Occured');
           }
         }
         return Container();
       },
     );
+  }
+
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    }
+    if (hour < 17) {
+      return 'Good Afternoon';
+    }
+    return 'Good Evening';
   }
 }
