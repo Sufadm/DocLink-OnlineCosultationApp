@@ -30,6 +30,7 @@ class DoctorsProfileWidget extends StatelessWidget {
             width: 130,
             // color: Colors.amberAccent,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(

@@ -21,7 +21,6 @@ class CategorieListDoctors extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.separated(
-          // padding: const EdgeInsets.only(top: 10),
           itemCount: doctors.length,
           separatorBuilder: (BuildContext context, int index) => kHeight10,
           itemBuilder: (BuildContext context, int index) {

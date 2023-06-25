@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:doc_link/model/profile_model.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/categerie_list_doctors/categorie_list_doctors.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/widgets/categories_widget.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/view_all_Doctors_page/view_all_doc.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/viewall_categories_page/view_all_catgires.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/viewall_categories_page/view_all_catgories.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/carousal_widget.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/widgets/categories_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/doctors_list_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends StatelessWidget {
           if (snapshot.hasData) {
             List<ProfileModel> doctors = snapshot.data!;
             String imageUrl = doctors[2].imageUrl;
+
             return SafeArea(
               child: Scaffold(
                   body: SingleChildScrollView(
@@ -77,19 +79,40 @@ class HomeScreen extends StatelessWidget {
                                 builder: (context) =>
                                     const ViewAllCategoriesPage(),
                               ))),
-
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(
                             children: List.generate(
-                              doctors.length,
-                              (index) => Padding(
-                                padding: const EdgeInsets.only(right: 7.0),
-                                child: CategoriesWidget(
-                                    categories: doctors[index].category),
-                              ),
+                              5,
+                              (index) {
+                                final category = doctors[index].category;
+                                final isFirstOccurrence = doctors.indexWhere(
+                                        (doc) => doc.category == category) ==
+                                    index;
+                                if (isFirstOccurrence) {
+                                  final doctorsInCategory = doctors
+                                      .where((doc) => doc.category == category)
+                                      .toList();
+
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 7.0),
+                                    child: CategoriesWidget(
+                                      ontap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CategorieListDoctors(
+                                                      doctors:
+                                                          doctorsInCategory))),
+                                      categories: category,
+                                    ),
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              },
                             ),
                           ),
                         ),

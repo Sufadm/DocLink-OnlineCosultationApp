@@ -40,7 +40,7 @@ class ViewAllCategoriesPage extends StatelessWidget {
                   List<ProfileModel> doctors = snapshot.data!;
                   Set<String> uniqueCategories = <String>{};
 
-                  //?collect unique categories-----------
+                  //?collect unique categories------------------
 
                   for (var doctor in doctors) {
                     uniqueCategories.add(doctor.category);
@@ -56,14 +56,14 @@ class ViewAllCategoriesPage extends StatelessWidget {
                     itemCount: uniqueCategories.length,
                     itemBuilder: (BuildContext context, int index) {
                       String category = uniqueCategories.elementAt(index);
-                      List<ProfileModel> doctorsInCtegorie = doctors
+                      List<ProfileModel> doctorsInCategorie = doctors
                           .where((doctor) => doctor.category == category)
                           .toList();
                       return ViewAllCategorieWidget(
                         ontap: () => Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return CategorieListDoctors(
-                            doctors: doctorsInCtegorie,
+                            doctors: doctorsInCategorie,
                           );
                         })),
                         categoriename: category,
