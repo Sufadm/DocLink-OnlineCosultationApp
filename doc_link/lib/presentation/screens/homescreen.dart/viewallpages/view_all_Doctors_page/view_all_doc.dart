@@ -1,6 +1,7 @@
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/view_all_Doctors_page/widgets/doctors_list_widget.dart';
+import 'package:doc_link/widgets/search_form.dart';
 import 'package:flutter/material.dart';
 import '../../../../../model/profile_model.dart';
 import '../../../../../services/firestore_service.dart';
@@ -20,12 +21,9 @@ class ViewAllDoctorsPage extends StatelessWidget {
         child: ListView(
           children: [
             kHeight15,
-            SearchBar(
-              hintText: 'Search doctor',
-              leading: Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: const Icon(Icons.search)),
-            ),
+
+            //?search Form-----
+            const SearchForm(),
             //?all doctors list here-----
             kHeight15,
             StreamBuilder<List<ProfileModel>>(

@@ -88,6 +88,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Consumer<OtpScreenProvider>(
                     builder: (context, provider, _) {
                       return OtpPinField(
+                        autoFillEnable: true,
                         onSubmit: (String text) async {
                           bool verificationsuccess =
                               await provider.verifyOtp(context, text);

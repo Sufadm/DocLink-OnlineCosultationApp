@@ -20,9 +20,9 @@ class ViewAllCategoriesPage extends StatelessWidget {
         title: const Text(
           'All Categories',
           style: TextStyle(
-            color: Colors.black, // Change the text color here
-            fontSize: 20, // Adjust the font size if needed
-            fontWeight: FontWeight.bold, // Adjust the font weight if needed
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

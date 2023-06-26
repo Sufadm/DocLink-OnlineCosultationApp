@@ -20,20 +20,6 @@ class ProfileModel {
     required this.place,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': uid,
-      'name': name,
-      'gender': gender,
-      'qualification': qualification,
-      'category': category,
-      'place': place,
-      'imageUrl': imageUrl,
-      'email': email,
-      'phone': phone
-    };
-  }
-
   static ProfileModel fromJson(Map<String, dynamic> json) => ProfileModel(
       uid: json['id'],
       name: json['name'],

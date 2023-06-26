@@ -11,8 +11,12 @@ import 'package:doc_link/presentation/screens/homescreen.dart/widgets/doctors_li
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/search_form.dart';
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final TextEditingController searchController = TextEditingController();
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +47,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       kHeight20,
-                      SearchBar(
-                        hintText: 'Search a doctor',
-                        leading: Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            child: const Icon(Icons.search)),
-                      ),
+                      //?Search Button-------------
+                      const SearchForm(),
                       kHeight15,
                       //?Carousal Slider Widget Static
                       CarouselSlider(
@@ -118,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
 
-                      //?Title Widget-------------
+                      //?Title Widget------------
                       TitleWidget(
                         titleName: 'All Doctors',
                         onTap: () => Navigator.push(
@@ -129,6 +129,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       kHeight15,
                       //?Doctors Widget---
+
                       DoctorsWidget(networkImage: imageUrl),
                     ],
                   ),

@@ -8,7 +8,7 @@ import '../morescreen/more_screen.dart';
 class BottomNavState extends ChangeNotifier {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
+    HomeScreen(),
     const MessageScreen(),
     const HealthTipScreen(),
     const MoreScreen(),

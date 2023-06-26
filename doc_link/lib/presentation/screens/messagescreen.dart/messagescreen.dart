@@ -1,5 +1,6 @@
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/messagescreen.dart/widgets/messagelist_widget.dart';
+import 'package:doc_link/widgets/search_form.dart';
 import 'package:flutter/material.dart';
 
 class MessageScreen extends StatelessWidget {
@@ -14,9 +15,8 @@ class MessageScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SearchBar(
-                hintText: 'Search a Doctor',
-              ),
+              kHeight10,
+              const SearchForm(),
               kHeight15,
               Text(
                 'Messages',
