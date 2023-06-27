@@ -16,7 +16,7 @@ import '../../../widgets/search_form.dart';
 class HomeScreen extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
 
-  HomeScreen({super.key});
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.hasError) {
-            const Text('Error Occured');
+            return const Text('Error Occured');
           }
         }
         return Container();
