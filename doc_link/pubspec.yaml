@@ -32,6 +32,7 @@ dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.8.0
   cupertino_icons: ^1.0.2
+  date_picker_timeline: ^1.2.5
   firebase_auth: ^4.6.2
   firebase_core: ^2.13.1
   firebase_storage: ^11.2.2

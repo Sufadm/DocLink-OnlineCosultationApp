@@ -33,7 +33,6 @@ class ViewAllCategoriesPage extends StatelessWidget {
             stream: FirestoreService().getDoctorsProfilesStream(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
               } else if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {

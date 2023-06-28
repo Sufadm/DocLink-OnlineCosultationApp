@@ -24,7 +24,6 @@ class HomeScreen extends StatelessWidget {
       stream: FirestoreService().getDoctorsProfilesStream(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
         } else if (snapshot.connectionState == ConnectionState.active ||
             snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
@@ -47,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       kHeight20,
-                      //?Search Button-------------
+                      //?Search Button------------------------------------------
                       const SearchForm(),
                       kHeight15,
                       //?Carousal Slider Widget Static
@@ -118,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
 
-                      //?Title Widget------------
+                      //?Title Widget-------------------------------------------
                       TitleWidget(
                         titleName: 'All Doctors',
                         onTap: () => Navigator.push(
@@ -128,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                             )),
                       ),
                       kHeight15,
-                      //?Doctors Widget---
+                      //?Doctors Widget-----------------------------------------
 
                       DoctorsWidget(networkImage: imageUrl),
                     ],
@@ -138,7 +137,7 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.hasError) {
-            return const Text('Error Occured');
+            return Text(snapshot.error.toString());
           }
         }
         return Container();

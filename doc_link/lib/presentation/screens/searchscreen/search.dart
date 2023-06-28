@@ -2,6 +2,7 @@ import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_de
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../model/profile_model.dart';
 
@@ -99,8 +100,14 @@ class CustomSearchDelegate extends SearchDelegate {
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(doctor.imageUrl),
               ),
-              title: Text(doctor.name),
-              subtitle: Text(doctor.category),
+              title: Text(
+                doctor.name,
+                style: kTextStyleMediumBlack,
+              ),
+              subtitle: Text(
+                doctor.category,
+                style: GoogleFonts.lato(),
+              ),
               onTap: () {
                 Navigator.push(
                   context,

@@ -58,7 +58,7 @@ class ViewAllDoctorsPage extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
-                  return const CircularProgressIndicator();
+                  return const SizedBox.shrink();
                 }
               },
             ),

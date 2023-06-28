@@ -1,98 +1,101 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:doc_link/shared/const/const.dart';
+import 'package:doc_link/widgets/elevated_button_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../../../../../provider/appointmentpage_provider.dart';
-
-class AppointmantPage extends StatelessWidget {
+class AppointmantPage extends StatefulWidget {
   const AppointmantPage({Key? key}) : super(key: key);
 
-  void _onSelectionChanged(
-      BuildContext context, DateRangePickerSelectionChangedArgs args) {
-    final model =
-        Provider.of<AppointmentScreenStateModel>(context, listen: false);
+  @override
+  State<AppointmantPage> createState() => _AppointmantPageState();
+}
 
-    if (args.value is PickerDateRange) {
-      model.setSelectedDate(
-          '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}');
-    } else if (args.value is DateTime) {
-      // Handle DateTime case if needed
-    } else if (args.value is List<DateTime>) {
-      model.setSelectedDate(args.value.length.toString());
-    }
-  }
-
+class _AppointmantPageState extends State<AppointmantPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                kHeight10,
+                IconButton(
                     onPressed: () {
-                      Provider.of<AppointmentScreenStateModel>(context,
-                              listen: false)
-                          .setSelectedDate(null);
                       Navigator.pop(context);
                     },
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  const SizedBox(
-                    width: 100,
-                  ),
-                  Text(
-                    'Select Date',
-                    style: kTextStyleLargeBlack,
-                  ),
-                ],
-              ),
-              Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0,
-                        top: 30,
-                        right: 0,
-                        bottom: 300,
-                        child: SfDateRangePicker(
-                          onSelectionChanged: (args) =>
-                              _onSelectionChanged(context, args),
-                          selectionMode: DateRangePickerSelectionMode.single,
-                          initialSelectedRange: PickerDateRange(
-                            DateTime.now().subtract(const Duration(days: 4)),
-                            DateTime.now().add(const Duration(days: 3)),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 200,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            Provider.of<AppointmentScreenStateModel>(context)
-                                    .selectedDate ??
-                                'No Doctors Available',
-                            style: kTextStyleMediumBlack,
-                          ),
-                        ),
-                      ),
-                    ],
+                    icon: const Icon(Icons.arrow_back)),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 70,
                   ),
                 ),
-              ),
-            ],
+                kHeight10,
+                Center(
+                  child: Text(
+                    'DoctorName',
+                    style: kTextStyleMediumBlack,
+                  ),
+                ),
+                kHeight10,
+                Center(
+                  child: Text(
+                    'Place',
+                    style: kTextStyleMediumBlack,
+                  ),
+                ),
+                kHeight10,
+                Center(
+                  child: Text(
+                    'Gender',
+                    style: kTextStyleMediumBlack,
+                  ),
+                ),
+                kHeight10,
+                const Divider(
+                  thickness: 1,
+                ),
+                kHeight10,
+                Text(
+                  'Select Date',
+                  style: kTextStyleLargeBlack,
+                ),
+                kHeight25,
+                DatePicker(
+                  DateTime.now(),
+                  daysCount: 10,
+                  initialSelectedDate: DateTime.now(),
+                  selectionColor: Colors.black,
+                  selectedTextColor: Colors.white,
+                  onDateChange: (date) {
+                    // New date selected
+                    setState(() {});
+                  },
+                ),
+                kHeight20,
+                Text(
+                  'Available',
+                  style: kTextStyleLargeBlack,
+                ),
+                kHeight15,
+                Text(
+                  'Time 7.00 AM',
+                  style: kTextStyleMediumBlack,
+                ),
+                kHeight15,
+                TextFormField(
+                  maxLines: 6,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Remarks',
+                  ),
+                ),
+                kHeight15,
+                ElevatedButtons(text: 'Next', onPressed: () {})
+              ],
+            ),
           ),
         ),
       ),
