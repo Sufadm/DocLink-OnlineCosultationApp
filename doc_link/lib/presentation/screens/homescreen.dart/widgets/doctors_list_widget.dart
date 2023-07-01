@@ -1,4 +1,4 @@
-import 'package:doc_link/model/profile_model.dart';
+import 'package:doc_link/model/doctor_profile_model.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_details.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';

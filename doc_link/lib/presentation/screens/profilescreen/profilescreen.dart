@@ -1,20 +1,20 @@
-import 'dart:io';
+import 'package:doc_link/model/user_profile.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
 import 'package:doc_link/provider/profilescreenprovider.dart';
+import 'package:doc_link/services/profile_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  final nameofPatient = TextEditingController();
+  final nameofPatientController = TextEditingController();
 
-  final ageofPatient = TextEditingController();
+  final ageofPatientController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -50,12 +50,18 @@ class ProfileScreen extends StatelessWidget {
                             )
                           : Center(
                               child: CircleAvatar(
-                                backgroundImage: FileImage(
-                                  File(
-                                    state.photo!.path,
+                                radius: 70,
+                                child: ClipOval(
+                                  child: SizedBox(
+                                    width:
+                                        160, // Adjust the width and height to your preference
+                                    height: 160,
+                                    child: Image.file(
+                                      state.photo!,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                radius: 60,
                               ),
                             );
                     },
@@ -68,7 +74,9 @@ class ProfileScreen extends StatelessWidget {
                           shape: const StadiumBorder(),
                           backgroundColor: (Colors.black)),
                       onPressed: () {
-                        getPhoto(context);
+                        Provider.of<ProfileScreenStateModel>(context,
+                                listen: false)
+                            .getPhoto(context);
                       },
                       icon: const Icon(
                         Icons.image_outlined,
@@ -79,11 +87,15 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   kHeight15,
-                  const Text('Full name'),
+                  Text(
+                    'Full name',
+                    style: GoogleFonts.lato(),
+                  ),
                   kHeight10,
                   //?textformfield name widget----------------------------------
-
-                  const TextFormFieldName(),
+                  TextFormFieldName(
+                    controller: nameofPatientController,
+                  ),
                   kHeight20,
                   kHeight10,
                   Text(
@@ -130,20 +142,43 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   kHeight10,
                   //?textform age widget age------------------------------------
-                  const TextFormFieldAge(),
+                  TextFormFieldAge(
+                    controller: ageofPatientController,
+                  ),
                   kHeight15,
                   ElevatedButtons(
-                      text: 'Submit',
-                      onPressed: () {
-                        // if (_formKey.currentState!.validate() && _photo != null) {
-
-                        onStudentAddButtonClick();
-                        Navigator.pop(context);
-                        // }
-                        //     else {
-                        //     imageAlert = true;
-                        // }
-                      })
+                    text: 'Submit',
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        // Form is valid, proceed with submission
+                        String imageUrl = '';
+                        if (Provider.of<ProfileScreenStateModel>(context,
+                                    listen: false)
+                                .photo !=
+                            null) {
+                          imageUrl = await UserProfileService()
+                              .uploadImageToStorage(
+                                  Provider.of<ProfileScreenStateModel>(context,
+                                          listen: false)
+                                      .photo!);
+                        }
+                        final user = UserProfileModel(
+                          uid: FirebaseAuth.instance.currentUser!.uid,
+                          age: ageofPatientController.text,
+                          imageUrl: imageUrl,
+                          name: nameofPatientController.text,
+                          gender: Provider.of<ProfileScreenStateModel>(context,
+                                  listen: false)
+                              .selectedGender,
+                        );
+                        await UserProfileService()
+                            .getUserProfile(user)
+                            .then((_) {
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -165,27 +200,5 @@ class ProfileScreen extends StatelessWidget {
       onChanged: onChanged,
       activeColor: kDarkBlueButtonsColor,
     );
-  }
-
-//?image picker method
-
-  Future<void> getPhoto(BuildContext context) async {
-    final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (photo == null) {
-      return;
-    } else {
-      final photoTemp = File(photo.path);
-      // ignore: use_build_context_synchronously
-      Provider.of<ProfileScreenStateModel>(context, listen: false)
-          .setPhoto(photoTemp);
-    }
-  }
-
-  Future<void> onStudentAddButtonClick() async {
-    final name = nameofPatient.text.trim();
-    final age = ageofPatient.text.trim();
-    if (name.isEmpty || age.isEmpty) {
-      return;
-    } else {}
   }
 }

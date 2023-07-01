@@ -1,7 +1,7 @@
 import 'package:doc_link/widgets/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../model/profile_model.dart';
+import '../../../../../model/doctor_profile_model.dart';
 import '../../../../../shared/const/const.dart';
 import '../../doctors/doctors_details.dart';
 import '../view_all_Doctors_page/widgets/doctors_list_widget.dart';

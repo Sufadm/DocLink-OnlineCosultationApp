@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TextFormFieldName extends StatelessWidget {
+  final TextEditingController controller;
   const TextFormFieldName({
     super.key,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Name is Required';
@@ -28,13 +31,16 @@ class TextFormFieldName extends StatelessWidget {
 }
 
 class TextFormFieldAge extends StatelessWidget {
+  final TextEditingController controller;
   const TextFormFieldAge({
     super.key,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        controller: controller,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Age is Required';

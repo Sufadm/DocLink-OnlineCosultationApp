@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_link/model/add_details_model.dart';
 
-import '../model/profile_model.dart';
+import '../model/doctor_profile_model.dart';
 
 class FirestoreService {
   //?get doctors details--------------------------------------------------------

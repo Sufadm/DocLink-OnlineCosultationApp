@@ -4,7 +4,7 @@ import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../model/profile_model.dart';
+import '../../../model/doctor_profile_model.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   late List<ProfileModel> doctors = [];

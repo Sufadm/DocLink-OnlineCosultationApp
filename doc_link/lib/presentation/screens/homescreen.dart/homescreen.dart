@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:doc_link/model/profile_model.dart';
+import 'package:doc_link/model/doctor_profile_model.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/categerie_list_doctors/categorie_list_doctors.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/categories_widget.dart';
 import 'package:doc_link/services/firestore_service.dart';

@@ -1,5 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:doc_link/model/profile_model.dart';
+import 'package:doc_link/model/doctor_profile_model.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/widgets/elevated_button_widgets.dart';

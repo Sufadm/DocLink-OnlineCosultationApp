@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../model/profile_model.dart';
+import '../../../../../model/doctor_profile_model.dart';
 import '../../../../../shared/const/const.dart';
 
 class DoctorsProfileWidget extends StatelessWidget {

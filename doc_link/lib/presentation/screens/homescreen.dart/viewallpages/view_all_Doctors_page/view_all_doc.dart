@@ -3,7 +3,7 @@ import 'package:doc_link/presentation/screens/homescreen.dart/doctors/doctors_de
 import 'package:doc_link/presentation/screens/homescreen.dart/viewallpages/view_all_Doctors_page/widgets/doctors_list_widget.dart';
 import 'package:doc_link/widgets/search_form.dart';
 import 'package:flutter/material.dart';
-import '../../../../../model/profile_model.dart';
+import '../../../../../model/doctor_profile_model.dart';
 import '../../../../../services/firestore_service.dart';
 import '../../../../../widgets/custom_appbar_widgets.dart';
 

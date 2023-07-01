@@ -62,13 +62,41 @@ class MoreScreen extends StatelessWidget {
                 })),
                 leading: const Icon(Icons.account_circle),
                 title: Text(
-                  'Edit Profile',
+                  'Profile',
                   style: kTextStyleMediumBlack,
                 ),
                 trailing: const Icon(Icons.chevron_right),
               ),
               ListTile(
-                onTap: () => logout(context),
+                onTap: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                            'Confirmation!',
+                            style: kTextStyleMediumBlack,
+                          ),
+                          content: Text(
+                            'Do you wish to logout',
+                            style: kTextStyleMediumBlack,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: Text(
+                                'Cancel',
+                                style: kTextStyleMediumBlack,
+                              ),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  logout(context);
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: kTextStyleMediumBlack,
+                                )),
+                          ],
+                        )),
                 leading: const Icon(Icons.logout),
                 title: Text(
                   'Logout',
