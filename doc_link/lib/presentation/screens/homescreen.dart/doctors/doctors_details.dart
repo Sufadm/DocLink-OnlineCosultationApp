@@ -103,7 +103,9 @@ class DoctorsDetails extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const AppointmantPage();
+                      return AppointmantPage(
+                        profile: profile,
+                      );
                     }));
                   },
                   child: Text(

@@ -140,7 +140,7 @@ class HomeScreen extends StatelessWidget {
             return Text(snapshot.error.toString());
           }
         }
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }

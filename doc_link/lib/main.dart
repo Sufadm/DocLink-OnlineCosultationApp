@@ -1,3 +1,4 @@
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/spashscreen/splashscreen.dart';
 import 'package:doc_link/provider/appointmentpage_provider.dart';
 import 'package:doc_link/provider/profilescreenprovider.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => AppointmentScreenStateModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AppointmentDateProvider(),
         ),
       ],
       child: MaterialApp(

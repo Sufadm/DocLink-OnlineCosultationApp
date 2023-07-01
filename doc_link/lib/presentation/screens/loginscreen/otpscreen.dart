@@ -17,8 +17,6 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final phoneController = TextEditingController();
-
   Timer? _timer;
   final int _timerDuration = 60;
 
@@ -66,9 +64,10 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Text(
                       'OTP Verification',
                       style: GoogleFonts.lato(
-                          fontSize: 27,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 1, 43, 114)),
+                        fontSize: 27,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 1, 43, 114),
+                      ),
                     ),
                   ),
                   kHeight20,
@@ -83,52 +82,53 @@ class _OtpScreenState extends State<OtpScreen> {
                   kHeight10,
                   kHeight25,
                   SingleChildScrollView(
-                      //? type OTP----------------
-
-                      child: Consumer<OtpScreenProvider>(
-                    builder: (context, provider, _) {
-                      return OtpPinField(
-                        autoFillEnable: true,
-                        onSubmit: (String text) async {
-                          bool verificationsuccess =
-                              await provider.verifyOtp(context, text);
-                          if (verificationsuccess) {
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(context,
+                    child: Consumer<OtpScreenProvider>(
+                      builder: (context, provider, _) {
+                        return OtpPinField(
+                          onSubmit: (String text) async {
+                            bool verificationSuccess =
+                                await provider.verifyOtp(context, text);
+                            if (verificationSuccess) {
+                              Navigator.push(
+                                context,
                                 MaterialPageRoute(builder: (context) {
-                              return const BottomNav();
-                            }));
-                          }
-                        },
-                        onChange: (String text) {
-                          provider.clearErrorMessage();
-                        },
-                        textInputAction: TextInputAction.done,
-                        otpPinFieldStyle: const OtpPinFieldStyle(
-                          defaultFieldBorderColor:
-                              Color.fromARGB(255, 0, 27, 177),
-                        ),
-                        maxLength: 6,
-                        otpPinFieldDecoration:
-                            OtpPinFieldDecoration.defaultPinBoxDecoration,
-                      );
-                    },
-                  )),
+                                  return const BottomNav();
+                                }),
+                              );
+                            }
+                          },
+                          onChange: (String text) {
+                            provider.clearErrorMessage();
+                          },
+                          textInputAction: TextInputAction.done,
+                          otpPinFieldStyle: const OtpPinFieldStyle(
+                            defaultFieldBorderColor:
+                                Color.fromARGB(255, 0, 27, 177),
+                          ),
+                          maxLength: 6,
+                          otpPinFieldDecoration:
+                              OtpPinFieldDecoration.defaultPinBoxDecoration,
+                        );
+                      },
+                    ),
+                  ),
                   kHeight20,
                   Center(
                     child: Text(
                       'We have sent you a one-time password',
                       style: GoogleFonts.lato(
-                          color: const Color.fromARGB(255, 124, 121, 121),
-                          fontWeight: FontWeight.bold),
+                        color: const Color.fromARGB(255, 124, 121, 121),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Center(
                     child: Text(
                       'to your Number',
                       style: GoogleFonts.lato(
-                          color: const Color.fromARGB(255, 124, 121, 121),
-                          fontWeight: FontWeight.bold),
+                        color: const Color.fromARGB(255, 124, 121, 121),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   kHeight10,
@@ -145,11 +145,15 @@ class _OtpScreenState extends State<OtpScreen> {
                         );
                       }
                       if (provider.currentSeconds > 0) {
+                        final remainingSeconds =
+                            _timerDuration - provider.currentSeconds;
                         return Text(
-                            'Please Enter OTP ${(_timerDuration - provider.currentSeconds).toString()} before Timeout',
-                            style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black));
+                          'Please Enter OTP $remainingSeconds before Timeout',
+                          style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        );
                       } else {
                         return const SizedBox.shrink();
                       }
