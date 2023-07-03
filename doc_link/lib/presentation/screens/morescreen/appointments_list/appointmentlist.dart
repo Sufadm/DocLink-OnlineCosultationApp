@@ -7,19 +7,11 @@ class AppointmentListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(text: 'Appointment List Page'),
+    return const Scaffold(
+      appBar: CustomAppBar(text: 'Appointment List Page'),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ListView.separated(
-          itemCount: 4,
-          separatorBuilder: (BuildContext context, int index) =>
-              const SizedBox(height: 15),
-          itemBuilder: (BuildContext context, int index) {
-            //?appointmentListWidget----------------------
-            return const NotificationListDetailsWidget();
-          },
-        ),
+        padding: EdgeInsets.all(10.0),
+        child: NotificationListDetailsWidget(),
       ),
     );
   }

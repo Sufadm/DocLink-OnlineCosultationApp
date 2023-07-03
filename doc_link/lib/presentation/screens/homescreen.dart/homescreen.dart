@@ -64,6 +64,7 @@ class HomeScreen extends StatelessWidget {
                                   'https://naturatermospa.com/wp-content/uploads/2019/10/image-11.png')
                         ],
                         options: CarouselOptions(
+                            autoPlay: true,
                             enlargeCenterPage: true,
                             enableInfiniteScroll: true,
                             animateToClosest: true),

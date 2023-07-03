@@ -10,7 +10,8 @@ import '../../../shared/const/const.dart';
 import '../../../widgets/elevated_button_widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+  final String? message;
+  ProfileScreen({super.key, this.message});
 
   final nameofPatientController = TextEditingController();
 
@@ -20,6 +21,16 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.black,
+            content: Text(
+              message!,
+              style: GoogleFonts.lato(color: Colors.red),
+            )),
+      );
+    });
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(17.0),

@@ -29,7 +29,7 @@ class DoctorsDetails extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            //?Doctors profile--
+            //?Doctors profile--------------------------------------------------
             DoctorsProfileWidget(
               profile: profile,
             ),
@@ -64,7 +64,7 @@ class DoctorsDetails extends StatelessWidget {
               color: Colors.black,
               height: 1,
             ),
-            //?prescription List-----------------
+            //?prescription List------------------------------------------------
             Padding(
               padding: const EdgeInsets.all(14.0),
               child: Text(
