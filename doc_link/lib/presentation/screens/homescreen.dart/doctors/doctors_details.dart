@@ -1,7 +1,6 @@
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/doctors_profile_widget.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptiondetails.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptionlist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,25 +38,25 @@ class DoctorsDetails extends StatelessWidget {
                 left: 80,
                 right: 115,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Payment',
-                    style: GoogleFonts.lato(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 67, 63, 63)),
-                  ),
-                  Text(
-                    "₹ 550/",
-                    style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 19,
-                        color: const Color.fromARGB(255, 67, 63, 63)),
-                  )
-                ],
-              ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'Payment',
+              //       style: GoogleFonts.lato(
+              //           fontSize: 25,
+              //           fontWeight: FontWeight.bold,
+              //           color: const Color.fromARGB(255, 67, 63, 63)),
+              //     ),
+              //     Text(
+              //       "₹ 550/",
+              //       style: GoogleFonts.lato(
+              //           fontWeight: FontWeight.bold,
+              //           fontSize: 19,
+              //           color: const Color.fromARGB(255, 67, 63, 63)),
+              //     )
+              //   ],
+              // ),
             ),
             kHeight25,
             const Divider(
@@ -75,20 +74,8 @@ class DoctorsDetails extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView.separated(
-                  itemCount: 3, // Specify the number of items in the list
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(height: 10), // Add spacing between items
-                  itemBuilder: (BuildContext context, int index) {
-                    return PrescriptionListWidget(
-                      ontap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const PrescriptionDetailsScreen();
-                      })),
-                      prescriptionName: 'Prescription ${index + 1}',
-                    );
-                  },
-                ),
+                //?prescriptionnList--------------------------------------------
+                child: PrescriptionListWidget(userid: profile.uid!),
               ),
             ),
 

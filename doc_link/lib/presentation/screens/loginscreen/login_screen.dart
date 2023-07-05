@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(17.0),
             child: SafeArea(
               child: Form(
                 key: _formKey,
@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                     Center(
                       child: Text(
                         'OR',
-                        style: kTextStyleLargeBlack,
+                        style: GoogleFonts.lato(),
                       ),
                     ),
                     //?SIGN IN BUTTON--------
@@ -124,11 +124,11 @@ class LoginScreen extends StatelessWidget {
                     Center(
                       child: SizedBox(
                         height: 47,
-                        width: 200,
+                        width: double.infinity,
                         child: ElevatedButton(
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.black)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromARGB(255, 234, 234, 234))),
                             onPressed: () async {
                               final userCredential = await signInWithGoogle();
                               if (userCredential != null) {

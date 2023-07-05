@@ -24,6 +24,14 @@ class NotificationListDetailsWidget extends StatelessWidget {
         if (snapshot.hasData) {
           final List<QueryDocumentSnapshot> appointments =
               snapshot.data!.docs.cast<QueryDocumentSnapshot>();
+          if (appointments.isEmpty) {
+            return Center(
+              child: Text(
+                'No Appointments!',
+                style: kTextStyleMediumBlack,
+              ),
+            );
+          }
           return ListView.separated(
               itemBuilder: (context, index) {
                 final appointmentData =

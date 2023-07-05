@@ -1,10 +1,14 @@
 import 'package:doc_link/widgets/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../model/prescription_model.dart';
 import '../../../../../shared/const/const.dart';
 
 class PrescriptionDetailsScreen extends StatelessWidget {
-  const PrescriptionDetailsScreen({Key? key}) : super(key: key);
+  final PrescriptionModel prescription;
+
+  const PrescriptionDetailsScreen({Key? key, required this.prescription})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +30,22 @@ class PrescriptionDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Drug: ',
+                      'Drug:   ${prescription.drug}',
                       style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Usage:',
+                      'Usage:   ${prescription.usageDuration}',
                       style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Duration:',
+                      'Duration:   ${prescription.duration}',
                       style: kTextStyleMediumBlack,
                     ),
                     kHeight10,
                     Text(
-                      'Remarks:',
+                      'Remarks:   ${prescription.remarks}',
                       style: kTextStyleMediumBlack,
                     ),
                   ],
