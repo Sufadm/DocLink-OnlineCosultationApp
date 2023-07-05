@@ -5,7 +5,6 @@ import 'package:doc_link/presentation/screens/morescreen/appointments_list/appoi
 import 'package:doc_link/presentation/screens/profilescreen/profilescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../model/user_profile.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -24,8 +23,14 @@ class MoreScreen extends StatelessWidget {
                 final userProfileList = snapshot.data!;
                 if (userProfileList.isNotEmpty) {
                   final userProfile = userProfileList.first;
-                  final String name = userProfile.name;
-                  final String imageUrl = userProfile.imageUrl;
+
+                  String name = ''; // Initialize with empty value
+                  String imageUrl = '';
+                  // final String name = userProfile.name;
+                  // final String imageUrl = userProfile.imageUrl;
+                  name = userProfile.name;
+
+                  imageUrl = userProfile.imageUrl;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,15 +45,16 @@ class MoreScreen extends StatelessWidget {
                       kHeight20,
                       Center(
                         child: CircleAvatar(
-                          radius: 70,
-                          backgroundImage: NetworkImage(
-                            imageUrl,
-                          ),
-                        ),
+                            radius: 70,
+                            backgroundImage: imageUrl.isNotEmpty
+                                ? NetworkImage(
+                                    imageUrl,
+                                  )
+                                : null),
                       ),
                       kHeight10,
                       Text(
-                        name,
+                        name.isNotEmpty ? name : 'No name',
                         style: kTextStyleLargeBlack,
                       ),
                       const SizedBox(height: 30),

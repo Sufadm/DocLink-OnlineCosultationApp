@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../../shared/const/const.dart';
 import '../../../../../widgets/elevated_button_widgets.dart';
@@ -13,8 +13,13 @@ class NotificationListDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('appointments').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('doctors')
+          .where('userId', isEqualTo: currentUser?.uid)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final List<QueryDocumentSnapshot> appointments =
@@ -23,12 +28,9 @@ class NotificationListDetailsWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final appointmentData =
                     appointments[index].data() as Map<String, dynamic>;
-                final date = (appointmentData['date'] as Timestamp?)?.toDate();
-                final formattedDate = DateFormat('MMM dd').format(date!);
-                final name = appointmentData['name'] as String?;
-                final categorie = appointmentData['categorie'] as String?;
-                final time = appointmentData['time'] as String?;
-                final place = appointmentData['place'] as String?;
+                final name = appointmentData['doctorName'] as String?;
+                final categorie = appointmentData['doctorCategory'] as String?;
+
                 return Container(
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 161, 184, 162),
@@ -45,9 +47,12 @@ class NotificationListDetailsWidget extends StatelessWidget {
                             'Date',
                             style: GoogleFonts.lato(),
                           ),
-                          Text(
-                            'Time',
-                            style: GoogleFonts.lato(),
+                          SizedBox(
+                            width: 60,
+                            child: Text(
+                              'Time',
+                              style: GoogleFonts.lato(),
+                            ),
                           ),
                           Text(
                             'Doctor',
@@ -60,11 +65,11 @@ class NotificationListDetailsWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            formattedDate,
+                            '05/12',
                             style: kTextStyleMediumBlack,
                           ),
                           Text(
-                            time ?? '',
+                            '12.30 PM',
                             style: kTextStyleMediumBlack,
                           ),
                           Text(
@@ -85,7 +90,7 @@ class NotificationListDetailsWidget extends StatelessWidget {
                             style: GoogleFonts.lato(),
                           ),
                           const SizedBox(
-                            width: 100,
+                            width: 90,
                           ),
                           Text(
                             'Place',
@@ -96,14 +101,14 @@ class NotificationListDetailsWidget extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            categorie ?? '',
+                            categorie!,
                             style: kTextStyleMediumBlack,
                           ),
                           const SizedBox(
-                            width: 80,
+                            width: 70,
                           ),
                           Text(
-                            place ?? '',
+                            'kannur',
                             style: kTextStyleMediumBlack,
                           ),
                           const SizedBox(

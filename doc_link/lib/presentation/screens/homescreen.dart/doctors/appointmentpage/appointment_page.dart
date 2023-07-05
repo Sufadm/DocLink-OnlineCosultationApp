@@ -8,9 +8,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../../../../model/add_details_model.dart';
+import '../../../../../shared/api_key.dart';
 import '../../../profilescreen/profilescreen.dart';
 
 class AppointmantPage extends StatefulWidget {
@@ -26,6 +28,9 @@ class AppointmantPage extends StatefulWidget {
 }
 
 class _AppointmantPageState extends State<AppointmantPage> {
+  final CollectionReference paymentsCollection =
+      FirebaseFirestore.instance.collection('appointments');
+
   Razorpay? _razorpay;
 
   final globalKey = GlobalKey();
@@ -49,7 +54,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
         int.parse(RegExp(r'\d+').firstMatch(fee)?.group(0) ?? '0');
     final multipliedFee = numericFee * 100;
     var options = {
-      //'key': razorpaykey,
+      'key': razorpaykey,
       'amount': multipliedFee,
       'name': widget.profile.name,
       "description": 'Doctor Appointment',
@@ -69,11 +74,11 @@ class _AppointmantPageState extends State<AppointmantPage> {
     }
   }
 
-  // @override
-  // void dispose() {
-  //   _razorpay?.clear(); // Clear the Razorpay instance
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _razorpay?.clear(); // Clear the Razorpay instance
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +98,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
                         .uid; // Assuming profile.uid represents the selected doctor's ID
 
                     final selectedDoctorDetails = details
-                        .where((detail) => detail.uid == selectedDoctorId);
+                        .where((detail) => detail.uid == selectedDoctorId)
+                        .toList();
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,22 +170,32 @@ class _AppointmantPageState extends State<AppointmantPage> {
                         ),
                         kHeight15,
                         if (selectedDoctorDetails.isNotEmpty)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                selectedDoctorDetails.first.time,
-                                style: kTextStyleMedium,
-                              ),
-                              Text(
-                                selectedDoctorDetails.first.place,
-                                style: kTextStyleMediumBlack,
-                              ),
-                              Text(
-                                'Fee : ${selectedDoctorDetails.first.fee}',
-                                style: kTextStyleMedium,
-                              ),
-                            ],
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: selectedDoctorDetails.length,
+                            itemBuilder: (context, index) {
+                              final detail = selectedDoctorDetails[index];
+
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    detail.time,
+                                    style: kTextStyleMedium,
+                                  ),
+                                  Text(
+                                    detail.place,
+                                    style: kTextStyleMediumBlack,
+                                  ),
+                                  Text(
+                                    'Fee : ${detail.fee}',
+                                    style: kTextStyleMedium,
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         if (selectedDoctorDetails.isEmpty)
                           Text(
@@ -214,7 +230,9 @@ class _AppointmantPageState extends State<AppointmantPage> {
                                   .doc(userUid)
                                   .get();
                               if (documentSnapshot.exists) {
-                                makePayment(selectedDoctorDetails.first.fee);
+                                for (final detail in selectedDoctorDetails) {
+                                  makePayment(detail.fee);
+                                }
                               } else {
                                 // ignore: use_build_context_synchronously
                                 Navigator.push(context,
@@ -244,49 +262,35 @@ class _AppointmantPageState extends State<AppointmantPage> {
     );
   }
 
-  void storeDataToFirestore() {
-    final userUid = FirebaseAuth.instance.currentUser!.uid;
-
-    // Create a new document with a unique ID in the Firestore collection
-    final appointmentData = {
-      'userUid': userUid,
-      'profile': {
-        'name': widget.profile.name,
-        'imageUrl': widget.profile.imageUrl,
-        'place': widget.profile.place,
-        'gender': widget.profile.gender,
-        'phone': widget.profile.phone,
-        'email': widget.profile.email,
-      },
-      'date': AppointmentDateProvider().getDate().toString(),
-      // Include any other relevant fields you want to store
-    };
-
-    FirebaseFirestore.instance
-        .collection('appointments')
-        .add(appointmentData)
-        .then((value) {
-      // Document was successfully added
-      final appointmentId = value.id;
-      Fluttertoast.showToast(
-        msg: 'Appointment stored in Firestore with ID: $appointmentId',
-        timeInSecForIosWeb: 4,
-      );
-    }).catchError((error) {
-      // Error occurred while adding document
-      debugPrint(error.toString());
-      Fluttertoast.showToast(
-        msg: 'Error occurred while storing appointment.',
-        timeInSecForIosWeb: 4,
-      );
-    });
-  }
-
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Fluttertoast.showToast(
       msg: 'SUCCESS PAYMENT: ${response.paymentId}',
       timeInSecForIosWeb: 4,
     );
+    final userUid = FirebaseAuth.instance.currentUser!.uid;
+    final documentSnapshot = await FirebaseFirestore.instance
+        .collection('userprofile')
+        .doc(userUid)
+        .get();
+    final appointmentDate = AppointmentDateProvider().getDate();
+    final formattedDate = DateFormat('MMMM d').format(appointmentDate!);
+
+    final appointmentData = {
+      'image': documentSnapshot['imageUrl'],
+      'userName': documentSnapshot['name'],
+      'userId': userUid,
+      'doctorId': widget.profile.uid,
+      'doctorName': widget.profile.name,
+      'doctorCategory': widget.profile.category,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
+      // 'remarks': remarksController.text,
+      'appointmentDate': formattedDate
+    };
+
+    final doctorAppointmentsCollection =
+        FirebaseFirestore.instance.collection('doctors');
+
+    await doctorAppointmentsCollection.add(appointmentData);
   }
 }
 
