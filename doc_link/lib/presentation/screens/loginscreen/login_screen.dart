@@ -116,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                         style: GoogleFonts.lato(),
                       ),
                     ),
-                    //?SIGN IN BUTTON--------
+                    //?SIGN IN BUTTON---------
                     const SizedBox(
                       height: 27,
                     ),

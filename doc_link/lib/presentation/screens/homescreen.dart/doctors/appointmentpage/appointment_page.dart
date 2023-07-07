@@ -276,6 +276,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
     final formattedDate = DateFormat('MMMM d').format(appointmentDate!);
 
     final appointmentData = {
+      'gender': documentSnapshot['gender'],
+      'age': documentSnapshot['age'],
       'image': documentSnapshot['imageUrl'],
       'userName': documentSnapshot['name'],
       'userId': userUid,

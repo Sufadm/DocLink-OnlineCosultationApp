@@ -12,11 +12,9 @@ class ViewAllCategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change your color here
         ),
-        backgroundColor: Colors.white,
         title: const Text(
           'All Categories',
           style: TextStyle(

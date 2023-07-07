@@ -16,7 +16,7 @@ class ViewAllCategorieWidget extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: greylight1),
+            borderRadius: BorderRadius.circular(10), color: kWhiteColor),
         height: 60,
         width: double.infinity,
         child: Container(

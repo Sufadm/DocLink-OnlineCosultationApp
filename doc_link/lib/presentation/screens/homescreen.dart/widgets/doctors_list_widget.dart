@@ -28,8 +28,9 @@ class DoctorsWidget extends StatelessWidget {
 
             return Container(
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: greylight),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Color.fromARGB(253, 218, 223, 252),
+              ),
               height: 260,
               width: double.infinity,
               child: Row(

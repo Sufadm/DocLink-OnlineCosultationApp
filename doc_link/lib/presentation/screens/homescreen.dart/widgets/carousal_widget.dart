@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CarousalWidget extends StatelessWidget {
-  final String networkimage;
+  final String assetimage;
   const CarousalWidget({
     super.key,
-    required this.networkimage,
+    required this.assetimage,
   });
 
   @override
@@ -14,7 +14,7 @@ class CarousalWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         image: DecorationImage(
-          image: NetworkImage(networkimage),
+          image: AssetImage(assetimage),
           fit: BoxFit.cover,
         ),
       ),

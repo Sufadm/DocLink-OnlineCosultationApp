@@ -3,7 +3,6 @@ import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../model/doctor_profile_model.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -69,57 +68,60 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return StreamBuilder<List<ProfileModel>>(
-      stream: FirestoreService().getDoctorsProfilesStream(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {}
+    return Container(
+      color: kWhiteColor, // Replace with your desired color
+      child: StreamBuilder<List<ProfileModel>>(
+        stream: FirestoreService().getDoctorsProfilesStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {}
 
-        if (snapshot.hasError) {
-          return const Text('Error fetching doctors');
-        }
+          if (snapshot.hasError) {
+            return const Text('Error fetching doctors');
+          }
 
-        doctors = snapshot.data ?? [];
-        searchResults = doctors
-            .where((doctor) =>
-                doctor.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
-        if (searchResults.isEmpty) {
-          return Center(
-            child: Text(
-              'No results found',
-              style: kTextStyleMediumBlack,
-            ),
-          );
-        }
-
-        return ListView.builder(
-          itemCount: searchResults.length,
-          itemBuilder: (context, index) {
-            final doctor = searchResults[index];
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(doctor.imageUrl),
-              ),
-              title: Text(
-                doctor.name,
+          doctors = snapshot.data ?? [];
+          searchResults = doctors
+              .where((doctor) =>
+                  doctor.name.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+          if (searchResults.isEmpty) {
+            return Center(
+              child: Text(
+                'No results found',
                 style: kTextStyleMediumBlack,
               ),
-              subtitle: Text(
-                doctor.category,
-                style: GoogleFonts.lato(),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DoctorsDetails(profile: doctor),
-                  ),
-                );
-              },
             );
-          },
-        );
-      },
+          }
+
+          return ListView.builder(
+            itemCount: searchResults.length,
+            itemBuilder: (context, index) {
+              final doctor = searchResults[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(doctor.imageUrl),
+                ),
+                title: Text(
+                  doctor.name,
+                  style: kTextStyleMediumBlack,
+                ),
+                subtitle: Text(
+                  doctor.category,
+                  style: GoogleFonts.lato(),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DoctorsDetails(profile: doctor),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

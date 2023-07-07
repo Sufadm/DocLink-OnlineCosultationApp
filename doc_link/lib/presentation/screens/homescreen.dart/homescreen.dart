@@ -53,15 +53,14 @@ class HomeScreen extends StatelessWidget {
                       CarouselSlider(
                         items: const [
                           CarousalWidget(
-                            networkimage:
-                                'https://www.healthworkscollective.com/wp-content/uploads/2021/02/Medical-Consultation.jpg',
+                            assetimage: 'asset_images/Medical-Consultation.jpg',
                           ),
                           CarousalWidget(
-                              networkimage:
-                                  'https://www.eatthis.com/wp-content/uploads/sites/4/2022/04/talk-to-doctor-e1650409953356.jpg?quality=82&strip=1'),
+                              assetimage: 'asset_images/image-11.png'),
                           CarousalWidget(
-                              networkimage:
-                                  'https://naturatermospa.com/wp-content/uploads/2019/10/image-11.png')
+                              assetimage:
+                                  'asset_images/gfznfh2yzbm6hruqjftx.jpg'),
+                          CarousalWidget(assetimage: 'asset_images/1.jpg')
                         ],
                         options: CarouselOptions(
                             autoPlay: true,

@@ -8,9 +8,9 @@ class DoctorsProfileWidget extends StatelessWidget {
   final ProfileModel profile;
 
   const DoctorsProfileWidget({
-    super.key,
+    Key? key,
     required this.profile,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,35 +20,43 @@ class DoctorsProfileWidget extends StatelessWidget {
         SizedBox(
           height: 150,
           width: 150,
-          child: Image.network(
-            profile.imageUrl,
-            fit: BoxFit.cover,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(10), // Set the desired border radius
+              image: DecorationImage(
+                image: NetworkImage(profile.imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
         SizedBox(
-            height: 140,
-            width: 130,
-            // color: Colors.amberAccent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  profile.name,
-                  style: kTextStyleMediumBlack,
-                ),
-                Text(
-                  profile.category,
-                  style: GoogleFonts.lato(
-                      color: const Color.fromARGB(255, 129, 129, 129)),
-                ),
-                Text(
-                  profile.qualification,
-                  style: GoogleFonts.lato(
-                      color: const Color.fromARGB(255, 129, 129, 129)),
-                ),
-              ],
-            )),
+          height: 140,
+          width: 130,
+          // color: Colors.amberAccent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                profile.name,
+                style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold, fontSize: 17),
+              ),
+              Text(
+                profile.category,
+                style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold, color: kBlackColor),
+              ),
+              Text(
+                profile.qualification,
+                style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold, color: kBlackColor),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

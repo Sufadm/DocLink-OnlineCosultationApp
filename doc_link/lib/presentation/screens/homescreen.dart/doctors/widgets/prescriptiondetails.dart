@@ -1,5 +1,6 @@
 import 'package:doc_link/widgets/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../model/prescription_model.dart';
 import '../../../../../shared/const/const.dart';
@@ -18,11 +19,14 @@ class PrescriptionDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            kHeight25,
+            kHeight10,
             Container(
-              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: kWhiteColor,
+              ),
+              height: 150,
               width: double.infinity,
-              color: greylight1,
               child: Container(
                 margin: const EdgeInsets.only(left: 20),
                 child: Column(
@@ -31,22 +35,22 @@ class PrescriptionDetailsScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Drug:   ${prescription.drug}',
-                      style: kTextStyleMediumBlack,
+                      style: GoogleFonts.outfit(fontSize: 15),
                     ),
-                    kHeight10,
+                    kHeight5,
                     Text(
                       'Usage:   ${prescription.usageDuration}',
-                      style: kTextStyleMediumBlack,
+                      style: GoogleFonts.outfit(fontSize: 15),
                     ),
-                    kHeight10,
+                    kHeight5,
                     Text(
                       'Duration:   ${prescription.duration}',
-                      style: kTextStyleMediumBlack,
+                      style: GoogleFonts.outfit(fontSize: 15),
                     ),
-                    kHeight10,
+                    kHeight5,
                     Text(
                       'Remarks:   ${prescription.remarks}',
-                      style: kTextStyleMediumBlack,
+                      style: GoogleFonts.outfit(fontSize: 15),
                     ),
                   ],
                 ),

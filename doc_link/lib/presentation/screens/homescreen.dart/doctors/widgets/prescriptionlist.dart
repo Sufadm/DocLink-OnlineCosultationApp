@@ -1,6 +1,7 @@
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptiondetails.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../model/prescription_model.dart';
 import '../../../../../shared/const/const.dart';
@@ -19,6 +20,16 @@ class PrescriptionListWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final prescriptionList = snapshot.data!;
+          if (prescriptionList.isEmpty) {
+            return Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: Text(
+                ' No Records/',
+                style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+            );
+          }
           return ListView.separated(
             itemCount: prescriptionList.length,
             separatorBuilder: (context, index) => const Divider(
@@ -35,10 +46,9 @@ class PrescriptionListWidget extends StatelessWidget {
                 })),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: greylight1,
-                  ),
-                  height: 70,
+                      borderRadius: BorderRadius.circular(10),
+                      color: kWhiteColor),
+                  height: 57,
                   width: double.infinity,
                   child: Container(
                     margin: const EdgeInsets.only(left: 10, right: 10),
@@ -46,10 +56,14 @@ class PrescriptionListWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Prescription ${index + 1}',
-                          style: kTextStyleMediumBlack,
+                          ' Prescription ${index + 1}',
+                          style: GoogleFonts.outfit(
+                              color: kBlackColor, fontWeight: FontWeight.bold),
                         ),
-                        const Icon(Icons.east)
+                        const Icon(
+                          Icons.east,
+                          color: kBlackColor,
+                        )
                       ],
                     ),
                   ),
@@ -57,8 +71,11 @@ class PrescriptionListWidget extends StatelessWidget {
               );
             },
           );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return const SizedBox.shrink();
         }
-        return const SizedBox.shrink();
       },
     );
   }

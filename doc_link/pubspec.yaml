@@ -67,6 +67,10 @@ flutter:
     - asset_images/online-doctor-consultation-flat-design-logo-aplication-doctor-cartoon-for-mobile-app-free-vector-removebg-preview.png
     - asset_images/a-patient-consults-a-doctor-and-nurse-free-vector.jpg
     - asset_images/e9b33ec8595630e5a2cfaa14eb6784b6.jpg
+    - asset_images/Medical-Consultation.jpg
+    - asset_images/image-11.png
+    - asset_images/gfznfh2yzbm6hruqjftx.jpg
+    - asset_images\1.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

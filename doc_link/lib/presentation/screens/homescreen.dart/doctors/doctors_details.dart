@@ -26,7 +26,7 @@ class DoctorsDetails extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back)),
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             //?Doctors profile--------------------------------------------------
             DoctorsProfileWidget(
@@ -38,25 +38,6 @@ class DoctorsDetails extends StatelessWidget {
                 left: 80,
                 right: 115,
               ),
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       'Payment',
-              //       style: GoogleFonts.lato(
-              //           fontSize: 25,
-              //           fontWeight: FontWeight.bold,
-              //           color: const Color.fromARGB(255, 67, 63, 63)),
-              //     ),
-              //     Text(
-              //       "₹ 550/",
-              //       style: GoogleFonts.lato(
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 19,
-              //           color: const Color.fromARGB(255, 67, 63, 63)),
-              //     )
-              //   ],
-              // ),
             ),
             kHeight25,
             const Divider(
@@ -68,7 +49,8 @@ class DoctorsDetails extends StatelessWidget {
               padding: const EdgeInsets.all(14.0),
               child: Text(
                 'Prescriptions',
-                style: kTextStyleLargeBlack,
+                style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
             Expanded(
@@ -79,7 +61,7 @@ class DoctorsDetails extends StatelessWidget {
               ),
             ),
 
-            //?Submit Button-
+            //?Submit Button--------
             SizedBox(
               width: 420,
               height: 50,
@@ -97,7 +79,7 @@ class DoctorsDetails extends StatelessWidget {
                   },
                   child: Text(
                     'Book an Appointmnet',
-                    style: GoogleFonts.lato(),
+                    style: GoogleFonts.outfit(),
                   )),
             ),
           ],

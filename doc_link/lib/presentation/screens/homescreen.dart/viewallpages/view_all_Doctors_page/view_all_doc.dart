@@ -52,6 +52,7 @@ class ViewAllDoctorsPage extends StatelessWidget {
                         },
                         doctorname: doctor.name,
                         avatarImageUrl: doctor.imageUrl,
+                        categorie: doctor.category,
                       );
                     },
                   );
