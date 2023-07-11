@@ -38,37 +38,62 @@ class PrescriptionListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final prescription = prescriptionList[index];
               return GestureDetector(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                  return PrescriptionDetailsScreen(
-                    prescription: prescription,
-                  );
-                })),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: kWhiteColor),
-                  height: 57,
-                  width: double.infinity,
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          ' Prescription ${index + 1}',
-                          style: GoogleFonts.outfit(
-                              color: kBlackColor, fontWeight: FontWeight.bold),
+                  onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PrescriptionDetailsScreen(
+                          prescription: prescription,
+                        );
+                      })),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              prescription.date!,
+                              style:
+                                  GoogleFonts.lato(fontWeight: FontWeight.bold),
+                            ),
+                            kWidth10,
+                            const Expanded(
+                              child: Divider(
+                                endIndent: 5,
+                                thickness: 0.2,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        const Icon(
-                          Icons.east,
-                          color: kBlackColor,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
+                      ),
+                      kHeight5,
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: kWhiteColor),
+                        height: 57,
+                        width: double.infinity,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 10, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                ' Prescription ${index + 1}',
+                                style: GoogleFonts.outfit(
+                                    color: kBlackColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Icon(
+                                Icons.east,
+                                color: kBlackColor,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ));
             },
           );
         } else if (snapshot.hasError) {

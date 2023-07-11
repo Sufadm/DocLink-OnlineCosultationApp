@@ -26,7 +26,7 @@ class DoctorsListWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: kWhiteColor,
         ),
-        height: 65,
+        height: 67,
         width: double.infinity,
         child: ListTile(
           subtitle: Text(

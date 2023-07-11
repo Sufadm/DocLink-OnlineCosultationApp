@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:doc_link/model/doctor_profile_model.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/success_screen.dart';
+import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/widgets/timeslot_widget.dart';
 import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/widgets/elevated_button_widgets.dart';
@@ -28,6 +30,10 @@ class AppointmantPage extends StatefulWidget {
 }
 
 class _AppointmantPageState extends State<AppointmantPage> {
+  Set<TimeOfDay> bookedSlots = {}; // Initialize an empty set
+  TimeOfDay? selectedTime; // Add the selectedTime variable
+  bool isTimeSlotSelected = false;
+
   final CollectionReference paymentsCollection =
       FirebaseFirestore.instance.collection('appointments');
 
@@ -38,6 +44,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
   final remarksController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final DatePickerController _datePickerController = DatePickerController();
 
   @override
   void initState() {
@@ -48,8 +55,21 @@ class _AppointmantPageState extends State<AppointmantPage> {
     _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
+  void handleSlotSelection(TimeOfDay selectedTime) {
+    setState(() {
+      if (bookedSlots.contains(selectedTime)) {
+        bookedSlots.remove(selectedTime);
+        this.selectedTime = null;
+        isTimeSlotSelected = false;
+      } else {
+        bookedSlots.add(selectedTime);
+        this.selectedTime = selectedTime;
+        isTimeSlotSelected = true;
+      }
+    });
+  }
+
   void makePayment(String fee) async {
-    // Extract numeric part from fee using regular expression
     final numericFee =
         int.parse(RegExp(r'\d+').firstMatch(fee)?.group(0) ?? '0');
     final multipliedFee = numericFee * 100;
@@ -76,7 +96,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
 
   @override
   void dispose() {
-    _razorpay?.clear(); // Clear the Razorpay instance
+    _razorpay?.clear();
     super.dispose();
   }
 
@@ -86,7 +106,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(8.0),
             child: Form(
               key: _formKey,
               child: StreamBuilder<List<AddDetailModel>>(
@@ -94,164 +114,202 @@ class _AppointmantPageState extends State<AppointmantPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final List<AddDetailModel> details = snapshot.data!;
-                    final selectedDoctorId = widget.profile
-                        .uid; // Assuming profile.uid represents the selected doctor's ID
+                    final selectedDoctorId = widget.profile.uid;
 
                     final selectedDoctorDetails = details
                         .where((detail) => detail.uid == selectedDoctorId)
                         .toList();
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        kHeight10,
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back),
-                        ),
-                        Center(
-                          child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(widget.profile.imageUrl),
-                            foregroundColor:
-                                const Color.fromARGB(255, 98, 78, 20),
-                            radius: 70,
-                          ),
-                        ),
-                        kHeight10,
-                        Center(
-                          child: Text(
-                            widget.profile.name,
-                            style: kTextStyleMediumBlack,
-                          ),
-                        ),
-                        kHeight10,
-                        Center(
-                          child: Text(
-                            widget.profile.place,
-                            style: kTextStyleMediumBlack,
-                          ),
-                        ),
-                        kHeight10,
-                        Center(
-                          child: Text(
-                            widget.profile.gender,
-                            style: kTextStyleMediumBlack,
-                          ),
-                        ),
-                        kHeight10,
-                        const Divider(
-                          thickness: 1,
-                        ),
-                        kHeight10,
-                        Text(
-                          'Select Date',
-                          style: kTextStyleLargeBlack,
-                        ),
-                        kHeight25,
-                        DatePicker(
-                          DateTime.now(),
-                          daysCount: 10,
-                          initialSelectedDate: DateTime.now(),
-                          selectionColor: Colors.black,
-                          selectedTextColor: Colors.white,
-                          onDateChange: (date) {
-                            // New date selected
-                            AppointmentDateProvider().setDate(date);
-                          },
-                        ),
-                        kHeight10,
-                        kHeight20,
-                        Text(
-                          'Available',
-                          style: kTextStyleLargeBlack,
-                        ),
-                        kHeight15,
-                        if (selectedDoctorDetails.isNotEmpty)
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: selectedDoctorDetails.length,
-                            itemBuilder: (context, index) {
-                              final detail = selectedDoctorDetails[index];
+                    if (selectedDoctorDetails.isNotEmpty) {
+                      final detail = selectedDoctorDetails.first;
+                      final startTime =
+                          DateFormat('hh:mm a').parse(detail.startTime);
+                      final endTime =
+                          DateFormat('hh:mm a').parse(detail.endTime);
+                      final timePerPerson = int.parse(detail.timePerPerson);
 
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    detail.time,
-                                    style: kTextStyleMedium,
-                                  ),
-                                  Text(
-                                    detail.place,
-                                    style: kTextStyleMediumBlack,
-                                  ),
-                                  Text(
-                                    'Fee : ${detail.fee}',
-                                    style: kTextStyleMedium,
-                                  ),
-                                ],
-                              );
+                      final List<TimeOfDay> timeSlots = [];
+                      var currentTime = startTime;
+                      while (currentTime.isBefore(endTime)) {
+                        timeSlots.add(TimeOfDay.fromDateTime(currentTime));
+                        currentTime =
+                            currentTime.add(Duration(minutes: timePerPerson));
+                      }
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.arrow_back),
+                          ),
+                          Center(
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(widget.profile.imageUrl),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 98, 78, 20),
+                              radius: 70,
+                            ),
+                          ),
+                          kHeight10,
+                          Center(
+                            child: Text(
+                              widget.profile.name,
+                              style: kTextStyleMediumBlack,
+                            ),
+                          ),
+                          kHeight10,
+                          Center(
+                            child: Text(
+                              widget.profile.place,
+                              style: kTextStyleMediumBlack,
+                            ),
+                          ),
+                          kHeight10,
+                          Center(
+                            child: Text(
+                              widget.profile.gender,
+                              style: kTextStyleMediumBlack,
+                            ),
+                          ),
+                          kHeight10,
+                          const Divider(
+                            thickness: 1,
+                          ),
+                          kHeight10,
+                          Text(
+                            'Select Date',
+                            style: kTextStyleLargeBlack,
+                          ),
+                          kHeight25,
+                          DatePicker(
+                            DateTime.now(),
+                            controller: _datePickerController,
+                            activeDates: [
+                              DateTime.now(),
+                            ],
+                            daysCount: 10,
+                            initialSelectedDate: DateTime.now(),
+                            selectionColor: Colors.black,
+                            selectedTextColor: Colors.white,
+                            onDateChange: (date) {
+                              AppointmentDateProvider().setDate(date);
                             },
                           ),
-                        if (selectedDoctorDetails.isEmpty)
+                          kHeight10,
+                          kHeight20,
                           Text(
-                            'Doctor Not Availbale Now !',
-                            style: GoogleFonts.lato(color: Colors.red),
+                            'Available',
+                            style: kTextStyleLargeBlack,
                           ),
-                        kHeight15,
-                        TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please Enter Remarks';
-                            }
-                            return null;
-                          },
-                          controller: remarksController,
-                          maxLines: 6,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Remarks',
+                          kHeight15,
+                          //?timeSlotWidget-------------------------------------
+                          Column(
+                            children: [
+                              SingleChildScrollView(
+                                child: TimeSlotWidget(
+                                  // bookedSlots: bookedSlots,
+                                  onSlotSelected: handleSlotSelection,
+                                  timeSlots: timeSlots,
+                                  selectedTime: selectedTime,
+                                ),
+                              ),
+                              kHeight25,
+                              ElevatedButtons(
+                                text: 'Pay',
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (isTimeSlotSelected) {
+                                      final userUid = FirebaseAuth
+                                          .instance.currentUser!.uid;
+                                      final documentSnapshot =
+                                          await FirebaseFirestore.instance
+                                              .collection('userprofile')
+                                              .doc(userUid)
+                                              .get();
+
+                                      final querySnapshot = await FirebaseFirestore
+                                          .instance
+                                          .collection('doctors')
+                                          .where('doctorId',
+                                              isEqualTo: widget.profile.uid)
+                                          .where('appointmentTime',
+                                              isEqualTo:
+                                                  // ignore: use_build_context_synchronously
+                                                  selectedTime?.format(context))
+                                          .get();
+                                      if (querySnapshot.docs.isNotEmpty) {
+                                        // ignore: use_build_context_synchronously
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                'Time Slot Already Booked',
+                                                style: GoogleFonts.outfit(),
+                                              ),
+                                              content: Text(
+                                                'The selected time slot is already booked. Please choose a different time slot.',
+                                                style: GoogleFonts.outfit(),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                        return;
+                                      }
+
+                                      if (isTimeSlotSelected) {
+                                        if (documentSnapshot.exists) {
+                                          for (final detail
+                                              in selectedDoctorDetails) {
+                                            makePayment(detail.fee);
+                                          }
+                                        } else {
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return ProfileScreen(
+                                              message:
+                                                  'Please create a profile',
+                                            );
+                                          }));
+                                        }
+                                      }
+                                    } else {
+                                      Fluttertoast.showToast(
+                                        msg: 'Please select a time slot.',
+                                        timeInSecForIosWeb: 4,
+                                      );
+                                      // ignore: use_build_context_synchronously
+                                    }
+                                  }
+                                },
+                              ),
+                            ],
                           ),
-                        ),
-                        kHeight15,
-                        ElevatedButtons(
-                          text: 'Pay',
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              final userUid =
-                                  FirebaseAuth.instance.currentUser!.uid;
-                              final documentSnapshot = await FirebaseFirestore
-                                  .instance
-                                  .collection('userprofile')
-                                  .doc(userUid)
-                                  .get();
-                              if (documentSnapshot.exists) {
-                                for (final detail in selectedDoctorDetails) {
-                                  makePayment(detail.fee);
-                                }
-                              } else {
-                                // ignore: use_build_context_synchronously
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return ProfileScreen(
-                                    message: 'Please create a profile',
-                                  );
-                                }));
-                              }
-                            }
-                          },
-                        ),
-                      ],
-                    );
+
+                          //?pay button-----------------------------------------
+                        ],
+                      );
+                    } else {
+                      return elsemethod(context);
+                    }
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    return const SizedBox
-                        .shrink(); // Render an empty container while waiting for data
+                    return const SizedBox.shrink();
                   }
                 },
               ),
@@ -262,11 +320,97 @@ class _AppointmantPageState extends State<AppointmantPage> {
     );
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    Fluttertoast.showToast(
-      msg: 'SUCCESS PAYMENT: ${response.paymentId}',
-      timeInSecForIosWeb: 4,
+//?---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Column elsemethod(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
+        Center(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(widget.profile.imageUrl),
+            foregroundColor: const Color.fromARGB(255, 98, 78, 20),
+            radius: 70,
+          ),
+        ),
+        kHeight10,
+        Center(
+          child: Text(
+            widget.profile.name,
+            style: kTextStyleMediumBlack,
+          ),
+        ),
+        kHeight10,
+        Center(
+          child: Text(
+            widget.profile.place,
+            style: kTextStyleMediumBlack,
+          ),
+        ),
+        kHeight10,
+        Center(
+          child: Text(
+            widget.profile.gender,
+            style: kTextStyleMediumBlack,
+          ),
+        ),
+        kHeight10,
+        const Divider(
+          thickness: 1,
+        ),
+        kHeight10,
+        Text(
+          'Select Date',
+          style: kTextStyleLargeBlack,
+        ),
+        kHeight25,
+        DatePicker(
+          DateTime.now(),
+          daysCount: 10,
+          initialSelectedDate: DateTime.now(),
+          selectionColor: Colors.black,
+          selectedTextColor: Colors.white,
+          onDateChange: (date) {
+            // New date selected
+            AppointmentDateProvider().setDate(date);
+          },
+        ),
+        kHeight10,
+        kHeight20,
+        Text(
+          'Available',
+          style: kTextStyleLargeBlack,
+        ),
+        Text(
+          'Doctor not Availbale Now',
+          style: GoogleFonts.outfit(color: Colors.red),
+        ),
+        const SizedBox(
+          height: 280,
+        ),
+        ElevatedButtons(
+          onPressed: () {},
+          text: 'Pay',
+        )
+      ],
     );
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
     final userUid = FirebaseAuth.instance.currentUser!.uid;
     final documentSnapshot = await FirebaseFirestore.instance
         .collection('userprofile')
@@ -276,6 +420,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
     final formattedDate = DateFormat('MMMM d').format(appointmentDate!);
 
     final appointmentData = {
+      'paymentid': response.paymentId,
       'gender': documentSnapshot['gender'],
       'age': documentSnapshot['age'],
       'image': documentSnapshot['imageUrl'],
@@ -285,29 +430,47 @@ class _AppointmantPageState extends State<AppointmantPage> {
       'doctorName': widget.profile.name,
       'doctorCategory': widget.profile.category,
       'timestamp': DateTime.now().millisecondsSinceEpoch,
-      // 'remarks': remarksController.text,
-      'appointmentDate': formattedDate
+      'appointmentDate': formattedDate,
+      'appointmentTime': selectedTime?.format(context),
     };
 
     final doctorAppointmentsCollection =
         FirebaseFirestore.instance.collection('doctors');
+    // Check if the selected time slot is already booked
 
     await doctorAppointmentsCollection.add(appointmentData);
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return SuccessScreen(
+          paymentId: response.paymentId!,
+          date: formattedDate,
+          time: selectedTime?.format(context) ?? '',
+          categorie: widget.profile.category,
+          image: widget.profile.imageUrl,
+          name: widget.profile.name,
+        );
+      }),
+    );
   }
-}
 
-void _handlePayamentError(PaymentFailureResponse response) {
-  Fluttertoast.showToast(
-    msg: 'ERROR HERE: ${response.code}-${response.message}',
-    timeInSecForIosWeb: 4,
-  );
-}
+  void _handlePayamentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+      msg: 'ERROR: ${response.code}-${response.message}',
+      timeInSecForIosWeb: 4,
+    );
+  }
 
-void _handleExternalWallet(ExternalWalletResponse response) {
-  Fluttertoast.showToast(
-    msg: 'EXTERNAL WALLET: ${response.walletName}',
-    timeInSecForIosWeb: 4,
-  );
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+      msg: 'EXTERNAL WALLET: ${response.walletName}',
+      timeInSecForIosWeb: 4,
+    );
+  }
 }
 
 class AppointmentDateProvider with ChangeNotifier {

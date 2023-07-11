@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_link/model/add_details_model.dart';
 import 'package:doc_link/services/profile_service.dart';
+import 'package:intl/intl.dart';
 
 import '../model/doctor_profile_model.dart';
 import '../model/prescription_model.dart';
@@ -18,10 +19,24 @@ class FirestoreService {
   Stream<List<AddDetailModel>> getAllDetailsDoctors() {
     final doctorCollection =
         FirebaseFirestore.instance.collection('adddetails');
-    return doctorCollection.snapshots().map((snapshot) => snapshot.docs
-        .map((doc) => AddDetailModel.fromJson(doc.data()))
-        .toList());
+    final currentDate = DateTime.now();
+    final formattedCurrentDate = DateFormat('yyyy-MM-dd').format(currentDate);
+
+    return doctorCollection
+        .where('date', isEqualTo: formattedCurrentDate)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => AddDetailModel.fromJson(doc.data()))
+            .toList());
   }
+
+  // Stream<List<AddDetailModel>> getAllDetailsDoctors() {
+  //   final doctorCollection =
+  //       FirebaseFirestore.instance.collection('adddetails');
+  //   return doctorCollection.snapshots().map((snapshot) => snapshot.docs
+  //       .map((doc) => AddDetailModel.fromJson(doc.data()))
+  //       .toList());
+  // }
 
 //?prescription fetching from firestore-----------------------------------------
   // Stream<List<PrescriptionModel>> getAllPrescriptions(String userId) {

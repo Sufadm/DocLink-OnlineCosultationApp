@@ -1,11 +1,11 @@
 import 'package:doc_link/shared/const/const.dart';
-import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/doctors_profile_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/doctors/widgets/prescriptionlist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../model/doctor_profile_model.dart';
+import 'appointmentpage/appointment_page.dart';
 
 class DoctorsDetails extends StatelessWidget {
   final ProfileModel profile;

@@ -1,23 +1,36 @@
 class AddDetailModel {
   String? uid;
-  final String place;
-  final String time;
   final String fee;
+  final String date;
+  final String startTime;
+  final String endTime;
+  final String timePerPerson;
+  AddDetailModel({
+    required this.fee,
+    this.uid,
+    required this.date,
+    required this.startTime,
+    required this.endTime,
+    required this.timePerPerson,
+  });
 
-  AddDetailModel(
-      {required this.fee, this.uid, required this.place, required this.time});
   Map<String, dynamic> toJson() {
     return {
       'id': uid,
-      'place': place,
-      'time': time,
       'fee': fee,
+      'date': date,
+      'startTime': startTime,
+      'endTime': endTime,
+      'timePerPerson': timePerPerson,
     };
   }
 
   static AddDetailModel fromJson(Map<String, dynamic> json) => AddDetailModel(
-      place: json['place'],
-      time: json['time'],
-      uid: json['id'],
-      fee: json['fee']);
+        uid: json['id'],
+        fee: json['fee'],
+        date: json['date'],
+        startTime: json['startTime'],
+        endTime: json['endTime'],
+        timePerPerson: json['timePerPerson'],
+      );
 }
