@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doc_link/presentation/screens/morescreen/appointments_list/widget/titles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../shared/const/const.dart';
 import '../../../../../widgets/elevated_button_widgets.dart';
@@ -38,6 +38,8 @@ class NotificationListDetailsWidget extends StatelessWidget {
                     appointments[index].data() as Map<String, dynamic>;
                 final name = appointmentData['doctorName'] as String?;
                 final categorie = appointmentData['doctorCategory'] as String?;
+                final time = appointmentData['appointmentTime'];
+                final date = appointmentData['appointmentDate'];
 
                 return Container(
                   decoration: BoxDecoration(
@@ -48,36 +50,17 @@ class NotificationListDetailsWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Date',
-                            style: GoogleFonts.lato(),
-                          ),
-                          SizedBox(
-                            width: 60,
-                            child: Text(
-                              'Time',
-                              style: GoogleFonts.lato(),
-                            ),
-                          ),
-                          Text(
-                            'Doctor',
-                            style: GoogleFonts.lato(),
-                          )
-                        ],
-                      ),
+                      const Titles(),
                       kHeight10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '05/12',
+                            date,
                             style: kTextStyleMediumBlack,
                           ),
                           Text(
-                            '12.30 PM',
+                            time,
                             style: kTextStyleMediumBlack,
                           ),
                           Text(
@@ -91,21 +74,7 @@ class NotificationListDetailsWidget extends StatelessWidget {
                         color: Colors.black,
                         thickness: 1,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Categorie',
-                            style: GoogleFonts.lato(),
-                          ),
-                          const SizedBox(
-                            width: 90,
-                          ),
-                          Text(
-                            'Place',
-                            style: GoogleFonts.lato(),
-                          )
-                        ],
-                      ),
+                      const TitlesTwo(),
                       Row(
                         children: [
                           Text(

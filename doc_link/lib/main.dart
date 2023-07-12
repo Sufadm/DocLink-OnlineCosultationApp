@@ -2,6 +2,7 @@ import 'package:doc_link/presentation/screens/homescreen.dart/doctors/appointmen
 import 'package:doc_link/presentation/screens/spashscreen/splashscreen.dart';
 import 'package:doc_link/provider/appointmentpage_provider.dart';
 import 'package:doc_link/provider/profilescreenprovider.dart';
+import 'package:doc_link/services/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,8 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseMessageApi().initNotification();
+
   runApp(const MyApp());
 }
 

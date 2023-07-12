@@ -53,6 +53,8 @@ class _TimeSlotWidgetState extends State<TimeSlotWidget> {
         final time = widget.timeSlots[index];
         final formattedTime = time.format(context);
         final isSelected = time == selectedTime;
+        final isBooked =
+            bookedSlots.contains(time); // Check if the time slot is booked
 
         return GestureDetector(
           onTap: () {
@@ -73,7 +75,9 @@ class _TimeSlotWidgetState extends State<TimeSlotWidget> {
                 color: isSelected ? Colors.grey : Colors.black,
                 width: 1.0,
               ),
-              color: isSelected ? Colors.grey : Colors.white,
+              color: isBooked
+                  ? Colors.grey.shade300
+                  : (isSelected ? Colors.grey : Colors.white),
             ),
             height: 20,
             width: 147,
@@ -81,7 +85,7 @@ class _TimeSlotWidgetState extends State<TimeSlotWidget> {
               child: Text(
                 formattedTime,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.green,
+                  color: isSelected || isBooked ? Colors.white : Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),

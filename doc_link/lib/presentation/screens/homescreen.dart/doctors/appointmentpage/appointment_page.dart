@@ -128,6 +128,11 @@ class _AppointmantPageState extends State<AppointmantPage> {
                           DateFormat('hh:mm a').parse(detail.endTime);
                       final timePerPerson = int.parse(detail.timePerPerson);
 
+                      final fee = int.parse(detail.fee);
+                      // final numberFormat = NumberFormat.currency(
+                      //   locale: 'en_in',
+                      // );
+                      // final feeString = numberFormat.format(fee);
                       final List<TimeOfDay> timeSlots = [];
                       var currentTime = startTime;
                       while (currentTime.isBefore(endTime)) {
@@ -201,9 +206,18 @@ class _AppointmantPageState extends State<AppointmantPage> {
                           ),
                           kHeight10,
                           kHeight20,
-                          Text(
-                            'Available',
-                            style: kTextStyleLargeBlack,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Available',
+                                style: kTextStyleLargeBlack,
+                              ),
+                              Text(
+                                'Fee: $fee/-',
+                                style: GoogleFonts.outfit(),
+                              )
+                            ],
                           ),
                           kHeight15,
                           //?timeSlotWidget-------------------------------------
@@ -426,6 +440,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
       'image': documentSnapshot['imageUrl'],
       'userName': documentSnapshot['name'],
       'userId': userUid,
+      'doctorImage': widget.profile.imageUrl,
       'doctorId': widget.profile.uid,
       'doctorName': widget.profile.name,
       'doctorCategory': widget.profile.category,
@@ -436,7 +451,6 @@ class _AppointmantPageState extends State<AppointmantPage> {
 
     final doctorAppointmentsCollection =
         FirebaseFirestore.instance.collection('doctors');
-    // Check if the selected time slot is already booked
 
     await doctorAppointmentsCollection.add(appointmentData);
 

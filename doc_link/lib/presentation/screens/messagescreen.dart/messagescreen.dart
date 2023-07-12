@@ -23,16 +23,8 @@ class MessageScreen extends StatelessWidget {
                 style: kTextStyleLargeBlack,
               ),
               kHeight15,
-              Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(height: 10),
-                  itemCount: 5, // Replace with the actual item count
-                  itemBuilder: (BuildContext context, int index) {
-                    return const MessageListDoctors(); // Replace with your widget that represents a message
-                  },
-                ),
-              ),
+
+              const MessageListDoctors(), // Replace with your widget that represents a message
             ],
           ),
         ),
