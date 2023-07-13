@@ -25,7 +25,10 @@ class MessageListDoctors extends StatelessWidget {
           final uniqueDoctorIds = <String>{};
 
           return Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 5,
+              ),
               itemCount: documents.length,
               itemBuilder: (context, index) {
                 final document = documents[index].data();
@@ -45,6 +48,7 @@ class MessageListDoctors extends StatelessWidget {
                     onTap: () => Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return ChattingScreen(
+                        doctorId: doctorId,
                         categorie: category,
                         name: name,
                         image: image,
