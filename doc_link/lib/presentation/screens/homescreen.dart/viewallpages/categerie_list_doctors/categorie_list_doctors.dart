@@ -1,4 +1,4 @@
-import 'package:doc_link/widgets/custom_appbar_widgets.dart';
+import 'package:doc_link/core/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/doctor_profile_model.dart';

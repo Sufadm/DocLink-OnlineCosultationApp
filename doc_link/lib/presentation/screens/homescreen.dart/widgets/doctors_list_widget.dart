@@ -22,9 +22,9 @@ class DoctorsWidget extends StatelessWidget {
             snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             List<ProfileModel> doctors = snapshot.data!;
-            String name = doctors[2].name;
-            String qualification = doctors[2].qualification;
-            String category = doctors[2].category;
+            String name = doctors[0].name;
+            String qualification = doctors[0].qualification;
+            String category = doctors[0].category;
 
             return Container(
               decoration: const BoxDecoration(
@@ -79,7 +79,7 @@ class DoctorsWidget extends StatelessWidget {
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
                                         return DoctorsDetails(
-                                          profile: doctors[2],
+                                          profile: doctors[0],
                                         );
                                       }));
                                     },

@@ -9,6 +9,14 @@ class ProfileScreenStateModel extends ChangeNotifier {
   File? _photo;
   File? get photo => _photo;
   String? photoUrl;
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
 
   void setSelectedGender(String value) {
     selectedGender = value;

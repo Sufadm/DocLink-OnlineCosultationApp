@@ -11,7 +11,7 @@ import 'package:doc_link/presentation/screens/homescreen.dart/widgets/doctors_li
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/search_form.dart';
+import '../../../core/search_form.dart';
 
 class HomeScreen extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             List<ProfileModel> doctors = snapshot.data!;
-            String imageUrl = doctors[2].imageUrl;
+            String imageUrl = doctors[1].imageUrl;
 
             return SafeArea(
               child: Scaffold(
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(
                             children: List.generate(
-                              5,
+                              2,
                               (index) {
                                 final category = doctors[index].category;
                                 final isFirstOccurrence = doctors.indexWhere(

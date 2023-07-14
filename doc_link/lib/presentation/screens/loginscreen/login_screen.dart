@@ -6,14 +6,13 @@ import 'package:provider/provider.dart';
 import '../../../services/googlesignin_service.dart';
 import '../../../provider/loginpage_prov.dart';
 import '../../../shared/const/const.dart';
-import '../../../widgets/elevated_button_widgets.dart';
+import '../../../core/elevated_button_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({
     super.key,
   });
   final _formKey = GlobalKey<FormState>();
-
   final phoneController = TextEditingController();
 
   @override

@@ -8,6 +8,7 @@ class ProfileModel {
   final String imageUrl;
   final String email;
   final String phone;
+  //final String doctorfcmToken;
   ProfileModel({
     this.uid,
     required this.imageUrl,

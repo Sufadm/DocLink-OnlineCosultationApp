@@ -76,10 +76,7 @@ class ChattingScreen extends StatelessWidget {
                       reverse: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
-                        // final reversedIndex = messages.length - 1 - index;
                         final message = messages[index];
-                        // final uid = message['uid'];
-                        // final time = message['time'].toDate();
 
                         return Container(
                           padding: const EdgeInsets.symmetric(
@@ -215,17 +212,4 @@ class ChattingScreen extends StatelessWidget {
       ),
     );
   }
-
-  // void sendMessage() {
-  //   String messageText = chatController.text.trim();
-  //   if (messageText.isNotEmpty) {
-  //     ChatService().addMessage(
-  //         messageText,
-  //         FirebaseAuth
-  //             .instance.currentUser!.uid, // Replace with the actual user ID
-  //         DateTime.now(),
-  //         doctorId);
-  //     chatController.clear();
-  //   }
-  // }
 }

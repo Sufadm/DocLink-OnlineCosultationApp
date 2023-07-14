@@ -1,6 +1,6 @@
 import 'package:doc_link/shared/const/const.dart';
 import 'package:doc_link/presentation/screens/messagescreen.dart/widgets/messagelist_widget.dart';
-import 'package:doc_link/widgets/search_form.dart';
+import 'package:doc_link/core/search_form.dart';
 import 'package:flutter/material.dart';
 
 class MessageScreen extends StatelessWidget {

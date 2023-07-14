@@ -32,15 +32,18 @@ dependencies:
   cloud_firestore: ^4.8.0
   cupertino_icons: ^1.0.2
   date_picker_timeline: ^1.2.5
+  firebase_analytics: ^10.4.3
   firebase_auth: ^4.6.2
   firebase_core: ^2.13.1
   firebase_messaging: ^14.6.4
   firebase_storage: ^11.2.2
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^15.1.0+1
   fluttertoast: ^8.2.2
   google_fonts: ^4.0.4
   google_sign_in: ^6.1.4
+  http: ^1.1.0
   image_picker: ^0.8.7+5
   intl: ^0.18.1
   lottie: ^2.4.0

@@ -1,5 +1,5 @@
 import 'package:doc_link/presentation/screens/morescreen/appointments_list/widget/notificationlist_container.dart';
-import 'package:doc_link/widgets/custom_appbar_widgets.dart';
+import 'package:doc_link/core/custom_appbar_widgets.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentListPage extends StatelessWidget {

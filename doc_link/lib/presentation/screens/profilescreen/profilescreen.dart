@@ -1,13 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_link/model/user_profile.dart';
 import 'package:doc_link/presentation/screens/profilescreen/widget/textformfield_widget.dart';
 import 'package:doc_link/provider/profilescreenprovider.dart';
 import 'package:doc_link/services/profile_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../shared/const/const.dart';
-import '../../../widgets/elevated_button_widgets.dart';
+import '../../../core/elevated_button_widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String? message;
@@ -21,6 +23,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //   bool loading = false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -157,37 +160,61 @@ class ProfileScreen extends StatelessWidget {
                     controller: ageofPatientController,
                   ),
                   kHeight15,
-                  ElevatedButtons(
-                    text: 'Submit',
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Form is valid, proceed with submission
-                        String imageUrl = '';
-                        if (Provider.of<ProfileScreenStateModel>(context,
-                                    listen: false)
-                                .photo !=
-                            null) {
-                          imageUrl = await UserProfileService()
-                              .uploadImageToStorage(
-                                  Provider.of<ProfileScreenStateModel>(context,
-                                          listen: false)
-                                      .photo!);
-                        }
-                        final user = UserProfileModel(
-                          uid: FirebaseAuth.instance.currentUser!.uid,
-                          age: ageofPatientController.text,
-                          imageUrl: imageUrl,
-                          name: nameofPatientController.text,
-                          gender: Provider.of<ProfileScreenStateModel>(context,
-                                  listen: false)
-                              .selectedGender,
-                        );
-                        await UserProfileService()
-                            .getUserProfile(user)
-                            .then((_) {
-                          Navigator.pop(context);
-                        });
-                      }
+
+                  Consumer<ProfileScreenStateModel>(
+                    builder: (context, value, child) {
+                      return value.loading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ElevatedButtons(
+                              text: 'Submit',
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  value.loading = true;
+                                  // Form is valid, proceed with submission
+                                  String imageUrl = '';
+                                  if (Provider.of<ProfileScreenStateModel>(
+                                              context,
+                                              listen: false)
+                                          .photo !=
+                                      null) {
+                                    imageUrl = await UserProfileService()
+                                        .uploadImageToStorage(Provider.of<
+                                                    ProfileScreenStateModel>(
+                                                context,
+                                                listen: false)
+                                            .photo!);
+                                  }
+                                  final fcmToken = await FirebaseMessaging
+                                      .instance
+                                      .getToken();
+                                  final user = UserProfileModel(
+                                    uid: FirebaseAuth.instance.currentUser!.uid,
+                                    age: ageofPatientController.text,
+                                    imageUrl: imageUrl,
+                                    name: nameofPatientController.text,
+                                    gender:
+                                        Provider.of<ProfileScreenStateModel>(
+                                                context,
+                                                listen: false)
+                                            .selectedGender,
+                                  );
+
+                                  await UserProfileService()
+                                      .getUserProfile(user)
+                                      .then((_) async {
+                                    // Store the FCM token in the user's document
+                                    await FirebaseFirestore.instance
+                                        .collection('userprofile')
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser!.uid)
+                                        .update({'fcmToken': fcmToken});
+
+                                    Navigator.pop(context);
+                                    value.loading = false;
+                                  });
+                                }
+                              },
+                            );
                     },
                   )
                 ],
