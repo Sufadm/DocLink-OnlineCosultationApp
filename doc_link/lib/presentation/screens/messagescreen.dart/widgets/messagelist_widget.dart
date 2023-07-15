@@ -22,6 +22,13 @@ class MessageListDoctors extends StatelessWidget {
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
           final documents = snapshot.data!.docs;
+          if (documents.isEmpty) {
+            return Center(
+                child: Text(
+              'No Messages',
+              style: GoogleFonts.outfit(fontWeight: FontWeight.bold),
+            ));
+          }
           final uniqueDoctorIds = <String>{};
 
           return Expanded(

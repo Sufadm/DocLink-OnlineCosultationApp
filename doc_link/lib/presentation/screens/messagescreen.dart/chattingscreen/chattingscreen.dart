@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:doc_link/model/chatmessage_model.dart';
 import 'package:doc_link/services/chat_service.dart';
 import 'package:doc_link/shared/const/const.dart';
@@ -65,86 +66,152 @@ class ChattingScreen extends StatelessWidget {
                     .collection('chats')
                     .doc(doctorId)
                     .collection('messages')
-                    .orderBy('time', descending: true)
+                    .orderBy('time', descending: false)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final messages = snapshot.data!.docs
                         .map((doc) => ChatMessage.fromSnapshot(doc))
                         .toList();
+
+                    final groupedMessages = groupBy(
+                      messages,
+                      (message) => DateFormat("dd MMM yyyy")
+                          .format(message.time.toDate()),
+                    );
+
                     return ListView.builder(
                       reverse: true,
-                      itemCount: messages.length,
+                      itemCount: groupedMessages.length,
                       itemBuilder: (context, index) {
-                        final message = messages[index];
-
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 8,
+                        final date = groupedMessages.keys.elementAt(index);
+                        final messagesForDate =
+                            groupedMessages.values.elementAt(index);
+                        final dateCard = Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 5,
+                          color: Colors.grey[300],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              date,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                // color: Colors.white
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: message.senderId == currentuserid
-                                ? MainAxisAlignment.end
-                                : MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 14,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: const Radius.circular(20),
-                                    topRight: const Radius.circular(20),
-                                    bottomRight: Radius.circular(
-                                        message.senderId ==
-                                                FirebaseAuth
-                                                    .instance.currentUser!.uid
-                                            ? 0
-                                            : 20),
-                                    topLeft: Radius.circular(message.senderId ==
-                                            FirebaseAuth
-                                                .instance.currentUser!.uid
-                                        ? 20
-                                        : 0),
+                        );
+                        return Column(
+                          children: [
+                            dateCard,
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: messagesForDate.length,
+                              itemBuilder: (context, index) {
+                                final message = messagesForDate[index];
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 8,
                                   ),
-                                  color: message.senderId == currentuserid
-                                      ? Colors.grey.shade800
-                                      : const Color.fromARGB(255, 78, 77, 77)
-                                          .withOpacity(0.6),
-                                ),
-                                constraints:
-                                    BoxConstraints(maxWidth: w * 2 / 3),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 30),
-                                      child: Text(
-                                        message.textMessage,
-                                        style: GoogleFonts.outfit(
-                                          color: kWhiteColor,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 5,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        message.senderId == currentuserid
+                                            ? MainAxisAlignment.end
+                                            : MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 14,
+                                          vertical: 14,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft:
+                                                const Radius.circular(20),
+                                            topRight: const Radius.circular(20),
+                                            bottomRight: Radius.circular(
+                                                message.senderId ==
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.uid
+                                                    ? 0
+                                                    : 20),
+                                            topLeft: Radius.circular(
+                                                message.senderId ==
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.uid
+                                                    ? 20
+                                                    : 0),
+                                          ),
+                                          color:
+                                              message.senderId == currentuserid
+                                                  ? Colors.grey.shade800
+                                                  : const Color.fromARGB(
+                                                          255, 78, 77, 77)
+                                                      .withOpacity(0.6),
+                                        ),
+                                        constraints:
+                                            BoxConstraints(maxWidth: w * 2 / 3),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  right: 30),
+                                              child: Text(
+                                                message.textMessage,
+                                                style: GoogleFonts.outfit(
+                                                  color: kWhiteColor,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Container(
+                                              constraints: const BoxConstraints(
+                                                  maxWidth:
+                                                      60), // Set the maximum width
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    DateFormat.jm()
+                                                        .format(message.time
+                                                            .toDate())
+                                                        .toString(),
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 10,
+                                                        color: Colors.grey),
+                                                  ),
+                                                  if (message.senderId ==
+                                                      currentuserid)
+                                                    const Icon(
+                                                      Icons.done,
+                                                      color: kWhiteColor,
+                                                      size: 15,
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      DateFormat.jm()
-                                          .format((message.time.toDate()))
-                                          .toString(),
-                                      style: GoogleFonts.lato(
-                                          fontSize: 10, color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         );
                       },
                     );
@@ -184,9 +251,14 @@ class ChattingScreen extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      ChatService().sendTextMessage(
-                          currentuserid, doctorId, chatController.text.trim());
-                      chatController.clear();
+                      if (chatController.text.trim().isNotEmpty) {
+                        ChatService().sendTextMessage(
+                          currentuserid,
+                          doctorId,
+                          chatController.text.trim(),
+                        );
+                        chatController.clear();
+                      }
                     },
                     icon: const Icon(
                       Icons.send,
@@ -199,16 +271,6 @@ class ChattingScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget giveTime(DateTime dateTime) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Text(
-        DateFormat('kk:mm').format(dateTime),
-        style: GoogleFonts.outfit(color: Colors.grey.shade600, fontSize: 10),
       ),
     );
   }

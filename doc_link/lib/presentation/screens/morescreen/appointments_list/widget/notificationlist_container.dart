@@ -34,7 +34,7 @@ class NotificationListDetailsWidget extends StatelessWidget {
           }
           final groupedAppointments = groupAppointmentsByUser(appointments);
 
-          return ListView.separated(
+          return ListView.builder(
             itemBuilder: (context, index) {
               final appointmentGroup = groupedAppointments[index];
               // final appointmentData =
@@ -125,8 +125,6 @@ class NotificationListDetailsWidget extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 15),
             itemCount: groupedAppointments.length,
           );
         }
@@ -136,16 +134,20 @@ class NotificationListDetailsWidget extends StatelessWidget {
   }
 
   List<List<QueryDocumentSnapshot>> groupAppointmentsByUser(
-      List<QueryDocumentSnapshot> appointments) {
+    List<QueryDocumentSnapshot> appointments,
+  ) {
     final Map<String, List<QueryDocumentSnapshot>> groupedMap = {};
+
     for (final appointment in appointments) {
-      final userName = appointment['userName'];
-      if (groupedMap.containsKey(userName)) {
-        groupedMap[userName]!.add(appointment);
+      final doctorId = appointment['doctorId'];
+
+      if (groupedMap.containsKey(doctorId)) {
+        groupedMap[doctorId]!.add(appointment);
       } else {
-        groupedMap[userName] = [appointment];
+        groupedMap[doctorId] = [appointment];
       }
     }
+
     return groupedMap.values.toList();
   }
 }

@@ -489,18 +489,17 @@ class _AppointmantPageState extends State<AppointmantPage> {
 
     await doctorAppointmentsCollection.add(appointmentData);
 
+    await Future.delayed(const Duration(seconds: 2));
     await NotificationService().sendNotificationToDoctor(
+      widget.profile.uid!,
       userUid,
       documentSnapshot['fcmToken'],
       documentSnapshot['name'],
-      widget.profile.uid!,
-      appointmentDate,
+      selectedTime?.format(context) ?? '',
     );
 
-    await Future.delayed(const Duration(seconds: 2));
-
     // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
+    await Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) {
         return SuccessScreen(
