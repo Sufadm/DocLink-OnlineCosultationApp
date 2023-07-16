@@ -3,6 +3,7 @@ import 'package:doc_link/services/profile_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import '../loginscreen/login_screen.dart';
 import '../profilescreen/profilescreen.dart';
 import 'appointments_list/appointmentlist.dart';
@@ -74,6 +75,14 @@ class MoreScreen extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                   ),
                   ListTile(
+                    onTap: () => shareApp(),
+                    leading: const Icon(Icons.share),
+                    title: Text(
+                      'Share App',
+                      style: kTextStyleMediumBlack,
+                    ),
+                  ),
+                  ListTile(
                     onTap: () => showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
@@ -117,10 +126,20 @@ class MoreScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  void logout(BuildContext context) {
-    FirebaseAuth.instance.signOut();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
+Future<void> shareApp() async {
+  // Set the app link and the message to be shared
+  const String appLink =
+      'https://play.google.com/store/apps/details?id=com.example.myapp';
+  const String message = 'Check out my new app: $appLink';
+
+  // Share the app link and message using the share dialog
+  await FlutterShare.share(title: 'Share App', text: message, linkUrl: appLink);
+}
+
+void logout(BuildContext context) {
+  FirebaseAuth.instance.signOut();
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => LoginScreen()));
 }

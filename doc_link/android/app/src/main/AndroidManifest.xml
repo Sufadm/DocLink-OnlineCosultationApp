@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.doc_link">
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="doc_link"
         android:name="${applicationName}"

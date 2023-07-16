@@ -4,11 +4,11 @@ class UserProfileModel {
   final String gender;
   final String age;
   final String imageUrl;
-  // final String fcmToken;
+  final String fcmToken;
 
   UserProfileModel({
     this.uid,
-    // required this.fcmToken,
+    required this.fcmToken,
     required this.age,
     required this.imageUrl,
     required this.name,
@@ -28,7 +28,7 @@ class UserProfileModel {
 
   static UserProfileModel fromJson(Map<String, dynamic> json) =>
       UserProfileModel(
-          //   fcmToken: json['fcmToken'],
+          fcmToken: json['fcmToken'],
           age: json['age'],
           gender: json['gender'],
           imageUrl: json['imageUrl'],

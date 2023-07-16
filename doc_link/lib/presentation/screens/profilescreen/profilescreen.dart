@@ -170,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   value.loading = true;
-                                  // Form is valid, proceed with submission
+                                  //  Form is valid, proceed with submission
                                   String imageUrl = '';
                                   if (Provider.of<ProfileScreenStateModel>(
                                               context,
@@ -197,6 +197,7 @@ class ProfileScreen extends StatelessWidget {
                                                 context,
                                                 listen: false)
                                             .selectedGender,
+                                    fcmToken: fcmToken!,
                                   );
 
                                   await UserProfileService()

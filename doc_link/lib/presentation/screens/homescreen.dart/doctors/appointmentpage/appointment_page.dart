@@ -47,7 +47,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
   final remarksController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final DatePickerController _datePickerController = DatePickerController();
+  // final DatePickerController _datePickerController = DatePickerController();
 
   @override
   void initState() {
@@ -195,7 +195,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
                             kHeight25,
                             DatePicker(
                               DateTime.now(),
-                              controller: _datePickerController,
+                              // controller: _datePickerController,
                               activeDates: [
                                 DateTime.now(),
                               ],
@@ -228,6 +228,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
                               children: [
                                 SingleChildScrollView(
                                   child: TimeSlotWidget(
+                                    doctorId: widget.profile.uid!,
                                     // bookedSlots: bookedSlots,
                                     onSlotSelected: handleSlotSelection,
                                     timeSlots: timeSlots,
