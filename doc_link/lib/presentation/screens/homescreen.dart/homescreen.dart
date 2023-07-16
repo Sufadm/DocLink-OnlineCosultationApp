@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             List<ProfileModel> doctors = snapshot.data!;
-            String imageUrl = doctors[1].imageUrl;
+            String imageUrl = doctors[4].imageUrl;
 
             return SafeArea(
               child: Scaffold(
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(
                             children: List.generate(
-                              2,
+                              6,
                               (index) {
                                 final category = doctors[index].category;
                                 final isFirstOccurrence = doctors.indexWhere(
@@ -97,6 +97,7 @@ class HomeScreen extends StatelessWidget {
 
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 7.0),
+                                    //?categories widget-----------------------
                                     child: CategoriesWidget(
                                       ontap: () => Navigator.push(
                                           context,

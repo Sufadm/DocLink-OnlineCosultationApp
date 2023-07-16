@@ -47,8 +47,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
   final remarksController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  // final DatePickerController _datePickerController = DatePickerController();
-
+//?Razor pay payment-----------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -223,7 +222,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
                               ],
                             ),
                             kHeight15,
-                            //?timeSlotWidget-------------------------------------
+                            //?TimeSlotWidget-----------------------------------
                             Column(
                               children: [
                                 SingleChildScrollView(
@@ -236,6 +235,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
                                   ),
                                 ),
                                 kHeight25,
+
+                                //?PAY Button-----------------------------------
                                 Consumer<AuthenticationProvider>(
                                   builder: (context, value, child) {
                                     return value.loading
@@ -278,6 +279,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
                                                           .get();
                                                   if (querySnapshot
                                                       .docs.isNotEmpty) {
+                                                    //?Already Booked Logic-----
                                                     // ignore: use_build_context_synchronously
                                                     showDialog(
                                                       context: context,
@@ -347,8 +349,6 @@ class _AppointmantPageState extends State<AppointmantPage> {
                                 )
                               ],
                             ),
-
-                            //?pay button-----------------------------------------
                           ],
                         );
                       } else {
@@ -370,6 +370,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
   }
 
 //?---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //?if SNAPSHOT has No data----------------------------------------------------
+
   Column elsemethod(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -449,6 +451,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
       ],
     );
   }
+  //?PAYMENT METHOD SUCCESS METHOD----------------------------------------------
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     showDialog(
@@ -484,7 +487,7 @@ class _AppointmantPageState extends State<AppointmantPage> {
       'appointmentDate': formattedDate,
       'appointmentTime': selectedTime?.format(context),
     };
-
+//?All values are adding to firestore Collections-------------------------------
     final doctorAppointmentsCollection =
         FirebaseFirestore.instance.collection('doctors');
 

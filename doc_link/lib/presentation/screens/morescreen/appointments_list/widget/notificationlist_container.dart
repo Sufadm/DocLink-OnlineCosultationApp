@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../../shared/const/const.dart';
 import '../appointment_details.dart';
@@ -26,9 +27,9 @@ class NotificationListDetailsWidget extends StatelessWidget {
               snapshot.data!.docs.cast<QueryDocumentSnapshot>();
           if (appointments.isEmpty) {
             return Center(
-              child: Text(
-                'No Appointments!',
-                style: kTextStyleMediumBlack,
+              child: Lottie.network(
+                'https://lottie.host/77d12cca-195a-4372-9da8-85380b6d8a3f/LFqyLxLC4M.json',
+                //style: kTextStyleMediumBlack,
               ),
             );
           }
@@ -37,13 +38,9 @@ class NotificationListDetailsWidget extends StatelessWidget {
           return ListView.builder(
             itemBuilder: (context, index) {
               final appointmentGroup = groupedAppointments[index];
-              // final appointmentData =
-              //     appointments[index].data() as Map<String, dynamic>;
               final name = appointmentGroup[0]['doctorName'] as String?;
               final category = appointmentGroup[0]['doctorCategory'] as String?;
-              final time = appointmentGroup[0]['appointmentTime'];
               final date = appointmentGroup[0]['appointmentDate'];
-              final gender = appointmentGroup[0]['gender'];
 
               final image = appointmentGroup[0]['doctorImage'];
               final appointmentCount = appointmentGroup.length;
@@ -107,10 +104,6 @@ class NotificationListDetailsWidget extends StatelessWidget {
                             .map((appointment) =>
                                 appointment['appointmentTime'] as String)
                             .toList(),
-                        // dates: appointmentGroup
-                        //     .map((appointment) =>
-                        //         appointment['appointmentDate'] as String)
-                        //     .toList(),
                         names: appointmentGroup
                             .map((appointment) =>
                                 appointment['doctorName'] as String)

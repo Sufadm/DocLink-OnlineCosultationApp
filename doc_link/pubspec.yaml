@@ -78,6 +78,7 @@ flutter:
     - asset_images/image-11.png
     - asset_images/gfznfh2yzbm6hruqjftx.jpg
     - asset_images/1.jpg
+    - asset_images/7123025_logo_google_g_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

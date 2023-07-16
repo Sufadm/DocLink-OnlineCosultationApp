@@ -38,6 +38,8 @@ class MessageListDoctors extends StatelessWidget {
               ),
               itemCount: documents.length,
               itemBuilder: (context, index) {
+                //?fetching datas from doctors collections----------------------
+
                 final document = documents[index].data();
                 final doctorId = document['doctorId'] as String;
                 final name = document['doctorName'] as String;

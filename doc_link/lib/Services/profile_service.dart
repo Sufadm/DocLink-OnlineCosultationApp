@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UserProfileService {
   final CollectionReference doctorCollection =
       FirebaseFirestore.instance.collection('userprofile');
-
+//?upload user profile image----------------------------------------------------
   Future<String> uploadImageToStorage(File imageFile) async {
     try {
       String filename = DateTime.now().millisecondsSinceEpoch.toString();
@@ -24,6 +24,7 @@ class UserProfileService {
     }
   }
 
+//?adding values of profile-----------------------------------------------------
   Future<void> getUserProfile(UserProfileModel user) async {
     try {
       final docUser =
@@ -35,6 +36,8 @@ class UserProfileService {
       rethrow;
     }
   }
+
+//? Get User profile values-----------------------------------------------------
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getAllUserProfile() {
     final currentUserId =
@@ -50,12 +53,4 @@ class UserProfileService {
     final User? user = FirebaseAuth.instance.currentUser;
     return user?.uid ?? '';
   }
-
-  // Stream<List<UserProfileModel>> getAllUserProfile(UserProfileModel user) {
-  //   final doctorCollection =
-  //       FirebaseFirestore.instance.collection('userprofile').doc(user.ui);
-  //   return doctorCollection.snapshots().map((snapshot) => snapshot.docs
-  //       .map((doc) => UserProfileModel.fromJson(doc.data()))
-  //       .toList());
-  // }
 }

@@ -3,6 +3,7 @@ import 'package:doc_link/services/firestore_service.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../../../model/doctor_profile_model.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -86,11 +87,11 @@ class CustomSearchDelegate extends SearchDelegate {
               .toList();
           if (searchResults.isEmpty) {
             return Center(
-              child: Text(
-                'No results found',
-                style: kTextStyleMediumBlack,
-              ),
-            );
+                child: Lottie.network(
+              'https://lottie.host/dc6da250-4b70-4eae-ac06-9a639212ab17/gwDgbycfXt.json',
+              height: 300,
+              fit: BoxFit.cover,
+            ));
           }
 
           return ListView.builder(

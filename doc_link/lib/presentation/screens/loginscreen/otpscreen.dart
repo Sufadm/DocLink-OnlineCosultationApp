@@ -46,7 +46,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<OtpScreenProvider>(
       create: (_) => OtpScreenProvider(widget.verificationId),
       child: Scaffold(
         body: Padding(
@@ -89,6 +89,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             bool verificationSuccess =
                                 await provider.verifyOtp(context, text);
                             if (verificationSuccess) {
+                              // ignore: use_build_context_synchronously
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
@@ -131,8 +132,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                     ),
                   ),
-                  kHeight10,
-                  kHeight15,
+                  kHeight25,
                   Consumer<OtpScreenProvider>(
                     builder: (context, provider, _) {
                       if (provider.errorMessage != null) {
@@ -143,8 +143,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             style: GoogleFonts.lato(color: Colors.red),
                           ),
                         );
-                      }
-                      if (provider.currentSeconds > 0) {
+                      } else if (provider.currentSeconds > 0) {
                         final remainingSeconds =
                             _timerDuration - provider.currentSeconds;
                         return Text(

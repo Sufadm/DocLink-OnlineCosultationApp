@@ -24,7 +24,7 @@ class ViewAllCategoriesPage extends StatelessWidget {
           ),
         ),
       ),
-      //?all categeries here------------------
+      //?all categeries here------------------------------------
       body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: StreamBuilder<List<ProfileModel>>(

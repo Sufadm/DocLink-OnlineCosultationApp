@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 7,
                     ),
-                    //? OTP Button widget-
+                    //? OTP Button widget---------------------------------------
                     Consumer<AuthenticationProvider>(
                       builder: (context, value, child) {
                         return value.loading
@@ -107,7 +107,6 @@ class LoginScreen extends StatelessWidget {
                               );
                       },
                     ),
-
                     kHeight25,
                     Center(
                       child: Text(
@@ -115,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                         style: GoogleFonts.lato(),
                       ),
                     ),
-                    //?SIGN IN BUTTON---------
+                    //?SIGN IN BUTTON-------------------------------------------
                     const SizedBox(
                       height: 27,
                     ),
@@ -125,25 +124,35 @@ class LoginScreen extends StatelessWidget {
                         height: 47,
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    const Color.fromARGB(255, 234, 234, 234))),
-                            onPressed: () async {
-                              final userCredential = await signInWithGoogle();
-                              if (userCredential != null) {
-                                //? User signed in successfully
-                                // ignore: use_build_context_synchronously
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const BottomNav();
-                                }));
-                              } else {}
-                            },
-                            child: Image.network(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/800px-Google_2015_logo.svg.png',
-                              height: 35,
-                              fit: BoxFit.cover,
-                            )),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color.fromARGB(255, 234, 234, 234))),
+                          onPressed: () async {
+                            final userCredential = await signInWithGoogle();
+                            if (userCredential != null) {
+                              //? User signed in successfully
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const BottomNav();
+                              }));
+                            } else {}
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                  'asset_images/7123025_logo_google_g_icon.png'),
+                              Text(
+                                'Google',
+                                style: GoogleFonts.outfit(
+                                  fontSize: 24,
+                                  color: kBlackColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     )
                   ],

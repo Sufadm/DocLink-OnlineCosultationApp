@@ -7,7 +7,7 @@ import '../model/doctor_profile_model.dart';
 import '../model/prescription_model.dart';
 
 class FirestoreService {
-  //?get doctors details--------------------------------------------------------
+  //? get doctors values--------------------------------------------------------
   Stream<List<ProfileModel>> getDoctorsProfilesStream() {
     final doctorCollection =
         FirebaseFirestore.instance.collection('doctorsprofile');
@@ -15,7 +15,7 @@ class FirestoreService {
         snapshot.docs.map((doc) => ProfileModel.fromJson(doc.data())).toList());
   }
 
-//?Add details Stream-----------------------------------------------------------
+//? get Add details values------------------------------------------------------
   Stream<List<AddDetailModel>> getAllDetailsDoctors() {
     final doctorCollection =
         FirebaseFirestore.instance.collection('adddetails');
@@ -30,6 +30,7 @@ class FirestoreService {
             .toList());
   }
 
+//? get prescripions values ----------------------------------------------------
   Stream<List<PrescriptionModel>> getAllPrescriptions(String userId) {
     final prescriptionCollection =
         FirebaseFirestore.instance.collection('precriptions');

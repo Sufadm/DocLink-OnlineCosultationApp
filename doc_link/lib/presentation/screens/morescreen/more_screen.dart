@@ -128,6 +128,7 @@ class MoreScreen extends StatelessWidget {
   }
 }
 
+//?Share app function-----------------------------------------------------------
 Future<void> shareApp() async {
   // Set the app link and the message to be shared
   const String appLink =
