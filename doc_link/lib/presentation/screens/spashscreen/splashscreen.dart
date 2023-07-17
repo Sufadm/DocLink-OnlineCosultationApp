@@ -1,10 +1,11 @@
-import 'package:doc_link/presentation/screens/loginscreen/login_screen.dart';
 import 'package:doc_link/shared/const/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../bottomnav/bottomnav.dart';
+import '../loginscreen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,39 +16,19 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> animation;
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-
-    animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-
-    _animationController.repeat(reverse: false);
     navigateToHomescreen();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
 //?Navigating Function
   navigateToHomescreen() async {
-    // await Future.delayed(const Duration(seconds: 3));
-    await Future.delayed(const Duration(milliseconds: 2600));
+    await Future.delayed(const Duration(seconds: 4));
 
     FirebaseAuth auth = FirebaseAuth.instance;
     if (auth.currentUser != null) {
-      //  ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) {
@@ -55,7 +36,7 @@ class SplashScreenState extends State<SplashScreen>
         }),
       );
     } else {
-      // ignore: use_build_context_synchronously
+      //ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) {
@@ -68,27 +49,26 @@ class SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 26, 120),
+      backgroundColor: kDarkBlueButtonsColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ScaleTransition(
-              scale: animation,
-              child: Image.asset(
-                "asset_images/online-doctor-consultation-flat-design-logo-aplication-doctor-cartoon-for-mobile-app-free-vector-removebg-preview.png",
-                fit: BoxFit.fill,
+            Lottie.network(
+                'https://lottie.host/c8907b14-46b6-47cb-ae28-0a0cffe7f667/tx1lBXPodj.json',
+                height: 400,
+                width: 400),
+            kHeight25,
+            kHeight5,
+            Container(
+              margin: const EdgeInsets.only(right: 50),
+              child: Text(
+                'DocLink',
+                style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold,
+                    color: kWhiteColor,
+                    fontSize: 35),
               ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Text(
-              'DocLink',
-              style: GoogleFonts.outfit(
-                  fontWeight: FontWeight.bold,
-                  color: kWhiteColor,
-                  fontSize: 35),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 50),

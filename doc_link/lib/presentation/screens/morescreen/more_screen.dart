@@ -56,28 +56,43 @@ class MoreScreen extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const AppointmentListPage()),
                     ),
-                    leading: const Icon(Icons.app_blocking_outlined),
+                    leading: const Icon(
+                      Icons.app_blocking_outlined,
+                      color: kBlackColor,
+                    ),
                     title: Text(
                       'Appointments',
                       style: kTextStyleMediumBlack,
                     ),
-                    trailing: const Icon(Icons.chevron_right),
+                    trailing: const Icon(
+                      Icons.chevron_right,
+                      color: kBlackColor,
+                    ),
                   ),
                   ListTile(
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ProfileScreen()),
                     ),
-                    leading: const Icon(Icons.account_circle),
+                    leading: const Icon(
+                      Icons.account_circle,
+                      color: kBlackColor,
+                    ),
                     title: Text(
                       'Profile',
                       style: kTextStyleMediumBlack,
                     ),
-                    trailing: const Icon(Icons.chevron_right),
+                    trailing: const Icon(
+                      Icons.chevron_right,
+                      color: kBlackColor,
+                    ),
                   ),
                   ListTile(
                     onTap: () => shareApp(),
-                    leading: const Icon(Icons.share),
+                    leading: const Icon(
+                      Icons.share,
+                      color: kBlackColor,
+                    ),
                     title: Text(
                       'Share App',
                       style: kTextStyleMediumBlack,
@@ -113,7 +128,10 @@ class MoreScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    leading: const Icon(Icons.logout),
+                    leading: const Icon(
+                      Icons.logout,
+                      color: kBlackColor,
+                    ),
                     title: Text(
                       'Logout',
                       style: kTextStyleMediumBlack,

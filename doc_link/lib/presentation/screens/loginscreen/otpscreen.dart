@@ -46,6 +46,8 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.width;
+
     return ChangeNotifierProvider<OtpScreenProvider>(
       create: (_) => OtpScreenProvider(widget.verificationId),
       child: Scaffold(
@@ -72,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   kHeight20,
                   SizedBox(
-                    height: 270,
+                    height: screenHeight / 1.3,
                     width: double.infinity,
                     child: Image.asset(
                       'asset_images/e9b33ec8595630e5a2cfaa14eb6784b6.jpg',

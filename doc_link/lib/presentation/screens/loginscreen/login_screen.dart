@@ -17,6 +17,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.width;
+
     return ChangeNotifierProvider(
       create: (context) {
         return AuthenticationProvider();
@@ -47,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                     kHeight10,
                     //?Image section-
                     SizedBox(
-                      height: 320,
+                      height: screenHeight / 1.3,
                       width: double.infinity,
                       child: Image.asset(
                         'asset_images/a-patient-consults-a-doctor-and-nurse-free-vector.jpg',
@@ -107,7 +109,8 @@ class LoginScreen extends StatelessWidget {
                               );
                       },
                     ),
-                    kHeight25,
+
+                    kHeight15,
                     Center(
                       child: Text(
                         'OR',
@@ -116,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     //?SIGN IN BUTTON-------------------------------------------
                     const SizedBox(
-                      height: 27,
+                      height: 20,
                     ),
 
                     Center(
