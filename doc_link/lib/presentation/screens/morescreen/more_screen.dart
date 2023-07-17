@@ -13,6 +13,7 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -39,7 +40,7 @@ class MoreScreen extends StatelessWidget {
                   kHeight20,
                   Center(
                     child: CircleAvatar(
-                      radius: 70,
+                      radius: screenWidth * 0.18,
                       backgroundImage: NetworkImage(imageUrl),
                     ),
                   ),

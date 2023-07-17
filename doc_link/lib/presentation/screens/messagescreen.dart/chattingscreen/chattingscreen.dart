@@ -81,7 +81,7 @@ class ChattingScreen extends StatelessWidget {
                     );
 
                     return ListView.builder(
-                      reverse: false,
+                      reverse: true,
                       itemCount: groupedMessages.length,
                       itemBuilder: (context, index) {
                         final date = groupedMessages.keys.elementAt(index);

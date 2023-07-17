@@ -14,6 +14,8 @@ class NotificationListDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     User? currentUser = FirebaseAuth.instance.currentUser;
 
     return StreamBuilder<QuerySnapshot>(
@@ -57,7 +59,7 @@ class NotificationListDetailsWidget extends StatelessWidget {
                   ),
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(image),
-                    radius: 25,
+                    radius: screenWidth * 0.057,
                   ),
                   // title:
                   subtitle: Row(
@@ -86,7 +88,7 @@ class NotificationListDetailsWidget extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 7),
                         child: CircleAvatar(
                           foregroundColor: kBlackColor,
-                          radius: 20,
+                          radius: screenWidth * 0.045,
                           child: Text(
                             '$appointmentCount',
                             style: GoogleFonts.outfit(),

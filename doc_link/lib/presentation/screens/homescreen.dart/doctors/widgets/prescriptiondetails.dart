@@ -13,6 +13,8 @@ class PrescriptionDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: const CustomAppBar(text: 'Prescription Details'),
       body: Padding(
@@ -25,7 +27,8 @@ class PrescriptionDetailsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: kWhiteColor,
               ),
-              height: 150,
+              // height: 150,
+              height: screenHeight / 2.7,
               width: double.infinity,
               child: Container(
                 margin: const EdgeInsets.only(left: 20),

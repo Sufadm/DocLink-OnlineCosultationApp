@@ -9,19 +9,7 @@ class TitlesTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Row(
-      children: [
-        // Text(
-        //   'Categorie',
-        //   style: GoogleFonts.lato(),
-        // ),
-        // const SizedBox(
-        //   width: 90,
-        // ),
-        // Text(
-        //   'Place',
-        //   style: GoogleFonts.lato(),
-        // )
-      ],
+      children: [],
     );
   }
 }

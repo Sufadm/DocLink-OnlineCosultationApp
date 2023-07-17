@@ -13,14 +13,17 @@ class CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double containerWidth = screenWidth * 0.35;
+    final double containerHeight = containerWidth * 0.6;
     return GestureDetector(
       onTap: ontap,
       child: Container(
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: kLightBlueColor),
-        height: 80,
-        width: 147,
+        height: containerHeight,
+        width: containerWidth,
         child: Center(
             child: Text(
           categories,

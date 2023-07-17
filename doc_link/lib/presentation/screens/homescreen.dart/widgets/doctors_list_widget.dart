@@ -13,6 +13,9 @@ class DoctorsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double screenHeight = screenSize.height;
+    double screenWidth = screenSize.width;
     return StreamBuilder<List<ProfileModel>>(
       stream: FirestoreService().getDoctorsProfilesStream(),
       builder: (context, snapshot) {
@@ -31,15 +34,15 @@ class DoctorsWidget extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Color.fromARGB(253, 218, 223, 252),
               ),
-              height: 260,
+              height: screenHeight / 3.5,
               width: double.infinity,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 260,
-                    width: 170,
+                    height: screenHeight,
+                    width: screenWidth * 0.45,
                     child: Image.network(
                       networkImage,
                       fit: BoxFit.cover,

@@ -63,7 +63,7 @@ class DoctorsDetails extends StatelessWidget {
 
             //?Submit Button--------
             SizedBox(
-              width: 420,
+              width: double.infinity,
               height: 50,
               child: ElevatedButton(
                   style: ButtonStyle(

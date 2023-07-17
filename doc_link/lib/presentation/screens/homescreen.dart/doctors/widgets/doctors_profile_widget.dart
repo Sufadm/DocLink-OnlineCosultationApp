@@ -14,12 +14,16 @@ class DoctorsProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 150,
-          width: 150,
+          // height:150
+          height: screenWidth * 0.369,
+          width: screenWidth * 0.362,
           child: Container(
             decoration: BoxDecoration(
               borderRadius:
@@ -32,9 +36,8 @@ class DoctorsProfileWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 140,
-          width: 130,
-          // color: Colors.amberAccent,
+          height: screenHeight / 3,
+          width: screenWidth / 3.4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

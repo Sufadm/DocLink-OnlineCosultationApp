@@ -15,6 +15,8 @@ class AppointmentDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kDarkBlueButtonsColor,
@@ -45,7 +47,7 @@ class AppointmentDetails extends StatelessWidget {
                           kHeight15,
                           CircleAvatar(
                             backgroundImage: NetworkImage(image),
-                            radius: 70,
+                            radius: screenWidth / 5,
                           ),
                           kHeight10,
                           Text(

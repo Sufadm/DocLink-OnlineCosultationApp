@@ -15,6 +15,8 @@ class PrescriptionListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return StreamBuilder<List<PrescriptionModel>>(
       stream: FirestoreService().getAllPrescriptions(userid),
       builder: (context, snapshot) {
@@ -71,7 +73,7 @@ class PrescriptionListWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: kWhiteColor),
-                        height: 57,
+                        height: screenWidth / 7,
                         width: double.infinity,
                         child: Container(
                           margin: const EdgeInsets.only(left: 10, right: 10),

@@ -23,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //   bool loading = false;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -54,17 +55,17 @@ class ProfileScreen extends StatelessWidget {
                   Consumer<ProfileScreenStateModel>(
                     builder: (context, state, _) {
                       return state.photo?.path == null
-                          ? const Center(
+                          ? Center(
                               child: CircleAvatar(
-                                radius: 80,
-                                backgroundImage: NetworkImage(
+                                radius: screenWidth / 5.2,
+                                backgroundImage: const NetworkImage(
                                     'https://img.freepik.com/premium-vector/avatar-portrait-kid-caucasian-boy-round-frame-vector-illustration-cartoon-flat-style_551425-43.jpg'),
                                 // backgroundColor: Color.fromARGB(255, 154, 137, 81),
                               ),
                             )
                           : Center(
                               child: CircleAvatar(
-                                radius: 70,
+                                radius: screenWidth / 5.2,
                                 child: ClipOval(
                                   child: SizedBox(
                                     width:
