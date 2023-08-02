@@ -53,4 +53,14 @@ class UserProfileService {
     final User? user = FirebaseAuth.instance.currentUser;
     return user?.uid ?? '';
   }
+
+  Future<void> deleteUserProfile(UserProfileModel user) async {
+    try {
+      final docUser =
+          FirebaseFirestore.instance.collection('userprofile').doc(user.uid);
+      await docUser.delete();
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

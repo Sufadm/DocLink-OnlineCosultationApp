@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "803291339961-u2ae0nu2fhsf9u12vlr3u5j741n51b25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.doc_link",
+            "certificate_hash": "712cd4b0b92fa6ff732204d387e5afb07eaedf03"
+          }
+        },
+        {
           "client_id": "803291339961-v7ljnb6ievlv02pron4029k1gic5f25j.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "803291339961-mgpasf5ou2d32tbrtnkfl7n7p8jkdmm4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "803291339961-avnerlpiugr934t6ephadkm384dls9rt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.docLink"
+              }
             }
           ]
         }
@@ -66,6 +81,49 @@
             {
               "client_id": "803291339961-mgpasf5ou2d32tbrtnkfl7n7p8jkdmm4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "803291339961-avnerlpiugr934t6ephadkm384dls9rt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.docLink"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803291339961:android:e495231109cfff4f860f68",
+        "android_client_info": {
+          "package_name": "in.borototype.doc_link"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803291339961-v7ljnb6ievlv02pron4029k1gic5f25j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmt_xu8OVWeiUcCmRfR15roWxvkHwNxUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803291339961-mgpasf5ou2d32tbrtnkfl7n7p8jkdmm4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803291339961-avnerlpiugr934t6ephadkm384dls9rt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.docLink"
+              }
             }
           ]
         }

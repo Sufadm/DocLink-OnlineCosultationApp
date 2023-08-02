@@ -18,7 +18,7 @@ class BottomNav extends StatelessWidget {
             ),
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: kLightBlueColor,
-              type: BottomNavigationBarType.fixed,
+              type: BottomNavigationBarType.values.first,
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
@@ -26,7 +26,7 @@ class BottomNav extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.message),
-                  label: 'Meassage',
+                  label: 'Message',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.menu_book),

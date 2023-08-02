@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
 
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 7.0),
-                                    //?categories widget-----------------------
+                                    //?categories widget------------------------
                                     child: CategoriesWidget(
                                       ontap: () => Navigator.push(
                                           context,

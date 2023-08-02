@@ -65,7 +65,7 @@ class AppointmentDetails extends StatelessWidget {
                                 color: kDarkBlueButtonsColor,
                               ),
                               width: double.infinity,
-                              height: 40,
+                              height: 50,
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Row(
@@ -81,12 +81,13 @@ class AppointmentDetails extends StatelessWidget {
                                       time,
                                       style: GoogleFonts.outfit(
                                           color: kWhiteColor),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                          )
+                          ),
+                          kHeight5,
                         ],
                       ),
                     );

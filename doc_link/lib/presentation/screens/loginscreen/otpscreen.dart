@@ -92,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 await provider.verifyOtp(context, text);
                             if (verificationSuccess) {
                               // ignore: use_build_context_synchronously
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   return const BottomNav();

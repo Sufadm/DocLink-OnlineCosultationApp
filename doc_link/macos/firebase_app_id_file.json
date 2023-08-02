@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:151261216391:ios:38909b4257b942e0364222",
-  "FIREBASE_PROJECT_ID": "doclink-5b041",
-  "GCM_SENDER_ID": "151261216391"
+  "GOOGLE_APP_ID": "1:803291339961:ios:8d9d9851c47d7460860f68",
+  "FIREBASE_PROJECT_ID": "doclink-control",
+  "GCM_SENDER_ID": "803291339961"
 }

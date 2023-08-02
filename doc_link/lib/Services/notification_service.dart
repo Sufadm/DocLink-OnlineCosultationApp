@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'package:doc_link/services/profile_service.dart';
 import 'package:doc_link/shared/const/service_key.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_link/services/profile_service.dart';
 import 'package:intl/intl.dart';
 
-import '../presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
+import '../../presentation/screens/homescreen.dart/doctors/appointmentpage/appointment_page.dart';
 
 class NotificationService {
   final UserProfileService userprofileservice = UserProfileService();

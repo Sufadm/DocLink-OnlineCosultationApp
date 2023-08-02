@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../presentation/screens/loginscreen/otpscreen.dart';
+import '../../presentation/screens/loginscreen/otpscreen.dart';
 
 class AuthenticationService {
   static void sendPhoneNumber(String phoneNumber, BuildContext context) async {
@@ -20,7 +20,8 @@ class AuthenticationService {
           throw Exception(error.message);
         },
         codeSent: (verificationId, forceResendingToken) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
             return OtpScreen(verificationId: verificationId);
           }));
         },

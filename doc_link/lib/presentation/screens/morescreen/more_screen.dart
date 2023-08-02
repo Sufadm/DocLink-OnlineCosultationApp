@@ -151,7 +151,7 @@ class MoreScreen extends StatelessWidget {
 Future<void> shareApp() async {
   // Set the app link and the message to be shared
   const String appLink =
-      'https://play.google.com/store/apps/details?id=com.example.myapp';
+      'https://play.google.com/store/apps/details?id=in.borototype.doc_link';
   const String message = 'Check out my new app: $appLink';
 
   // Share the app link and message using the share dialog
@@ -160,6 +160,6 @@ Future<void> shareApp() async {
 
 void logout(BuildContext context) {
   FirebaseAuth.instance.signOut();
-  Navigator.push(
-      context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  Navigator.pushAndRemoveUntil(context,
+      MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
 }

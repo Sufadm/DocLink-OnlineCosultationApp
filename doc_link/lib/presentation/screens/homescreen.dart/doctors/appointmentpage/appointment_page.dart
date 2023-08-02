@@ -137,12 +137,12 @@ class _AppointmantPageState extends State<AppointmantPage> {
                         final fee = int.parse(detail.fee);
                         final List<TimeOfDay> timeSlots = [];
                         var currentTime = startTime;
+
                         while (currentTime.isBefore(endTime)) {
                           timeSlots.add(TimeOfDay.fromDateTime(currentTime));
                           currentTime =
                               currentTime.add(Duration(minutes: timePerPerson));
                         }
-
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

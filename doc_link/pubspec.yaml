@@ -62,7 +62,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "asset_images/DocLink_Logo.jpg"
+  image_path: "asset_images/zan.jpeg"
   
   
 
