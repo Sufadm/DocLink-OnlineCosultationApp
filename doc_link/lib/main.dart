@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'DocLink',
+        title: 'Doclink',
         home: const SplashScreen(),
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
