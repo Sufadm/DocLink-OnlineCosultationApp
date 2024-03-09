@@ -81,8 +81,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
       'name': widget.profile.name,
       "description": 'Doctor Appointment',
       'prefill': {
-        'contact': widget.profile.phone,
-        'email': widget.profile.email
+      'contact': widget.profile.phone,
+      'email': widget.profile.email
       },
     };
     try {
@@ -451,8 +451,8 @@ class _AppointmantPageState extends State<AppointmantPage> {
       ],
     );
   }
-  //?PAYMENT METHOD SUCCESS METHOD----------------------------------------------
 
+  //?PAYMENT METHOD SUCCESS METHOD----------------------------------------------
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     showDialog(
       context: context,

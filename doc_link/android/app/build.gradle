@@ -56,14 +56,14 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "in.borototype.doc_link"
+        applicationId "in.sufadzan.doc_link"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
       //  minSdkVersion flutter.minSdkVersion
         minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 4
+        versionName "1.0.4"
         multiDexEnabled true
     }
 

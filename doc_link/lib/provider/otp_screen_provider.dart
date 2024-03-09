@@ -26,8 +26,10 @@ class OtpScreenProvider extends ChangeNotifier {
 
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      
         verificationId: verificationId,
         smsCode: userOtp,
+      
       );
       await auth.signInWithCredential(credential);
       return true;

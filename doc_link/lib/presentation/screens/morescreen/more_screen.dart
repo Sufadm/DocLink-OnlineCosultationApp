@@ -4,6 +4,7 @@ import 'package:doc_link/shared/const/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../loginscreen/login_screen.dart';
 import '../profilescreen/profilescreen.dart';
 import 'appointments_list/appointmentlist.dart';
@@ -53,6 +54,24 @@ class MoreScreen extends StatelessWidget {
                   ListTile(
                     onTap: () => Navigator.push(
                       context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    ),
+                    leading: const Icon(
+                      Icons.account_circle,
+                      color: kBlackColor,
+                    ),
+                    title: Text(
+                      'Create Profile',
+                      style: kTextStyleMediumBlack,
+                    ),
+                    trailing: const Icon(
+                      Icons.chevron_right,
+                      color: kBlackColor,
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () => Navigator.push(
+                      context,
                       MaterialPageRoute(
                           builder: (context) => const AppointmentListPage()),
                     ),
@@ -70,16 +89,19 @@ class MoreScreen extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()),
-                    ),
+                    onTap: () async {
+                      const url =
+                          'mailto:sufadzan1@gmail.com?subject=Help me&body=How Can I Help You';
+                      Uri uri = Uri.parse(url);
+
+                      await launchUrl(uri);
+                    },
                     leading: const Icon(
-                      Icons.account_circle,
+                      Icons.app_blocking_outlined,
                       color: kBlackColor,
                     ),
                     title: Text(
-                      'Profile',
+                      'Feedback',
                       style: kTextStyleMediumBlack,
                     ),
                     trailing: const Icon(
@@ -94,7 +116,7 @@ class MoreScreen extends StatelessWidget {
                       color: kBlackColor,
                     ),
                     title: Text(
-                      'Share App',
+                      'Invite Friends',
                       style: kTextStyleMediumBlack,
                     ),
                   ),
@@ -151,7 +173,7 @@ class MoreScreen extends StatelessWidget {
 Future<void> shareApp() async {
   // Set the app link and the message to be shared
   const String appLink =
-      'https://play.google.com/store/apps/details?id=in.borototype.doc_link';
+      'https://play.google.com/store/apps/details?id=in.sufadzan.doc_link';
   const String message = 'Check out my new app: $appLink';
 
   // Share the app link and message using the share dialog

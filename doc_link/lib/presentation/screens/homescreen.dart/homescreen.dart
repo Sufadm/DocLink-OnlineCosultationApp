@@ -10,7 +10,6 @@ import 'package:doc_link/presentation/screens/homescreen.dart/widgets/carousal_w
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/doctors_list_widget.dart';
 import 'package:doc_link/presentation/screens/homescreen.dart/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/search_form.dart';
 
 class HomeScreen extends StatelessWidget {
